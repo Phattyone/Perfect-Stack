@@ -1,0 +1,92 @@
+"use client";
+
+import { useState } from "react";
+import type { BaselineData, WeeklyEntryData, ProgressData } from "@/lib/types/progress";
+import BaselineForm from "./baseline-form";
+import BaselineSummary from "./baseline-summary";
+import WeeklyForm from "./weekly-form";
+import ProgressOverview from "./progress-overview";
+
+type Tab = "baseline" | "weekly" | "progress";
+
+const TABS: { key: Tab; label: string }[] = [
+  { key: "baseline", label: "Baseline" },
+  { key: "weekly", label: "Weekly Check-In" },
+  { key: "progress", label: "My Progress" },
+];
+
+interface ProgressTrackerProps {
+  initialData: ProgressData;
+  userId: string;
+}
+
+export default function ProgressTracker({ initialData, userId }: ProgressTrackerProps) {
+  const [activeTab, setActiveTab] = useState<Tab>("baseline");
+  const [baseline, setBaseline] = useState<BaselineData | null>(initialData.baseline);
+  const [entries, setEntries] = useState<WeeklyEntryData[]>(initialData.weeklyEntries);
+  const [editing, setEditing] = useState(false);
+
+  function handleBaselineSaved(data: BaselineData) {
+    setBaseline(data);
+    setEditing(false);
+  }
+
+  function handleWeeklySaved(entry: WeeklyEntryData) {
+    setEntries((prev) => {
+      const filtered = prev.filter((e) => e.week_number !== entry.week_number);
+      return [...filtered, entry].sort((a, b) => a.week_number - b.week_number);
+    });
+  }
+
+  return (
+    <div>
+      {/* Tabs */}
+      <div className="mb-6 flex gap-6 border-b border-zinc-800">
+        {TABS.map((tab) => (
+          <button
+            key={tab.key}
+            type="button"
+            onClick={() => setActiveTab(tab.key)}
+            className={`pb-3 text-sm font-medium transition ${
+              activeTab === tab.key
+                ? "border-b-2 border-yellow-600 text-yellow-500"
+                : "text-zinc-400 hover:text-zinc-300"
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Tab content */}
+      <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-6">
+        {activeTab === "baseline" && (
+          <>
+            {baseline && !editing ? (
+              <BaselineSummary baseline={baseline} onEdit={() => setEditing(true)} />
+            ) : (
+              <BaselineForm
+                existing={baseline}
+                userId={userId}
+                onSaved={handleBaselineSaved}
+              />
+            )}
+          </>
+        )}
+
+        {activeTab === "weekly" && (
+          <WeeklyForm
+            baseline={baseline}
+            existingEntries={entries}
+            userId={userId}
+            onSaved={handleWeeklySaved}
+          />
+        )}
+
+        {activeTab === "progress" && (
+          <ProgressOverview baseline={baseline} entries={entries} />
+        )}
+      </div>
+    </div>
+  );
+}

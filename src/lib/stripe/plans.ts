@@ -1,0 +1,81 @@
+export const PLANS = {
+  free: {
+    name: "Free",
+    description: "Get started with the essentials",
+    monthlyPrice: 0,
+    annualPrice: 0,
+    monthlyPriceId: null as string | null,
+    annualPriceId: null as string | null,
+    features: [
+      "Stack A Foundation Protocol preview",
+      "Baseline checklist",
+      "Quick-start guide",
+      "Limited Stack Builder access",
+    ],
+    limits: {
+      stackAccess: ["stack_a"],
+      guideAccess: false,
+      progressTracking: false,
+      recipes: false,
+    },
+  },
+  foundation: {
+    name: "Foundation Protocol",
+    description: "The full system personalized to you",
+    monthlyPrice: 14,
+    annualPrice: 120,
+    monthlyPriceId: null as string | null,
+    annualPriceId: null as string | null,
+    features: [
+      "Full Stack Builder with personalized dosing",
+      "All 5 stacks unlocked",
+      "Progress tracker and 8-week journal",
+      "Recipes and meal plan",
+      "Shopping list with Amazon links",
+      "Equipment guide",
+      "Medical team referrals",
+    ],
+    limits: {
+      stackAccess: [
+        "stack_a",
+        "stack_ab",
+        "stack_abc",
+        "stack_abcd",
+        "stack_abcde",
+      ],
+      guideAccess: false,
+      progressTracking: true,
+      recipes: true,
+    },
+  },
+  complete: {
+    name: "Complete Protocol",
+    description: "Every edge. The full system.",
+    monthlyPrice: 24,
+    annualPrice: 199,
+    monthlyPriceId: null as string | null,
+    annualPriceId: null as string | null,
+    features: [
+      "Everything in Foundation Protocol",
+      "Full guide access in-app (with bundle purchase)",
+      "Priority access to new content",
+      "Advanced progress analytics",
+      "Supplement timing reminders",
+      "Early access to new features",
+    ],
+    limits: {
+      stackAccess: [
+        "stack_a",
+        "stack_ab",
+        "stack_abc",
+        "stack_abcd",
+        "stack_abcde",
+      ],
+      guideAccess: true,
+      progressTracking: true,
+      recipes: true,
+    },
+  },
+};
+
+export type PlanKey = keyof typeof PLANS;
