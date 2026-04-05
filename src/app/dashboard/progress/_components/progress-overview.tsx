@@ -27,12 +27,23 @@ function StatCard({ label, value, delta, invert }: { label: string; value: strin
   );
 }
 
+function getScore(data: BaselineData | WeeklyEntryData, key: string): number | null {
+  switch (key) {
+    case "energy_score": return data.energy_score;
+    case "libido_score": return data.libido_score;
+    case "erection_quality_score": return data.erection_quality_score;
+    case "sleep_quality_score": return data.sleep_quality_score;
+    case "mood_score": return data.mood_score;
+    case "strength_recovery_score": return data.strength_recovery_score;
+    default: return null;
+  }
+}
+
 function avgScore(data: BaselineData | WeeklyEntryData): number {
-  const keys = SCORE_MARKERS.map((m) => m.key);
   let sum = 0;
   let count = 0;
-  for (const k of keys) {
-    const val = (data as Record<string, unknown>)[k];
+  for (const m of SCORE_MARKERS) {
+    const val = getScore(data, m.key);
     if (typeof val === "number") {
       sum += val;
       count++;
