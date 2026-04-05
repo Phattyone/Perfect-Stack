@@ -21,6 +21,11 @@ const cards = [
     href: "/dashboard/progress",
   },
   {
+    title: "My Journal",
+    description: "Weekly 8-week progress journal with performance scores, protocol notes, and progress photos.",
+    href: "/dashboard/journal",
+  },
+  {
     title: "Recipes & Meal Plan",
     description: "Performance recipes, 7-day starter plan, shopping list, and daily drinks protocol.",
     href: "/dashboard/recipes",
