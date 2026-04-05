@@ -122,6 +122,7 @@ export default function WeeklyForm({ baseline, existingEntries, userId, onSaved 
       </div>
 
       {/* Performance markers */}
+      <p className="mb-2 text-xs text-zinc-500">Scores sync automatically with your Journal.</p>
       <div className="space-y-5">
         {SCORE_MARKERS.map((m) => (
           <ScoreSlider

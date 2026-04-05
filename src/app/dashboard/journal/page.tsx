@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { signout } from "@/app/(auth)/actions";
-import { getJournalEntries } from "./actions";
+import { getJournalEntries, getSignedPhotoUrls } from "./actions";
 import JournalView from "./_components/journal-view";
 
 export default async function JournalPage() {
@@ -11,6 +11,10 @@ export default async function JournalPage() {
   if (!user) redirect("/login");
 
   const entries = await getJournalEntries(user.id);
+
+  // Get signed URLs for all photos across all entries
+  const allPaths = entries.flatMap((e) => e.photo_paths);
+  const signedUrls = await getSignedPhotoUrls(allPaths);
 
   return (
     <div className="min-h-screen bg-zinc-950">
@@ -30,7 +34,7 @@ export default async function JournalPage() {
         </Link>
         <h1 className="text-2xl font-bold text-white">My 8-Week Journal</h1>
         <p className="mt-1 text-zinc-400">Track your weekly progress, protocol notes, and reflections.</p>
-        <div className="mt-6"><JournalView entries={entries} userId={user.id} /></div>
+        <div className="mt-6"><JournalView entries={entries} userId={user.id} initialSignedUrls={signedUrls} /></div>
       </main>
     </div>
   );

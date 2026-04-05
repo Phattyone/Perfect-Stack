@@ -66,6 +66,26 @@ export async function saveWeeklyEntry(
   );
 
   if (error) return { error: error.message };
+
+  // Sync scores to journal_entries (Journal)
+  // Only update score fields - leave text fields untouched if entry exists
+  await supabase.from("journal_entries").upsert(
+    {
+      user_id: userId,
+      week_number: data.week_number,
+      entry_date: data.entry_date,
+      energy_score: data.energy_score,
+      libido_score: data.libido_score,
+      erection_quality_score: data.erection_quality_score,
+      sleep_quality_score: data.sleep_quality_score,
+      mood_score: data.mood_score,
+      workout_performance_score: data.strength_recovery_score,
+      weight_lbs: data.weight_lbs,
+      waist_inches: data.waist_inches,
+    },
+    { onConflict: "user_id,week_number" }
+  );
+
   return { success: true };
 }
 

@@ -25,7 +25,7 @@ export interface JournalEntryData {
   bench_press_max: number | null;
   squat_max: number | null;
   free_reflection: string;
-  photo_urls: string[];
+  photo_paths: string[]; // storage paths, not full URLs
 }
 
 export async function saveJournalEntry(
@@ -34,6 +34,7 @@ export async function saveJournalEntry(
 ): Promise<{ error: string } | { success: true }> {
   const supabase = await createClient();
 
+  // Save journal entry
   const { error } = await supabase.from("journal_entries").upsert(
     {
       user_id: userId,
@@ -59,54 +60,115 @@ export async function saveJournalEntry(
       bench_press_max: data.bench_press_max,
       squat_max: data.squat_max,
       free_reflection: data.free_reflection || null,
-      photo_urls: data.photo_urls,
+      photo_urls: data.photo_paths, // column name is photo_urls, stores paths
     },
     { onConflict: "user_id,week_number" }
   );
 
   if (error) return { error: error.message };
+
+  // Sync scores to weekly_entries (Progress Tracker)
+  await supabase.from("weekly_entries").upsert(
+    {
+      user_id: userId,
+      week_number: data.week_number,
+      entry_date: data.entry_date,
+      energy_score: data.energy_score,
+      libido_score: data.libido_score,
+      erection_quality_score: data.erection_quality_score,
+      sleep_quality_score: data.sleep_quality_score,
+      mood_score: data.mood_score,
+      strength_recovery_score: data.workout_performance_score,
+      weight_lbs: data.weight_lbs,
+      waist_inches: data.waist_inches,
+    },
+    { onConflict: "user_id,week_number" }
+  );
+
   return { success: true };
 }
 
 export async function getJournalEntries(userId: string): Promise<JournalEntryData[]> {
   const supabase = await createClient();
 
-  const { data } = await supabase
-    .from("journal_entries")
-    .select("*")
-    .eq("user_id", userId)
-    .order("week_number", { ascending: true });
+  // Fetch journal entries and weekly entries
+  const [journalResult, weeklyResult] = await Promise.all([
+    supabase.from("journal_entries").select("*").eq("user_id", userId).order("week_number"),
+    supabase.from("weekly_entries").select("*").eq("user_id", userId).order("week_number"),
+  ]);
 
-  return (data ?? []).map((row) => ({
-    week_number: row.week_number,
-    entry_date: row.entry_date,
-    energy_score: row.energy_score ?? 5,
-    libido_score: row.libido_score ?? 5,
-    erection_quality_score: row.erection_quality_score ?? 5,
-    sleep_quality_score: row.sleep_quality_score ?? 5,
-    mood_score: row.mood_score ?? 5,
-    workout_performance_score: row.workout_performance_score ?? 5,
-    wins_this_week: row.wins_this_week ?? "",
-    challenges: row.challenges ?? "",
-    body_energy_notes: row.body_energy_notes ?? "",
-    sex_drive_notes: row.sex_drive_notes ?? "",
-    supplements_consistent: row.supplements_consistent ?? "",
-    meals_diet_notes: row.meals_diet_notes ?? "",
-    training_done: row.training_done ?? "",
-    sleep_details: row.sleep_details ?? "",
-    weight_lbs: row.weight_lbs,
-    waist_inches: row.waist_inches,
-    body_fat_percent: row.body_fat_percent,
-    bench_press_max: row.bench_press_max,
-    squat_max: row.squat_max,
-    free_reflection: row.free_reflection ?? "",
-    photo_urls: row.photo_urls ?? [],
-  }));
+  const journalRows = journalResult.data ?? [];
+  const weeklyRows = weeklyResult.data ?? [];
+  const weeklyMap = new Map(weeklyRows.map((r) => [r.week_number, r]));
+
+  // Merge: journal entries take priority, but fill in scores from weekly if journal is missing
+  const journalMap = new Map(journalRows.map((r) => [r.week_number, r]));
+
+  // Also add weeks that only exist in weekly_entries
+  for (const wr of weeklyRows) {
+    if (!journalMap.has(wr.week_number)) {
+      journalMap.set(wr.week_number, null); // marker for weekly-only
+    }
+  }
+
+  const entries: JournalEntryData[] = [];
+
+  for (const [weekNum] of journalMap) {
+    const jr = journalRows.find((r) => r.week_number === weekNum);
+    const wr = weeklyMap.get(weekNum);
+
+    entries.push({
+      week_number: weekNum,
+      entry_date: jr?.entry_date ?? wr?.entry_date ?? new Date().toISOString().split("T")[0],
+      energy_score: jr?.energy_score ?? wr?.energy_score ?? 5,
+      libido_score: jr?.libido_score ?? wr?.libido_score ?? 5,
+      erection_quality_score: jr?.erection_quality_score ?? wr?.erection_quality_score ?? 5,
+      sleep_quality_score: jr?.sleep_quality_score ?? wr?.sleep_quality_score ?? 5,
+      mood_score: jr?.mood_score ?? wr?.mood_score ?? 5,
+      workout_performance_score: jr?.workout_performance_score ?? wr?.strength_recovery_score ?? 5,
+      wins_this_week: jr?.wins_this_week ?? "",
+      challenges: jr?.challenges ?? "",
+      body_energy_notes: jr?.body_energy_notes ?? "",
+      sex_drive_notes: jr?.sex_drive_notes ?? "",
+      supplements_consistent: jr?.supplements_consistent ?? "",
+      meals_diet_notes: jr?.meals_diet_notes ?? "",
+      training_done: jr?.training_done ?? "",
+      sleep_details: jr?.sleep_details ?? "",
+      weight_lbs: jr?.weight_lbs ?? wr?.weight_lbs ?? null,
+      waist_inches: jr?.waist_inches ?? wr?.waist_inches ?? null,
+      body_fat_percent: jr?.body_fat_percent ?? null,
+      bench_press_max: jr?.bench_press_max ?? null,
+      squat_max: jr?.squat_max ?? null,
+      free_reflection: jr?.free_reflection ?? "",
+      photo_paths: jr?.photo_urls ?? [],
+    });
+  }
+
+  return entries.sort((a, b) => a.week_number - b.week_number);
+}
+
+export async function getSignedPhotoUrls(
+  paths: string[]
+): Promise<Record<string, string>> {
+  if (paths.length === 0) return {};
+  const supabase = await createClient();
+  const result: Record<string, string> = {};
+
+  for (const path of paths) {
+    const { data } = await supabase.storage
+      .from("journal-photos")
+      .createSignedUrl(path, 3600);
+    if (data?.signedUrl) {
+      result[path] = data.signedUrl;
+    }
+  }
+
+  return result;
 }
 
 export async function uploadJournalPhoto(
   formData: FormData
-): Promise<{ url: string } | { error: string }> {
+): Promise<{ path: string } | { error: string }> {
   const supabase = await createClient();
   const file = formData.get("file") as File;
   const userId = formData.get("userId") as string;
@@ -126,29 +188,20 @@ export async function uploadJournalPhoto(
 
   if (error) return { error: error.message };
 
-  const { data: urlData } = supabase.storage
-    .from("journal-photos")
-    .getPublicUrl(path);
-
-  return { url: urlData.publicUrl };
+  return { path }; // return storage path, not URL
 }
 
 export async function deleteJournalPhoto(
-  url: string,
+  storagePath: string,
   userId: string
 ): Promise<{ error: string } | { success: true }> {
   const supabase = await createClient();
 
-  // Extract path from URL
-  const match = url.match(/journal-photos\/(.+)/);
-  if (!match) return { error: "Invalid photo URL" };
-
-  const path = match[1];
-  if (!path.startsWith(userId)) return { error: "Unauthorized" };
+  if (!storagePath.startsWith(userId)) return { error: "Unauthorized" };
 
   const { error } = await supabase.storage
     .from("journal-photos")
-    .remove([path]);
+    .remove([storagePath]);
 
   if (error) return { error: error.message };
   return { success: true };
