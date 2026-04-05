@@ -25,7 +25,7 @@ export default function BaselineSummary({ baseline, onEdit }: BaselineSummaryPro
       </div>
 
       {/* Measurements */}
-      <div className="grid gap-3 sm:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {[
           { label: "Weight", value: `${baseline.weight_lbs} lbs` },
           { label: "Waist", value: `${baseline.waist_inches}"` },

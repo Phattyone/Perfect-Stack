@@ -90,7 +90,7 @@ export default function ProgressOverview({ baseline, entries }: ProgressOverview
   return (
     <div className="space-y-6">
       {/* Summary stat cards */}
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard label="Starting Weight" value={`${startWeight} lbs`} />
         <StatCard
           label="Current Weight"
