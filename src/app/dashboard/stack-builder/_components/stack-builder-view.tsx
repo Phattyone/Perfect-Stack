@@ -185,12 +185,12 @@ export default function StackBuilderView({
               ${totalMonthlyCost.toFixed(2)}
             </span>
           </div>
-          <button
-            type="button"
+          <Link
+            href="/dashboard/stack-builder/protocol"
             className="rounded-md bg-yellow-600 px-5 py-2 text-sm font-semibold text-black transition hover:bg-yellow-500"
           >
             View My Full Protocol
-          </button>
+          </Link>
         </div>
       </div>
     </div>
