@@ -49,7 +49,7 @@ export const PLANS = {
     },
   },
   complete: {
-    name: "Complete Protocol",
+    name: "Ultimate Protocol",
     description: "Every edge. The full system.",
     monthlyPrice: 24,
     annualPrice: 199,

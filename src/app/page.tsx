@@ -292,7 +292,7 @@ export default function LandingPage() {
 
             {/* Complete */}
             <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-6">
-              <h3 className="text-lg font-bold text-white">Complete Protocol</h3>
+              <h3 className="text-lg font-bold text-white">Ultimate Protocol</h3>
               <p className="mt-1 text-xs text-zinc-500">Every edge. The full system.</p>
               <div className="mt-4">
                 <span className="text-3xl font-bold text-yellow-500">$24</span>

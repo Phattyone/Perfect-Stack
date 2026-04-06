@@ -17,12 +17,16 @@ export default async function DashboardLayout({
   if (user) {
     const { data: profile } = await supabase
       .from("profiles")
-      .select("subscription_status, age_group, primary_goal, stack_selection, trt_hrt, pde5_inhibitor, nitrate_meds, blood_thinners")
+      .select("subscription_status, stripe_subscription_id, age_group, primary_goal, stack_selection, trt_hrt, pde5_inhibitor, nitrate_meds, blood_thinners")
       .eq("id", user.id)
       .single();
 
     if (profile) {
+      // Use subscription_status, but also allow access if stripe_subscription_id exists
       subscriptionStatus = profile.subscription_status ?? "free";
+      if (subscriptionStatus === "free" && profile.stripe_subscription_id) {
+        subscriptionStatus = "active";
+      }
       userProfile = {
         age_group: profile.age_group ?? "",
         primary_goal: profile.primary_goal ?? "",

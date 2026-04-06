@@ -7,15 +7,23 @@ interface FactorScoresProps {
   factors: FactorScores;
 }
 
-const SCORE_INFO: Record<string, string> = {
-  hormone:
-    "Your Hormone Factor reflects how well your age, training style, and health status support natural testosterone production. A score above 80% means your profile is well-positioned for hormone optimization. Your supplement doses in Stacks A and B are scaled to this score. To improve it: lift heavy 3x per week, optimize sleep, and reduce alcohol.",
-  noVascular:
-    "Your Nitric Oxide and Vascular Factor measures blood flow optimization potential based on your profile and medications. This directly affects erection quality, workout performance, and cardiovascular health. If you are on a PDE5 inhibitor like Cialis or Viagra, doses in Stack C are automatically reduced for safety. A score of 0% means nitrate medication was detected and Stack C is excluded entirely.",
-  stressSleep:
-    "Your Stress and Sleep Factor reflects how much your goal and health status indicate a need for cortisol management and sleep optimization. A higher score means your protocol emphasizes adaptogens like Ashwagandha and sleep-supporting supplements more heavily. Chronic stress and poor sleep are among the top suppressors of testosterone.",
-  overall:
-    "Your Overall Score is the average of your three factors. Think of it as your starting optimization baseline. As you follow the protocol, track your weekly scores in the Progress Tracker. Most men see meaningful improvement in 4-8 weeks. The protocol is calibrated to your current score and adjusts automatically when you update your profile.",
+const SCORE_META: Record<string, { summary: string; detail: string }> = {
+  hormone: {
+    summary: "Reflects testosterone optimization potential based on your age, training, and health status.",
+    detail: "Your Hormone Factor reflects how well your age, training style, and health status support natural testosterone production. A score above 80% means your profile is well-positioned for hormone optimization. Your supplement doses in Stacks A and B are scaled to this score. To improve it: lift heavy 3x per week, optimize sleep, and reduce alcohol.",
+  },
+  noVascular: {
+    summary: "Reflects blood flow and nitric oxide optimization. Affected by medications and PDE5 inhibitors.",
+    detail: "Your Nitric Oxide and Vascular Factor measures blood flow optimization potential based on your profile and medications. This directly affects erection quality, workout performance, and cardiovascular health. If you are on a PDE5 inhibitor like Cialis or Viagra, doses in Stack C are automatically reduced for safety. A score of 0% means nitrate medication was detected and Stack C is excluded entirely.",
+  },
+  stressSleep: {
+    summary: "Reflects cortisol management need based on your goal and health status.",
+    detail: "Your Stress and Sleep Factor reflects how much your goal and health status indicate a need for cortisol management and sleep optimization. A higher score means your protocol emphasizes adaptogens like Ashwagandha and sleep-supporting supplements more heavily. Chronic stress and poor sleep are among the top suppressors of testosterone.",
+  },
+  overall: {
+    summary: "Average of your three factors. Track improvement weekly in the Progress Tracker.",
+    detail: "Your Overall Score is the average of your three factors. Think of it as your starting optimization baseline. As you follow the protocol, track your weekly scores in the Progress Tracker. Most men see meaningful improvement in 4-8 weeks. The protocol is calibrated to your current score and adjusts automatically when you update your profile.",
+  },
 };
 
 function ScoreBar({
@@ -34,6 +42,7 @@ function ScoreBar({
   const capped = Math.min(value, 130);
   const width = Math.round((capped / 130) * 100);
   const isOpen = openKey === infoKey;
+  const meta = SCORE_META[infoKey];
 
   return (
     <div>
@@ -43,10 +52,14 @@ function ScoreBar({
           <button
             type="button"
             onClick={() => onToggle(infoKey)}
-            className={`text-xs transition ${isOpen ? "text-yellow-500" : "text-zinc-600 hover:text-zinc-400"}`}
-            title="What does this mean?"
+            className={`ml-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold transition ${
+              isOpen
+                ? "bg-yellow-500 text-zinc-950"
+                : "bg-yellow-600 text-zinc-950 hover:bg-yellow-500"
+            }`}
+            title="More info"
           >
-            &#9432;
+            i
           </button>
         </span>
         <span className="text-sm font-semibold text-yellow-500">{value}%</span>
@@ -57,9 +70,12 @@ function ScoreBar({
           style={{ width: `${width}%` }}
         />
       </div>
+      {/* Static one-line summary - always visible */}
+      <p className="mt-1 text-xs text-zinc-500">{meta.summary}</p>
+      {/* Detailed explanation - toggled by info button */}
       {isOpen && (
         <p className="mt-2 text-xs leading-relaxed text-zinc-400">
-          {SCORE_INFO[infoKey]}
+          {meta.detail}
         </p>
       )}
     </div>

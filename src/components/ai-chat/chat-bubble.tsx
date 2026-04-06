@@ -36,7 +36,7 @@ export default function ChatBubble({ subscriptionStatus, userProfile }: ChatBubb
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const isPaid = subscriptionStatus === "foundation" || subscriptionStatus === "complete";
+  const isPaid = subscriptionStatus === "foundation" || subscriptionStatus === "complete" || subscriptionStatus === "active";
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -121,8 +121,8 @@ export default function ChatBubble({ subscriptionStatus, userProfile }: ChatBubb
               <svg className="mb-3 h-10 w-10 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
-              <p className="text-sm text-zinc-300">The Perfect Stack AI assistant is available on the Foundation Protocol and above.</p>
-              <p className="mt-2 text-xs text-zinc-500">Upgrade to get personalized answers about your protocol, supplement timing, and the complete 8-week system.</p>
+              <p className="text-sm text-zinc-300">The Perfect Stack AI assistant is available on the Foundation Protocol ($14/month) and above.</p>
+              <p className="mt-2 text-xs text-zinc-500">Upgrade to unlock personalized answers about your supplement protocol, timing, interactions, and the complete 8-week system.</p>
               <Link href="/pricing" className="mt-4 rounded-md bg-yellow-600 px-5 py-2 text-sm font-semibold text-black hover:bg-yellow-500">
                 View Plans
               </Link>
