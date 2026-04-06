@@ -9,10 +9,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Message required" }, { status: 400 });
     }
 
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
-      return NextResponse.json({ error: "AI service not configured" }, { status: 500 });
+    if (!process.env.GEMINI_API_KEY) {
+      console.error("GEMINI_API_KEY is not set");
+      return NextResponse.json({ error: "API key not configured" }, { status: 500 });
     }
+    const apiKey = process.env.GEMINI_API_KEY;
 
     // Build system prompt with user context
     let systemPrompt = `You are the Perfect Stack AI assistant, a knowledgeable and supportive men's health guide built into the Perfect Stack app. You help users understand and get the most out of their personalized supplement protocol.
@@ -60,7 +61,12 @@ Guidelines:
     const responseText = result.response.text();
 
     return NextResponse.json({ response: responseText });
-  } catch {
-    return NextResponse.json({ error: "Failed to process request" }, { status: 500 });
+  } catch (error: unknown) {
+    const err = error as { message?: string; status?: number };
+    console.error("Gemini API error:", err?.message, err?.status, JSON.stringify(error));
+    return NextResponse.json(
+      { error: "Failed to process request", details: err?.message },
+      { status: 500 }
+    );
   }
 }
