@@ -83,7 +83,7 @@ export default function LandingPage() {
             PerfectStack<sup className="text-[8px]">&trade;</sup>
           </span>
           <div className="flex items-center gap-4">
-            <Link href="/login" className="text-sm text-zinc-400 transition hover:text-white">
+            <Link href="/login" className="hidden text-sm text-zinc-400 transition hover:text-white sm:inline">
               Sign In
             </Link>
             <Link
@@ -106,9 +106,11 @@ export default function LandingPage() {
           <br />
           <span className="text-yellow-600">Optimize it like you mean it.</span>
         </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-zinc-400">
-          A complete system for men who want more  -  more testosterone, better
-          performance, sharper energy, and a protocol that actually works.
+        <p className="mx-auto mt-3 max-w-2xl text-sm text-zinc-400">
+          A men&apos;s health companion app for testosterone, blood flow, hormones, and peak sexual performance.
+        </p>
+        <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-zinc-400">
+          Tell us your age, goals, training style, and medications. We calculate your exact supplement protocol, doses, timing, and safety alerts - personalized to you. Backed by research, built for results.
         </p>
 
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -126,7 +128,7 @@ export default function LandingPage() {
           </a>
         </div>
 
-        <div className="mx-auto mt-10 flex max-w-xl flex-wrap items-center justify-center gap-x-6 gap-y-2">
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
           {[
             "Evidence-based protocol",
             "Personalized to your profile",

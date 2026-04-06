@@ -125,9 +125,9 @@ export default function ShoppingListTab() {
         <button
           type="button"
           onClick={() => window.print()}
-          className="rounded-md border border-zinc-700 px-3 py-1.5 text-xs font-medium text-zinc-300 transition hover:border-yellow-600 hover:text-white"
+          className="rounded-md border border-yellow-600/50 px-4 py-2 text-xs font-semibold text-yellow-600 transition hover:bg-yellow-600/10"
         >
-          Print List
+          Print Shopping List
         </button>
       </div>
     </div>

@@ -4,6 +4,11 @@ import { useState } from "react";
 import type { BaselineData, WeeklyEntryData } from "@/lib/types/progress";
 import { SCORE_MARKERS } from "@/lib/types/progress";
 
+function formatDate(dateStr: string) {
+  const d = new Date(dateStr);
+  return `${(d.getMonth() + 1).toString().padStart(2, "0")}/${d.getDate().toString().padStart(2, "0")}/${d.getFullYear()}`;
+}
+
 interface ProgressOverviewProps {
   baseline: BaselineData | null;
   entries: WeeklyEntryData[];
@@ -322,7 +327,7 @@ export default function ProgressOverview({ baseline, entries }: ProgressOverview
               return (
                 <tr key={e.week_number} className={`border-b border-zinc-800 ${isLatest ? "border-yellow-600/40 bg-yellow-600/5" : ""}`}>
                   <td className="px-4 py-2 text-zinc-300">Week {e.week_number}</td>
-                  <td className="px-4 py-2 text-zinc-400">{e.entry_date}</td>
+                  <td className="px-4 py-2 text-zinc-400">{formatDate(e.entry_date)}</td>
                   <td className="px-4 py-2 text-right text-zinc-300">{e.weight_lbs ?? "-"}</td>
                   <td className="px-4 py-2 text-right text-zinc-300">{e.waist_inches ? `${e.waist_inches}"` : "-"}</td>
                   <td className="px-4 py-2 text-right font-semibold text-yellow-500">{avgScore(e)}</td>

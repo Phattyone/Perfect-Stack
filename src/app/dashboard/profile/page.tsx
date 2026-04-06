@@ -54,7 +54,7 @@ export default async function ProfilePage() {
       {/* Navigation */}
       <nav className="border-b border-zinc-800">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <Link href="/dashboard" className="text-lg font-bold text-yellow-600 hover:text-yellow-500 transition">
+          <Link href="/" className="text-lg font-bold text-yellow-600 hover:text-yellow-500 transition">
             PerfectStack
           </Link>
           <div className="flex items-center gap-4">

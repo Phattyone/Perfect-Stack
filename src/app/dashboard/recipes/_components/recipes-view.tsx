@@ -9,14 +9,14 @@ import DrinksProtocolTab from "./drinks-protocol-tab";
 type Tab = "recipes" | "plan" | "shopping" | "drinks";
 
 const TABS: { key: Tab; label: string }[] = [
-  { key: "recipes", label: "Recipes" },
   { key: "plan", label: "7-Day Plan" },
+  { key: "recipes", label: "Recipes" },
   { key: "drinks", label: "Daily Drinks" },
   { key: "shopping", label: "Shopping List" },
 ];
 
 export default function RecipesView() {
-  const [activeTab, setActiveTab] = useState<Tab>("recipes");
+  const [activeTab, setActiveTab] = useState<Tab>("plan");
 
   return (
     <div>

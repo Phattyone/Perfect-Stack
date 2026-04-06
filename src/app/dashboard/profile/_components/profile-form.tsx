@@ -1,6 +1,7 @@
 "use client";
 
-import { useReducer, useTransition } from "react";
+import { useReducer, useState, useTransition } from "react";
+import Link from "next/link";
 import type { ProfileFormData, SafetyModalConfig } from "@/lib/types/profile";
 import { DEFAULT_PROFILE } from "@/lib/types/profile";
 import { saveProfile } from "../actions";
@@ -207,6 +208,7 @@ export default function ProfileForm({ existingProfile, userId }: ProfileFormProp
   });
 
   const [isPending, startTransition] = useTransition();
+  const [profileSaved, setProfileSaved] = useState(false);
 
   const { currentStep, formData, activeModal, error } = state;
 
@@ -246,8 +248,28 @@ export default function ProfileForm({ existingProfile, userId }: ProfileFormProp
       const result = await saveProfile(userId, formData);
       if (result?.error) {
         dispatch({ type: "SET_ERROR", error: result.error });
+      } else {
+        setProfileSaved(true);
       }
     });
+  }
+
+  if (profileSaved) {
+    return (
+      <div className="mx-auto max-w-md px-6 py-20 text-center">
+        <svg className="mx-auto h-16 w-16 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <h2 className="mt-4 text-xl font-bold text-white">Profile saved.</h2>
+        <p className="mt-2 text-sm text-zinc-400">Your Stack Builder is ready to calculate your personalized protocol.</p>
+        <Link href="/dashboard/stack-builder" className="mt-6 inline-block w-full rounded-md bg-yellow-600 px-6 py-3 text-sm font-semibold text-black transition hover:bg-yellow-500">
+          Build My Stack
+        </Link>
+        <Link href="/dashboard" className="mt-3 inline-block text-sm text-zinc-400 transition hover:text-zinc-300">
+          Go to Dashboard
+        </Link>
+      </div>
+    );
   }
 
   return (

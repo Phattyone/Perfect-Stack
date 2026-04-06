@@ -1,6 +1,5 @@
 "use server";
 
-import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import type { ProfileFormData } from "@/lib/types/profile";
 
@@ -37,6 +36,4 @@ export async function saveProfile(
   if (error) {
     return { error: error.message };
   }
-
-  redirect("/dashboard");
 }

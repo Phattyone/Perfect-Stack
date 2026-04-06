@@ -50,21 +50,21 @@ export type PDE5Frequency = (typeof PDE5_FREQUENCIES)[number];
 
 // Step 3 options
 export const STACK_OPTIONS = [
-  { value: "stack_a", label: "Stack A  -  Foundation Protocol" },
-  { value: "stack_ab", label: "Stacks A+B  -  Performance Protocol" },
-  { value: "stack_abc", label: "Stacks A+B+C  -  Full Performance Protocol" },
-  { value: "stack_abcd", label: "Stacks A+B+C+D  -  Advanced Protocol" },
-  { value: "stack_abcde", label: "Stacks A+B+C+D+E  -  Complete Protocol" },
+  { value: "stack_a", label: "Stack A" },
+  { value: "stack_ab", label: "Stack B = A+B" },
+  { value: "stack_abc", label: "Stack C = A+B+C" },
+  { value: "stack_abcd", label: "Stack D = A+B+C+D" },
+  { value: "stack_abcde", label: "Stack E = A+B+C+D+E" },
 ] as const;
 export type StackSelection = (typeof STACK_OPTIONS)[number]["value"];
 
 // Lookup for protocol display names (keyed by stack_selection value)
 export const PROTOCOL_NAMES: Record<string, string> = {
-  stack_a: "Stack A  -  Foundation Protocol",
-  stack_ab: "Stacks A+B  -  Performance Protocol",
-  stack_abc: "Stacks A+B+C  -  Full Performance Protocol",
-  stack_abcd: "Stacks A+B+C+D  -  Advanced Protocol",
-  stack_abcde: "Stacks A+B+C+D+E  -  Complete Protocol",
+  stack_a: "Stack A",
+  stack_ab: "Stack B = A+B",
+  stack_abc: "Stack C = A+B+C",
+  stack_abcd: "Stack D = A+B+C+D",
+  stack_abcde: "Stack E = A+B+C+D+E",
 };
 
 // Form data shape

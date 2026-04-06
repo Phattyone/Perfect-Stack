@@ -13,7 +13,7 @@ export default async function ExercisePage() {
     <div className="min-h-screen bg-zinc-950">
       <nav className="border-b border-zinc-800">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <Link href="/dashboard" className="text-lg font-bold text-yellow-600 transition hover:text-yellow-500">PerfectStack</Link>
+          <Link href="/" className="text-lg font-bold text-yellow-600 transition hover:text-yellow-500">PerfectStack</Link>
           <div className="flex items-center gap-4">
             <span className="text-sm text-zinc-400">{user.email}</span>
             <form action={signout}><button type="submit" className="rounded-md border border-zinc-700 px-3 py-1.5 text-sm text-zinc-300 transition hover:border-yellow-600 hover:text-white">Sign Out</button></form>
