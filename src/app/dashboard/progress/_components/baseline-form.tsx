@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import type { BaselineData } from "@/lib/types/progress";
-import { DEFAULT_BASELINE, SCORE_MARKERS } from "@/lib/types/progress";
+import { DEFAULT_BASELINE, SCORE_MARKERS, MARKER_COLORS } from "@/lib/types/progress";
 import { saveBaseline } from "../actions";
 import ScoreSlider from "./score-slider";
 
@@ -117,6 +117,7 @@ export default function BaselineForm({ existing, userId, onSaved }: BaselineForm
               description={m.description}
               value={(data[m.key as keyof BaselineData] as number) ?? 5}
               onChange={(v) => update(m.key as keyof BaselineData, v as never)}
+              color={MARKER_COLORS[m.key]?.hex}
             />
           ))}
         </div>

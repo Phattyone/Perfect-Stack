@@ -16,12 +16,12 @@ interface JournalViewProps {
 }
 
 const SCORES = [
-  { key: "energy_score", label: "Energy Levels" },
-  { key: "libido_score", label: "Libido / Sex Drive" },
-  { key: "erection_quality_score", label: "Erection Quality" },
-  { key: "sleep_quality_score", label: "Sleep Quality" },
-  { key: "mood_score", label: "Mood & Motivation" },
-  { key: "workout_performance_score", label: "Workout Performance" },
+  { key: "energy_score", label: "Energy Levels", color: "#3B82F6" },
+  { key: "libido_score", label: "Libido / Sex Drive", color: "#EC4899" },
+  { key: "erection_quality_score", label: "Erection Quality", color: "#EAB308" },
+  { key: "sleep_quality_score", label: "Sleep Quality", color: "#8B5CF6" },
+  { key: "mood_score", label: "Mood & Motivation", color: "#14B8A6" },
+  { key: "workout_performance_score", label: "Workout Performance", color: "#22C55E" },
 ] as const;
 
 const EMPTY_ENTRY = (week: number): JournalEntryData => ({
@@ -179,12 +179,13 @@ export default function JournalView({ entries, userId, initialSignedUrls }: Jour
             <div key={s.key}>
               <div className="mb-1 flex items-center justify-between">
                 <label className="text-sm text-white">{s.label}</label>
-                <span className="text-lg font-bold text-yellow-500">{data[s.key as keyof JournalEntryData] as number}</span>
+                <span className="text-lg font-bold" style={{ color: s.color }}>{data[s.key as keyof JournalEntryData] as number}</span>
               </div>
+              <style>{`.jslider-${s.key}::-webkit-slider-thumb{background:${s.color} !important}.jslider-${s.key}::-moz-range-thumb{background:${s.color} !important}`}</style>
               <input type="range" min={1} max={10}
                 value={data[s.key as keyof JournalEntryData] as number}
                 onChange={(e) => updateField(s.key as keyof JournalEntryData, Number(e.target.value) as never)}
-                className={sliderClass} />
+                className={`${sliderClass} jslider-${s.key}`} />
             </div>
           ))}
         </div>

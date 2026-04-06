@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import type { BaselineData, WeeklyEntryData } from "@/lib/types/progress";
-import { DEFAULT_WEEKLY, SCORE_MARKERS } from "@/lib/types/progress";
+import { DEFAULT_WEEKLY, SCORE_MARKERS, MARKER_COLORS } from "@/lib/types/progress";
 import { saveWeeklyEntry } from "../actions";
 import ScoreSlider from "./score-slider";
 
@@ -131,6 +131,7 @@ export default function WeeklyForm({ baseline, existingEntries, userId, onSaved 
             description={m.description}
             value={(data[m.key as keyof WeeklyEntryData] as number) ?? 5}
             onChange={(v) => update(m.key as keyof WeeklyEntryData, v as never)}
+            color={MARKER_COLORS[m.key]?.hex}
           />
         ))}
       </div>

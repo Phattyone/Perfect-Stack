@@ -89,3 +89,13 @@ export const SCORE_MARKERS = [
 ] as const;
 
 export type ScoreKey = (typeof SCORE_MARKERS)[number]["key"];
+
+// Per-marker colors for charts and sliders
+export const MARKER_COLORS: Record<string, { hex: string; tw: string; bg: string; border: string }> = {
+  energy_score: { hex: "#3B82F6", tw: "text-blue-500", bg: "bg-blue-500", border: "border-blue-500" },
+  libido_score: { hex: "#EC4899", tw: "text-pink-500", bg: "bg-pink-500", border: "border-pink-500" },
+  erection_quality_score: { hex: "#EAB308", tw: "text-yellow-500", bg: "bg-yellow-500", border: "border-yellow-500" },
+  sleep_quality_score: { hex: "#8B5CF6", tw: "text-violet-500", bg: "bg-violet-500", border: "border-violet-500" },
+  mood_score: { hex: "#14B8A6", tw: "text-teal-500", bg: "bg-teal-500", border: "border-teal-500" },
+  strength_recovery_score: { hex: "#22C55E", tw: "text-green-500", bg: "bg-green-500", border: "border-green-500" },
+};

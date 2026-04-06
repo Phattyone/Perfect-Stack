@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { BaselineData, WeeklyEntryData } from "@/lib/types/progress";
-import { SCORE_MARKERS } from "@/lib/types/progress";
+import { SCORE_MARKERS, MARKER_COLORS } from "@/lib/types/progress";
 
 function formatDate(dateStr: string) {
   const d = new Date(dateStr);
@@ -37,14 +37,15 @@ function avgScore(data: BaselineData | WeeklyEntryData): number {
 }
 
 // ─── Sparkline component (pure CSS) ───────────────────────────────
-function Sparkline({ values, height = 60 }: { values: number[]; height?: number }) {
+function Sparkline({ values, color, height = 60 }: { values: number[]; color?: string; height?: number }) {
   if (values.length === 0) return null;
   const max = 10;
+  const barColor = color ?? "#ca8a04";
   return (
     <div className="flex items-end gap-[2px]" style={{ height }}>
       {values.map((v, i) => (
-        <div key={i} className="flex-1 rounded-t-sm bg-yellow-600"
-          style={{ height: `${(v / max) * 100}%`, opacity: i === values.length - 1 ? 1 : 0.5 }} />
+        <div key={i} className="flex-1 rounded-t-sm"
+          style={{ height: `${(v / max) * 100}%`, backgroundColor: barColor, opacity: i === values.length - 1 ? 1 : 0.5 }} />
       ))}
     </div>
   );
@@ -280,21 +281,22 @@ export default function ProgressOverview({ baseline, entries }: ProgressOverview
           const baseVal = baseline ? getScore(baseline, m.key) ?? 0 : 0;
           const currentVal = latest ? getScore(latest, m.key) ?? 0 : baseVal;
           const delta = currentVal - baseVal;
+          const mc = MARKER_COLORS[m.key];
 
           return (
-            <div key={m.key} className="rounded-lg border border-zinc-800 bg-zinc-900 p-4">
+            <div key={m.key} className={`rounded-lg border-l-4 border-zinc-800 bg-zinc-900 p-4`} style={{ borderLeftColor: mc?.hex }}>
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium text-white">{m.label}</span>
-                <span className="text-xl font-bold text-yellow-500">{currentVal}</span>
+                <span className="text-xl font-bold" style={{ color: mc?.hex }}>{currentVal}</span>
               </div>
               <div className="mt-1 flex items-center gap-2">
-                {delta > 0 && <span className="text-xs text-green-400">+{delta} pts</span>}
+                {delta > 0 && <span className="text-xs" style={{ color: mc?.hex }}>+{delta} pts</span>}
                 {delta < 0 && <span className="text-xs text-red-400">{delta} pts</span>}
                 {delta === 0 && <span className="text-xs text-zinc-500">no change</span>}
                 <span className="text-xs text-zinc-500">Started at {baseVal}</span>
               </div>
               <div className="mt-3">
-                <Sparkline values={values} />
+                <Sparkline values={values} color={mc?.hex} />
               </div>
             </div>
           );
