@@ -69,6 +69,18 @@ Guidelines:
   } catch (error: unknown) {
     const err = error as { message?: string; status?: number };
     console.error("Gemini API error:", err?.message, err?.status, JSON.stringify(error));
+
+    if (
+      err?.message?.includes("429") ||
+      err?.message?.includes("quota") ||
+      err?.message?.includes("Too Many Requests")
+    ) {
+      return NextResponse.json(
+        { error: "The AI assistant is temporarily unavailable due to high demand. Please try again in a few minutes." },
+        { status: 429 }
+      );
+    }
+
     return NextResponse.json(
       { error: "Failed to process request", details: err?.message },
       { status: 500 }

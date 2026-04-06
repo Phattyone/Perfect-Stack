@@ -67,9 +67,12 @@ export default function ChatBubble({ subscriptionStatus, userProfile }: ChatBubb
         }),
       });
       const data = await res.json();
+      const reply = res.ok
+        ? data.response ?? "Something went wrong."
+        : data.error ?? "Something went wrong. Please try again.";
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: data.response ?? data.error ?? "Something went wrong.", timestamp: new Date() },
+        { role: "assistant", content: reply, timestamp: new Date() },
       ]);
     } catch {
       setMessages((prev) => [
