@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export async function POST(request: Request) {
   try {
@@ -8,7 +9,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Message required" }, { status: 400 });
     }
 
-    const apiKey = process.env.ANTHROPIC_API_KEY;
+    const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
       return NextResponse.json({ error: "AI service not configured" }, { status: 500 });
     }
@@ -40,38 +41,25 @@ Guidelines:
       if (userProfile.blood_thinners) systemPrompt += ", On blood thinners";
     }
 
-    // Build messages from conversation history (last 10)
-    const messages = [];
-    const history = (conversationHistory ?? []).slice(-10);
-    for (const msg of history) {
-      messages.push({ role: msg.role, content: msg.content });
-    }
-    messages.push({ role: "user", content: message });
-
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01",
-      },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 1000,
-        system: systemPrompt,
-        messages,
-      }),
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({
+      model: "gemini-1.5-flash",
+      systemInstruction: systemPrompt,
     });
 
-    if (!response.ok) {
-      const err = await response.text();
-      return NextResponse.json({ error: `API error: ${response.status}` }, { status: 500 });
-    }
+    // Build conversation history for Gemini (map assistant -> model)
+    const history = ((conversationHistory ?? []) as { role: string; content: string }[])
+      .slice(-10)
+      .map((msg) => ({
+        role: msg.role === "assistant" ? "model" : "user",
+        parts: [{ text: msg.content }],
+      }));
 
-    const data = await response.json();
-    const text = data.content?.[0]?.text ?? "I couldn't generate a response. Please try again.";
+    const chat = model.startChat({ history });
+    const result = await chat.sendMessage(message);
+    const responseText = result.response.text();
 
-    return NextResponse.json({ response: text });
+    return NextResponse.json({ response: responseText });
   } catch {
     return NextResponse.json({ error: "Failed to process request" }, { status: 500 });
   }
