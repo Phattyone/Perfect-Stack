@@ -48,13 +48,18 @@ Guidelines:
       systemInstruction: systemPrompt,
     });
 
-    // Build conversation history for Gemini (map assistant -> model)
+    // Build conversation history for Gemini (must start with user, not model)
     const history = ((conversationHistory ?? []) as { role: string; content: string }[])
       .slice(-10)
-      .map((msg) => ({
-        role: msg.role === "assistant" ? "model" : "user",
-        parts: [{ text: msg.content }],
-      }));
+      .filter((msg) => msg.role && msg.content && msg.content.trim() !== "")
+      .reduce((acc: { role: string; parts: { text: string }[] }[], msg) => {
+        if (acc.length === 0 && msg.role === "assistant") return acc;
+        acc.push({
+          role: msg.role === "assistant" ? "model" : "user",
+          parts: [{ text: msg.content }],
+        });
+        return acc;
+      }, []);
 
     const chat = model.startChat({ history });
     const result = await chat.sendMessage(message);
