@@ -130,7 +130,7 @@ export default function PricingView({
       <div className="mt-8 grid gap-6 sm:grid-cols-3">
         {PLAN_ORDER.map((planKey) => {
           const plan = PLANS[planKey];
-          const isCurrent = currentPlan === planKey;
+          const isCurrent = currentPlan === planKey || (planKey === "complete" && currentPlan === "ultimate");
           const isPopular = planKey === "foundation";
           const price =
             billing === "monthly" ? plan.monthlyPrice : plan.annualPrice;
