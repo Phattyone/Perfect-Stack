@@ -9,4 +9,4 @@ alter table public.profiles
 -- Add check constraint for subscription_status values
 alter table public.profiles
   add constraint profiles_subscription_status_check
-  check (subscription_status in ('free', 'foundation', 'complete', 'canceled'));
+  check (subscription_status in ('free', 'foundation', 'complete', 'ultimate', 'active', 'canceled'));

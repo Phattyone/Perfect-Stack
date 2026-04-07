@@ -12,8 +12,8 @@ function getPlanFromPriceId(priceId: string): { status: string; period: string }
 
   if (priceId === foundationMonthly) return { status: "foundation", period: "monthly" };
   if (priceId === foundationAnnual) return { status: "foundation", period: "annual" };
-  if (priceId === completeMonthly) return { status: "complete", period: "monthly" };
-  if (priceId === completeAnnual) return { status: "complete", period: "annual" };
+  if (priceId === completeMonthly) return { status: "ultimate", period: "monthly" };
+  if (priceId === completeAnnual) return { status: "ultimate", period: "annual" };
   return null;
 }
 
