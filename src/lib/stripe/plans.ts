@@ -1,3 +1,7 @@
+// To grant test account access: go to Supabase Table Editor -> profiles table
+// Find the user row and set subscription_status to 'foundation' or 'ultimate'
+// This bypasses Stripe payment for testing purposes
+
 export const PLANS = {
   free: {
     name: "Free",

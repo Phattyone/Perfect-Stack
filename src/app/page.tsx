@@ -358,9 +358,9 @@ export default function LandingPage() {
             &copy; 2026 Perfect Stack. All rights reserved.
           </span>
           <div className="flex gap-6">
-            <span className="text-xs text-zinc-500 transition hover:text-zinc-400 cursor-pointer">Privacy</span>
-            <span className="text-xs text-zinc-500 transition hover:text-zinc-400 cursor-pointer">Terms</span>
-            <span className="text-xs text-zinc-500 transition hover:text-zinc-400 cursor-pointer">Contact</span>
+            <Link href="/privacy" className="text-xs text-zinc-500 transition hover:text-zinc-400">Privacy</Link>
+            <Link href="/terms" className="text-xs text-zinc-500 transition hover:text-zinc-400">Terms</Link>
+            <span className="text-xs text-zinc-500">Contact</span>
           </div>
         </div>
       </footer>

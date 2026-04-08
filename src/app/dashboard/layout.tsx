@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import ChatBubble from "@/components/ai-chat/chat-bubble";
 
@@ -42,6 +43,15 @@ export default async function DashboardLayout({
   return (
     <>
       {children}
+      <footer className="border-t border-zinc-800 py-6 print:hidden">
+        <div className="mx-auto flex max-w-5xl items-center justify-between px-6">
+          <span className="text-xs text-zinc-600">&copy; 2026 Perfect Stack</span>
+          <div className="flex gap-4">
+            <Link href="/privacy" className="text-xs text-zinc-600 hover:text-zinc-400">Privacy</Link>
+            <Link href="/terms" className="text-xs text-zinc-600 hover:text-zinc-400">Terms</Link>
+          </div>
+        </div>
+      </footer>
       <ChatBubble
         subscriptionStatus={subscriptionStatus}
         userProfile={userProfile}
