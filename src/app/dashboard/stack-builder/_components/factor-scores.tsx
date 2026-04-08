@@ -52,10 +52,10 @@ function ScoreBar({
           <button
             type="button"
             onClick={() => onToggle(infoKey)}
-            className={`ml-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold transition ${
+            className={`ml-2 flex h-4 w-4 shrink-0 items-center justify-center rounded-full border text-xs font-bold leading-none transition ${
               isOpen
-                ? "bg-yellow-500 text-zinc-950"
-                : "bg-yellow-600 text-zinc-950 hover:bg-yellow-500"
+                ? "border-yellow-500 bg-yellow-500 text-zinc-950"
+                : "border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-zinc-950"
             }`}
             title="More info"
           >

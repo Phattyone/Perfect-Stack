@@ -73,7 +73,7 @@ export interface ProfileFormData {
   age_group: string;
   primary_goal: string;
   training_style: string;
-  health_status: string;
+  health_status: string[];
   // Step 2
   pde5_inhibitor: string;
   pde5_dose: string;
@@ -110,7 +110,7 @@ export const DEFAULT_PROFILE: ProfileFormData = {
   age_group: "",
   primary_goal: "",
   training_style: "",
-  health_status: "",
+  health_status: [],
   pde5_inhibitor: "None",
   pde5_dose: "",
   pde5_frequency: "",

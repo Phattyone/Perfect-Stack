@@ -26,7 +26,7 @@ export default async function EquipmentPage() {
             PerfectStack
           </Link>
           <div className="flex items-center gap-4">
-            <span className="text-sm text-zinc-400">{user.email}</span>
+            <span className="hidden text-sm text-zinc-400 sm:inline">{user.email}</span>
             <form action={signout}>
               <button
                 type="submit"

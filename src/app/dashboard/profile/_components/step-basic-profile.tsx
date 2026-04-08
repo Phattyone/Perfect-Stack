@@ -10,7 +10,7 @@ import type { ProfileFormData } from "@/lib/types/profile";
 
 interface StepBasicProfileProps {
   data: ProfileFormData;
-  onChange: (field: keyof ProfileFormData, value: string) => void;
+  onChange: (field: keyof ProfileFormData, value: string | string[]) => void;
 }
 
 const selectClass =
@@ -88,32 +88,42 @@ export default function StepBasicProfile({ data, onChange }: StepBasicProfilePro
         </select>
       </div>
 
-      {/* Health Status */}
+      {/* Health Status (multi-select) */}
       <div>
-        <label className="mb-2 block text-sm font-medium text-zinc-300">
+        <label className="mb-1 block text-sm font-medium text-zinc-300">
           Health Status
         </label>
+        <p className="mb-2 text-xs text-zinc-500">Select all that apply.</p>
         <div className="space-y-2">
-          {HEALTH_STATUSES.map((opt) => (
-            <label
-              key={opt}
-              className={`flex cursor-pointer items-center rounded-md border px-3 py-2.5 text-sm transition ${
-                data.health_status === opt
-                  ? "border-yellow-600 bg-yellow-600/10 text-white"
-                  : "border-zinc-700 bg-zinc-900 text-zinc-400 hover:border-zinc-600"
-              }`}
-            >
-              <input
-                type="radio"
-                name="health_status"
-                value={opt}
-                checked={data.health_status === opt}
-                onChange={(e) => onChange("health_status", e.target.value)}
-                className="sr-only"
-              />
-              {opt}
-            </label>
-          ))}
+          {HEALTH_STATUSES.map((opt) => {
+            const selected = data.health_status.includes(opt);
+            return (
+              <label
+                key={opt}
+                className={`flex cursor-pointer items-center gap-2 rounded-md border px-3 py-2.5 text-sm transition ${
+                  selected
+                    ? "border-yellow-600 bg-yellow-600/10 text-white"
+                    : "border-zinc-700 bg-zinc-900 text-zinc-400 hover:border-zinc-600"
+                }`}
+              >
+                <input
+                  type="checkbox"
+                  checked={selected}
+                  onChange={() => {
+                    const next = selected
+                      ? data.health_status.filter((s: string) => s !== opt)
+                      : [...data.health_status, opt];
+                    onChange("health_status", next);
+                  }}
+                  className="sr-only"
+                />
+                <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${selected ? "border-yellow-600 bg-yellow-600" : "border-zinc-600"}`}>
+                  {selected && <svg className="h-3 w-3 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>}
+                </span>
+                {opt}
+              </label>
+            );
+          })}
         </div>
       </div>
     </div>

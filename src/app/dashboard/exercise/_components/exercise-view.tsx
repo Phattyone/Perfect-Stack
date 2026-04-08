@@ -15,6 +15,7 @@ interface Exercise {
   sets: string;
   rest: string;
   cue: string;
+  youtubeUrl?: string;
 }
 
 const DAYS: { name: string; subtitle: string; exercises: Exercise[] }[] = [
@@ -22,34 +23,34 @@ const DAYS: { name: string; subtitle: string; exercises: Exercise[] }[] = [
     name: "Day A - Lower Body Strength",
     subtitle: "Testosterone Focus",
     exercises: [
-      { name: "Barbell or Dumbbell Squat", sets: "4 x 6-8 reps", rest: "2-3 min", cue: "Drive through heels, chest tall, depth to parallel or below." },
-      { name: "Romanian Deadlift", sets: "3 x 8-10 reps", rest: "2 min", cue: "Hinge at hips, soft knee, feel the hamstring stretch." },
-      { name: "Dumbbell Reverse Lunge", sets: "3 x 10 each leg", rest: "90 sec", cue: "Knee tracks over toe, torso upright." },
-      { name: "Hip Thrust or Glute Bridge", sets: "3 x 12-15 reps", rest: "90 sec", cue: "Full hip extension at top, squeeze glutes hard." },
-      { name: "Calf Raise", sets: "3 x 15-20 reps", rest: "60 sec", cue: "Slow eccentric, full range of motion." },
+      { name: "Barbell or Dumbbell Squat", sets: "4 x 6-8 reps", rest: "2-3 min", cue: "Drive through heels, chest tall, depth to parallel or below.", youtubeUrl: "https://www.youtube.com/results?search_query=barbell+squat+proper+form" },
+      { name: "Romanian Deadlift", sets: "3 x 8-10 reps", rest: "2 min", cue: "Hinge at hips, soft knee, feel the hamstring stretch.", youtubeUrl: "https://www.youtube.com/results?search_query=romanian+deadlift+proper+form" },
+      { name: "Dumbbell Reverse Lunge", sets: "3 x 10 each leg", rest: "90 sec", cue: "Knee tracks over toe, torso upright.", youtubeUrl: "https://www.youtube.com/results?search_query=dumbbell+reverse+lunge+proper+form" },
+      { name: "Hip Thrust or Glute Bridge", sets: "3 x 12-15 reps", rest: "90 sec", cue: "Full hip extension at top, squeeze glutes hard.", youtubeUrl: "https://www.youtube.com/results?search_query=hip+thrust+proper+form" },
+      { name: "Calf Raise", sets: "3 x 15-20 reps", rest: "60 sec", cue: "Slow eccentric, full range of motion.", youtubeUrl: "https://www.youtube.com/results?search_query=standing+calf+raise+proper+form" },
     ],
   },
   {
     name: "Day B - Upper Body Push and Pull",
     subtitle: "Strength and Balance",
     exercises: [
-      { name: "Dumbbell Bench Press or Push-Up Variation", sets: "4 x 8-10 reps", rest: "2 min", cue: "Controlled descent, press through chest." },
-      { name: "Dumbbell Row", sets: "4 x 8-10 each side", rest: "2 min", cue: "Elbow drives back, not up." },
-      { name: "Overhead Press", sets: "3 x 8-10 reps", rest: "2 min", cue: "Core braced, press straight overhead." },
-      { name: "Pull-Up or Inverted Row", sets: "3 x max reps", rest: "2 min", cue: "Dead hang start, chin over bar." },
-      { name: "Dumbbell Curl", sets: "2 x 12 reps", rest: "60 sec", cue: "No swinging, controlled tempo." },
-      { name: "Tricep Dip or Overhead Extension", sets: "2 x 12 reps", rest: "60 sec", cue: "Full range of motion." },
+      { name: "Dumbbell Bench Press or Push-Up Variation", sets: "4 x 8-10 reps", rest: "2 min", cue: "Controlled descent, press through chest.", youtubeUrl: "https://www.youtube.com/results?search_query=dumbbell+bench+press+proper+form" },
+      { name: "Dumbbell Row", sets: "4 x 8-10 each side", rest: "2 min", cue: "Elbow drives back, not up.", youtubeUrl: "https://www.youtube.com/results?search_query=dumbbell+row+proper+form" },
+      { name: "Overhead Press", sets: "3 x 8-10 reps", rest: "2 min", cue: "Core braced, press straight overhead.", youtubeUrl: "https://www.youtube.com/results?search_query=dumbbell+overhead+press+proper+form" },
+      { name: "Pull-Up or Inverted Row", sets: "3 x max reps", rest: "2 min", cue: "Dead hang start, chin over bar.", youtubeUrl: "https://www.youtube.com/results?search_query=pull+up+proper+form+beginners" },
+      { name: "Dumbbell Curl", sets: "2 x 12 reps", rest: "60 sec", cue: "No swinging, controlled tempo.", youtubeUrl: "https://www.youtube.com/results?search_query=dumbbell+bicep+curl+proper+form" },
+      { name: "Tricep Dip or Overhead Extension", sets: "2 x 12 reps", rest: "60 sec", cue: "Full range of motion.", youtubeUrl: "https://www.youtube.com/results?search_query=tricep+dip+proper+form" },
     ],
   },
   {
     name: "Day C - Full Body Power and Conditioning",
     subtitle: "Compound Power",
     exercises: [
-      { name: "Deadlift (conventional or sumo)", sets: "4 x 5 reps", rest: "3 min", cue: "Bar over mid-foot, lat engagement before the pull." },
-      { name: "Dumbbell Clean and Press", sets: "3 x 8 reps", rest: "2 min", cue: "Explosive hip drive, catch at shoulder." },
-      { name: "Weighted Pull-Up or Pull-Up", sets: "3 x 6-8 reps", rest: "2 min", cue: "Add weight when bodyweight feels easy." },
-      { name: "Goblet Squat", sets: "3 x 12 reps", rest: "90 sec", cue: "Elbows inside knees at bottom." },
-      { name: "Farmer Carry", sets: "3 x 40 yards", rest: "90 sec", cue: "Shoulders packed, core tight, fast walk." },
+      { name: "Deadlift (conventional or sumo)", sets: "4 x 5 reps", rest: "3 min", cue: "Bar over mid-foot, lat engagement before the pull.", youtubeUrl: "https://www.youtube.com/results?search_query=conventional+deadlift+proper+form" },
+      { name: "Dumbbell Clean and Press", sets: "3 x 8 reps", rest: "2 min", cue: "Explosive hip drive, catch at shoulder.", youtubeUrl: "https://www.youtube.com/results?search_query=dumbbell+clean+and+press+proper+form" },
+      { name: "Weighted Pull-Up or Pull-Up", sets: "3 x 6-8 reps", rest: "2 min", cue: "Add weight when bodyweight feels easy.", youtubeUrl: "https://www.youtube.com/results?search_query=weighted+pull+up+proper+form" },
+      { name: "Goblet Squat", sets: "3 x 12 reps", rest: "90 sec", cue: "Elbows inside knees at bottom.", youtubeUrl: "https://www.youtube.com/results?search_query=goblet+squat+proper+form" },
+      { name: "Farmer Carry", sets: "3 x 40 yards", rest: "90 sec", cue: "Shoulders packed, core tight, fast walk.", youtubeUrl: "https://www.youtube.com/results?search_query=farmer+carry+farmers+walk+proper+form" },
     ],
   },
 ];
@@ -93,7 +94,14 @@ function DayCard({ day }: { day: typeof DAYS[number] }) {
               <div className="mt-1 flex gap-3 text-xs text-zinc-500">
                 <span>Rest: {ex.rest}</span>
               </div>
-              <p className="mt-1 text-xs italic text-zinc-400">{ex.cue}</p>
+              <div className="mt-1 flex items-center gap-2">
+                <p className="text-xs italic text-zinc-400">{ex.cue}</p>
+                {ex.youtubeUrl && (
+                  <a href={ex.youtubeUrl} target="_blank" rel="noopener noreferrer" className="shrink-0 rounded border border-red-500 px-2 py-0.5 text-[10px] font-medium text-red-400 hover:bg-red-500/10">
+                    &#9654; Watch Form
+                  </a>
+                )}
+              </div>
             </div>
           ))}
           <p className="text-xs text-zinc-500">Add weight when you can complete all sets at the top of the rep range with good form. Never sacrifice form for load.</p>

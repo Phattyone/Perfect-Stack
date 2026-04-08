@@ -49,6 +49,9 @@ export default function ProfileSummary({ profile }: ProfileSummaryProps) {
         <Badge label={profile.age_group} color="gold" />
         <Badge label={profile.primary_goal} color="gold" />
         <Badge label={profile.training_style} color="gold" />
+        {profile.health_status.map((hs: string) => (
+          <Badge key={hs} label={hs} color="gold" />
+        ))}
         {profile.nitrate_meds && <Badge label="Nitrate Meds" color="red" />}
         {profile.blood_thinners && <Badge label="Blood Thinners" color="orange" />}
         {hasPDE5 && <Badge label={profile.pde5_inhibitor} color="blue" />}

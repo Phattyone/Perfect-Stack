@@ -64,3 +64,5 @@ reference-research/
 next-env.d.ts
 
 .vercel
+*.txt
+*.pdf

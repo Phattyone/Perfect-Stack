@@ -15,7 +15,18 @@ interface PFExercise {
   rest: string;
   cue: string;
   frequency: string;
+  youtubeUrl?: string;
 }
+
+const PF_YOUTUBE: Record<string, string> = {
+  "Basic Kegel Contraction": "https://www.youtube.com/results?search_query=kegel+exercises+for+men+how+to",
+  "Extended Hold Kegel": "https://www.youtube.com/results?search_query=kegel+exercises+for+men+how+to",
+  "Long Hold Kegel": "https://www.youtube.com/results?search_query=kegel+exercises+for+men+how+to",
+  "Max Hold": "https://www.youtube.com/results?search_query=kegel+exercises+for+men+how+to",
+  "Quick Flicks": "https://www.youtube.com/results?search_query=pelvic+floor+quick+contractions+men",
+  "Reverse Kegel": "https://www.youtube.com/results?search_query=reverse+kegel+men+how+to",
+  "Functional Integration": "https://www.youtube.com/results?search_query=pelvic+floor+functional+training+men",
+};
 
 const WEEKS: { label: string; phase: string; exercises: PFExercise[] }[] = [
   {
@@ -109,7 +120,14 @@ export default function PelvicFloorView() {
                           <span>Rest: {ex.rest}</span>
                           <span>Freq: {ex.frequency}</span>
                         </div>
-                        <p className="mt-1 text-xs italic text-zinc-400">{ex.cue}</p>
+                        <div className="mt-1 flex items-center gap-2">
+                          <p className="text-xs italic text-zinc-400">{ex.cue}</p>
+                          {PF_YOUTUBE[ex.name] && (
+                            <a href={PF_YOUTUBE[ex.name]} target="_blank" rel="noopener noreferrer" className="shrink-0 rounded border border-red-500 px-2 py-0.5 text-[10px] font-medium text-red-400 hover:bg-red-500/10">
+                              &#9654; Watch
+                            </a>
+                          )}
+                        </div>
                       </div>
                     ))}
                   </div>

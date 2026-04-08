@@ -107,7 +107,7 @@ export default function LandingPage() {
           <span className="text-yellow-600">Optimize it like you mean it.</span>
         </h1>
         <p className="mx-auto mt-3 max-w-2xl text-sm text-zinc-400">
-          A men&apos;s health companion app for testosterone, blood flow, hormones, and peak sexual performance.
+          A men&apos;s health companion app for testosterone, blood flow, hormones, muscle performance, and peak sexual performance.
         </p>
         <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-zinc-400">
           Tell us your age, goals, training style, and medications. We calculate your exact supplement protocol, doses, timing, and safety alerts - personalized to you. Backed by research, built for results.

@@ -52,11 +52,17 @@ const HEALTH_STRESS: Record<string, number> = {
 
 // ─── Factor calculators ──────────────────────────────────────────────
 
+// Get the most conservative (lowest) multiplier from an array of health statuses
+function minHealthMultiplier(statuses: string[], lookup: Record<string, number>): number {
+  if (!statuses || statuses.length === 0) return 1;
+  return Math.min(...statuses.map((s) => lookup[s] ?? 1));
+}
+
 function calcHormoneFactor(p: ProfileFormData): number {
   return (
     (AGE_HORMONE[p.age_group] ?? 1) *
     (TRAIN_HORMONE[p.training_style] ?? 1) *
-    (HEALTH_HORMONE[p.health_status] ?? 1)
+    minHealthMultiplier(p.health_status, HEALTH_HORMONE)
   );
 }
 
@@ -73,7 +79,7 @@ function calcNOFactor(p: ProfileFormData): number {
 function calcStressFactor(p: ProfileFormData): number {
   return (
     (GOAL_STRESS[p.primary_goal] ?? 1) *
-    (HEALTH_STRESS[p.health_status] ?? 1)
+    minHealthMultiplier(p.health_status, HEALTH_STRESS)
   );
 }
 

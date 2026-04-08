@@ -90,7 +90,7 @@ interface FormState {
 }
 
 type FormAction =
-  | { type: "UPDATE_FIELD"; field: keyof ProfileFormData; value: string | boolean }
+  | { type: "UPDATE_FIELD"; field: keyof ProfileFormData; value: string | boolean | string[] }
   | { type: "NEXT_STEP" }
   | { type: "PREV_STEP" }
   | { type: "ACKNOWLEDGE_MODAL" }
@@ -172,7 +172,7 @@ function validateStep1(data: ProfileFormData): string | null {
   if (!data.age_group) return "Please select your age group.";
   if (!data.primary_goal) return "Please select your primary goal.";
   if (!data.training_style) return "Please select your training style.";
-  if (!data.health_status) return "Please select your health status.";
+  if (!data.health_status || data.health_status.length === 0) return "Please select at least one health status.";
   return null;
 }
 
@@ -218,7 +218,7 @@ export default function ProfileForm({ existingProfile, userId }: ProfileFormProp
     disabledStacks.push("stack_c");
   }
 
-  function handleFieldChange(field: keyof ProfileFormData, value: string | boolean) {
+  function handleFieldChange(field: keyof ProfileFormData, value: string | boolean | string[]) {
     dispatch({ type: "UPDATE_FIELD", field, value });
   }
 

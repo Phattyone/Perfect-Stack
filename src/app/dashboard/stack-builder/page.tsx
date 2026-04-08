@@ -32,7 +32,7 @@ export default async function StackBuilderPage() {
     age_group: profile.age_group,
     primary_goal: profile.primary_goal,
     training_style: profile.training_style,
-    health_status: profile.health_status,
+    health_status: Array.isArray(profile.health_status) ? profile.health_status : [profile.health_status].filter(Boolean),
     pde5_inhibitor: profile.pde5_inhibitor,
     pde5_dose: profile.pde5_dose ?? "",
     pde5_frequency: profile.pde5_frequency ?? "",
@@ -63,7 +63,7 @@ export default async function StackBuilderPage() {
             PerfectStack
           </Link>
           <div className="flex items-center gap-4">
-            <span className="text-sm text-zinc-400">{user.email}</span>
+            <span className="hidden text-sm text-zinc-400 sm:inline">{user.email}</span>
             <form action={signout}>
               <button
                 type="submit"

@@ -54,6 +54,7 @@ export default function JournalView({ entries, userId, initialSignedUrls }: Jour
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [scoresLocked, setScoresLocked] = useState(false);
   const [signedUrls, setSignedUrls] = useState<Record<string, string>>(initialSignedUrls);
   const [localPreviews, setLocalPreviews] = useState<Record<string, string>>({});
   const fileRef = useRef<HTMLInputElement>(null);
@@ -172,9 +173,15 @@ export default function JournalView({ entries, userId, initialSignedUrls }: Jour
 
       {/* Section 1 - Performance Scores */}
       <div className="rounded-xl border-l-4 border-yellow-600 bg-zinc-900 p-5">
-        <h3 className="mb-1 text-sm font-bold text-yellow-500">Weekly Performance Scores</h3>
+        <div className="mb-2 flex items-center justify-between">
+          <h3 className="text-sm font-bold text-yellow-500">Weekly Performance Scores</h3>
+          <button type="button" onClick={() => setScoresLocked((l) => !l)}
+            className="shrink-0 rounded-full border border-yellow-600 px-3 py-1 text-xs text-yellow-600 hover:bg-yellow-600/10">
+            {scoresLocked ? "Unlock Scores" : "Lock Scores"}
+          </button>
+        </div>
         <p className="mb-4 text-xs text-zinc-500">Scores sync automatically with your Progress Tracker.</p>
-        <div className="space-y-5">
+        <div className={`space-y-5 ${scoresLocked ? "pointer-events-none opacity-75" : ""}`}>
           {SCORES.map((s) => (
             <div key={s.key}>
               <div className="mb-1 flex items-center justify-between">

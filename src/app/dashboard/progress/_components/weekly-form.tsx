@@ -42,6 +42,7 @@ export default function WeeklyForm({ baseline, existingEntries, userId, onSaved 
   );
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
+  const [scoresLocked, setScoresLocked] = useState(false);
   const [success, setSuccess] = useState(false);
 
   function selectWeek(week: number) {
@@ -122,8 +123,14 @@ export default function WeeklyForm({ baseline, existingEntries, userId, onSaved 
       </div>
 
       {/* Performance markers */}
-      <p className="mb-2 text-xs text-zinc-500">Scores sync automatically with your Journal.</p>
-      <div className="space-y-5">
+      <div className="mb-2 flex items-center gap-3">
+        <p className="text-xs text-zinc-500">Scores sync automatically with your Journal.</p>
+        <button type="button" onClick={() => setScoresLocked((l) => !l)}
+          className="shrink-0 rounded-full border border-yellow-600 px-3 py-1 text-xs text-yellow-600 hover:bg-yellow-600/10">
+          {scoresLocked ? "Unlock Scores" : "Lock Scores"}
+        </button>
+      </div>
+      <div className={`space-y-5 ${scoresLocked ? "pointer-events-none opacity-75" : ""}`}>
         {SCORE_MARKERS.map((m) => (
           <ScoreSlider
             key={m.key}

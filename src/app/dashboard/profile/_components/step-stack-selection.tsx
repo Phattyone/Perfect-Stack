@@ -18,8 +18,8 @@ const STACK_DESCRIPTIONS: Record<string, string> = {
 };
 
 function getRecommendedStack(data: ProfileFormData): string {
-  if (data.health_status === "Post-cardiac / Stent / High CV risk") return "stack_a";
-  if (data.health_status === "Active TRT or HRT user") return "stack_ab";
+  if (data.health_status.includes("Post-cardiac / Stent / High CV risk")) return "stack_a";
+  if (data.health_status.includes("Active TRT or HRT user")) return "stack_ab";
   if (data.primary_goal === "Erection Quality + Blood Flow" || data.primary_goal === "Hormone + Sexual Health") return "stack_abc";
   if (data.primary_goal === "Libido + Desire") return "stack_abcd";
   if (data.primary_goal === "Longevity + Energy" || data.primary_goal === "Performance + Muscle") return "stack_abcde";
