@@ -13,7 +13,7 @@ export const SUPPLEMENTS: Supplement[] = [
     name: "Multivitamin Men's Formula",
     stack: "A",
     category: "Foundation",
-    baseDose: 3,
+    baseDose: 3, // fallback only — productDosing always overrides for this supplement
     unit: "caps",
     dailyServings: 3,
     bestTiming: "With meals",
@@ -28,7 +28,7 @@ export const SUPPLEMENTS: Supplement[] = [
     ],
     productDosing: {
       "Thorne Men's Multi 50+": {
-        servingSize: 6,
+        servingSize: 2, // 2 caps per sitting × 3x daily = 6 caps total
         unit: "caps",
         servingsPerDay: 1,
         dailyTotal: 6,
@@ -39,7 +39,7 @@ export const SUPPLEMENTS: Supplement[] = [
         badgeTiming: "With meals",
       },
       "Micro Ingredients Methylated Multi": {
-        servingSize: 2,
+        servingSize: 2, // 2 caps per sitting × 1x daily = 2 caps total ✓
         unit: "caps",
         servingsPerDay: 1,
         dailyTotal: 2,
@@ -50,7 +50,7 @@ export const SUPPLEMENTS: Supplement[] = [
         badgeTiming: "With meals",
       },
       "Life Extension Two-Per-Day": {
-        servingSize: 2,
+        servingSize: 1, // 1 tab per sitting × 2x daily = 2 tabs total
         unit: "tabs",
         servingsPerDay: 1,
         dailyTotal: 2,
@@ -202,7 +202,7 @@ export const SUPPLEMENTS: Supplement[] = [
     name: "Ashwagandha KSM-66",
     stack: "B",
     category: "Testosterone Support",
-    baseDose: 600,
+    baseDose: 600, // REVIEW: 600 × 2 = 1,200 mg/day — standard KSM-66 is 300–600 mg/day total; may want baseDose: 300
     unit: "mg",
     dailyServings: 2,
     bestTiming: "Evening or split AM/PM",
@@ -299,7 +299,7 @@ export const SUPPLEMENTS: Supplement[] = [
     name: "L-Citrulline Pure Powder",
     stack: "C",
     category: "Nitric Performance",
-    baseDose: 6,
+    baseDose: 6, // REVIEW: 6 × 2 = 12 g/day — standard is 6 g per pre-workout session once daily; dailyServings: 2 implies two training sessions/day
     unit: "g",
     dailyServings: 2,
     bestTiming: "45–90 min before activity",
@@ -415,7 +415,7 @@ export const SUPPLEMENTS: Supplement[] = [
     name: "Maca Root Extract",
     stack: "D",
     category: "Libido Amplifier",
-    baseDose: 1500,
+    baseDose: 1500, // REVIEW: 1500 × 2 = 3,000 mg/day — within therapeutic range but confirm if intended vs. 1,500 mg once daily
     unit: "mg",
     dailyServings: 2,
     bestTiming: "With meal AM or pre-activity",
@@ -434,7 +434,7 @@ export const SUPPLEMENTS: Supplement[] = [
     name: "Horny Goat Weed Epimedium",
     stack: "D",
     category: "Libido Amplifier",
-    baseDose: 1000,
+    baseDose: 1000, // REVIEW: 1000 × 2 = 2,000 mg/day — standard is 500–1,000 mg/day total; may want baseDose: 500
     unit: "mg",
     dailyServings: 2,
     bestTiming: "With a meal",
