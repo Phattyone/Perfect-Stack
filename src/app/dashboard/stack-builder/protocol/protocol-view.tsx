@@ -48,6 +48,7 @@ function ScoreBar({ label, value }: { label: string; value: number }) {
 
 function SupplementRow({ s }: { s: CalculatedSupplement }) {
   const product = s.products[0];
+  const pd = s.productDosing?.[product?.name ?? ""];
   const cost = s.calculatedDose === 0 ? 0 : Math.round(((product.price / product.servings) * s.dailyServings * 30) * 100) / 100;
 
   return (
@@ -59,7 +60,11 @@ function SupplementRow({ s }: { s: CalculatedSupplement }) {
         </div>
         <div className="text-right">
           <span className="text-sm font-bold text-yellow-500 print:text-gray-900">
-            {s.calculatedDose === 0 ? "Excluded" : `${s.calculatedDose} ${s.unit}`}
+            {s.calculatedDose === 0
+              ? "Excluded"
+              : pd
+              ? `${pd.servingSize} ${pd.unit}`
+              : `${s.calculatedDose} ${s.unit}`}
           </span>
         </div>
       </div>
@@ -71,17 +76,17 @@ function SupplementRow({ s }: { s: CalculatedSupplement }) {
       )}
 
       <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-zinc-500 print:text-gray-500">
-        <span>{s.dailyServings}x daily</span>
-        <span>{s.bestTiming}</span>
+        <span>{pd ? pd.dailyServings : s.dailyServings}x daily</span>
+        <span>{pd ? pd.badgeTiming : s.bestTiming}</span>
         {cost > 0 && <span>~${cost.toFixed(2)}/mo</span>}
       </div>
-      {s.timingIcon && (
+      {(pd?.timingIcon ?? s.timingIcon) && (
         <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-0.5">
           <span className="text-xs text-zinc-400 print:text-gray-500">
-            {s.timingIcon} {TIMING_LABELS[s.timingIcon] ?? ""}
+            {pd?.timingIcon ?? s.timingIcon} {TIMING_LABELS[pd?.timingIcon ?? s.timingIcon] ?? ""}
           </span>
           <span className="text-xs font-medium text-yellow-500 print:text-gray-700">
-            Daily total: {(s.baseDose * s.dailyServings).toLocaleString()} {s.unit}
+            Daily total: {pd ? `${pd.dailyTotal.toLocaleString()} ${pd.unit}` : `${(s.baseDose * s.dailyServings).toLocaleString()} ${s.unit}`}
           </span>
         </div>
       )}

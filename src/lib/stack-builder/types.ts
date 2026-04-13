@@ -13,6 +13,8 @@ export interface ProductDosing {
   timing: string;
   timingIcon: string;
   withMeals: boolean;
+  dailyServings: number;
+  badgeTiming: string;
 }
 
 export interface Supplement {

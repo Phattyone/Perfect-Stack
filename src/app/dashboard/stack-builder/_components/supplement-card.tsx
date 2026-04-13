@@ -45,6 +45,7 @@ export default function SupplementCard({
   const isExcluded = s.alertLevel === "not-recommended";
   const isDoseReduced = s.alertLevel === "dose-reduced";
   const selectedProduct = s.products[s.selectedProductIndex];
+  const pd = s.productDosing?.[selectedProduct?.name ?? ""];
   const monthlyCost =
     s.calculatedDose === 0
       ? 0
@@ -99,17 +100,20 @@ export default function SupplementCard({
           </span>
         ) : (
           <span className="text-sm font-semibold text-yellow-500">
-            {s.calculatedDose === 0 ? "0" : `${s.calculatedDose} ${s.unit}`}
+            {s.calculatedDose === 0
+              ? "0"
+              : pd
+              ? `${pd.servingSize} ${pd.unit}`
+              : `${s.calculatedDose} ${s.unit}`}
           </span>
         )}
         <span className="text-xs text-zinc-500">
-          {s.dailyServings}x daily · {s.bestTiming}
+          {pd ? pd.dailyServings : s.dailyServings}x daily · {pd ? pd.badgeTiming : s.bestTiming}
         </span>
       </div>
 
       {/* Timing icon + daily total */}
       {(() => {
-        const pd = s.productDosing?.[selectedProduct?.name ?? ""];
         const TIMING_LABELS: Record<string, string> = {
           "☀️": "Morning",
           "🌙": "Evening",
