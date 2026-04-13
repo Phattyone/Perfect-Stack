@@ -68,7 +68,7 @@ export default function SupplementCard({
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
           <h4 className="text-sm font-semibold text-white">{s.name}</h4>
-          <p className="mt-0.5 text-xs text-zinc-500">{s.whatItSupports}</p>
+          <p className="mt-0.5 text-xs text-zinc-100">{s.whatItSupports}</p>
         </div>
         {alert && (
           <span
@@ -106,6 +106,47 @@ export default function SupplementCard({
           {s.dailyServings}x daily · {s.bestTiming}
         </span>
       </div>
+
+      {/* Timing icon + daily total */}
+      {(() => {
+        const pd = s.productDosing?.[selectedProduct?.name ?? ""];
+        const TIMING_LABELS: Record<string, string> = {
+          "☀️": "Morning",
+          "🌙": "Evening",
+          "☀️🌙": "Morning and Evening",
+          "⚡": "Pre-activity",
+          "☀️🌤️🌙": "Anytime",
+          "🌤️": "Afternoon",
+        };
+        if (pd) {
+          return (
+            <div className="mt-2 space-y-0.5">
+              <p className="text-xs text-zinc-400">
+                {pd.timingIcon} {pd.timing}
+                {pd.withMeals ? " · Take with meals" : ""}
+              </p>
+              <p className="text-xs font-medium text-yellow-500">
+                Daily total: {pd.dailyTotal} {pd.unit}
+              </p>
+            </div>
+          );
+        }
+        const icon = s.timingIcon ?? "";
+        const label = TIMING_LABELS[icon] ?? "";
+        const dailyTotal = s.baseDose * s.dailyServings;
+        return (
+          <div className="mt-2 space-y-0.5">
+            {icon && (
+              <p className="text-xs text-zinc-400">
+                {icon} {label}
+              </p>
+            )}
+            <p className="text-xs font-medium text-yellow-500">
+              Daily total: {dailyTotal.toLocaleString()} {s.unit}
+            </p>
+          </div>
+        );
+      })()}
 
       {/* Products */}
       {!isExcluded && (

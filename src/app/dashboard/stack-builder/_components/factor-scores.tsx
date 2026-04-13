@@ -71,10 +71,10 @@ function ScoreBar({
         />
       </div>
       {/* Static one-line summary - always visible */}
-      <p className="mt-1 text-xs text-zinc-500">{meta.summary}</p>
+      <p className="mt-1 text-xs text-zinc-100">{meta.summary}</p>
       {/* Detailed explanation - toggled by info button */}
       {isOpen && (
-        <p className="mt-2 text-xs leading-relaxed text-zinc-400">
+        <p className="mt-2 text-xs leading-relaxed text-zinc-100">
           {meta.detail}
         </p>
       )}

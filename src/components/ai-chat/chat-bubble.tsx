@@ -94,7 +94,7 @@ export default function ChatBubble({ subscriptionStatus, userProfile }: ChatBubb
         <button
           type="button"
           onClick={handleOpen}
-          className="fixed bottom-24 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-yellow-600 shadow-lg ring-2 ring-white ring-offset-1 ring-offset-zinc-950 transition hover:bg-yellow-500 sm:bottom-6 sm:right-6"
+          className="fixed bottom-16 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-yellow-600 shadow-lg ring-2 ring-white ring-offset-1 ring-offset-zinc-950 transition hover:bg-yellow-500 sm:bottom-14 sm:right-6 md:bottom-6 md:right-6"
         >
           <svg className="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -104,7 +104,7 @@ export default function ChatBubble({ subscriptionStatus, userProfile }: ChatBubb
 
       {/* Chat panel */}
       {open && (
-        <div className="fixed bottom-24 right-4 z-50 flex h-[500px] w-80 flex-col overflow-hidden rounded-2xl border border-zinc-700 bg-zinc-900 shadow-2xl sm:bottom-6 sm:right-6 sm:w-96">
+        <div className="fixed bottom-16 right-4 z-50 flex h-[500px] w-80 flex-col overflow-hidden rounded-2xl border border-zinc-700 bg-zinc-900 shadow-2xl sm:bottom-14 sm:right-6 sm:w-96 md:bottom-6 md:right-6">
           {/* Header */}
           <div className="flex items-center justify-between border-b border-zinc-700 px-4 py-3">
             <div>

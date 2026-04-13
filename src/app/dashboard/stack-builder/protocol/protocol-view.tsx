@@ -15,6 +15,15 @@ const ALERT_COLOR: Record<string, string> = {
   note: "text-blue-400 print:text-blue-700",
 };
 
+const TIMING_LABELS: Record<string, string> = {
+  "☀️": "Morning",
+  "🌙": "Evening",
+  "☀️🌙": "Morning and Evening",
+  "⚡": "Pre-activity",
+  "☀️🌤️🌙": "Anytime",
+  "🌤️": "Afternoon",
+};
+
 const STACK_NAMES: Record<string, string> = {
   A: "Stack A - Foundation",
   B: "Stack B - Testosterone Support",
@@ -66,6 +75,16 @@ function SupplementRow({ s }: { s: CalculatedSupplement }) {
         <span>{s.bestTiming}</span>
         {cost > 0 && <span>~${cost.toFixed(2)}/mo</span>}
       </div>
+      {s.timingIcon && (
+        <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-0.5">
+          <span className="text-xs text-zinc-400 print:text-gray-500">
+            {s.timingIcon} {TIMING_LABELS[s.timingIcon] ?? ""}
+          </span>
+          <span className="text-xs font-medium text-yellow-500 print:text-gray-700">
+            Daily total: {(s.baseDose * s.dailyServings).toLocaleString()} {s.unit}
+          </span>
+        </div>
+      )}
 
       {s.calculatedDose > 0 && (
         <div className="mt-2 flex items-center justify-between">

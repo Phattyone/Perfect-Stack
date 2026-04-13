@@ -5,6 +5,16 @@ export interface Product {
   url: string;
 }
 
+export interface ProductDosing {
+  servingSize: number;
+  unit: string;
+  servingsPerDay: number;
+  dailyTotal: number;
+  timing: string;
+  timingIcon: string;
+  withMeals: boolean;
+}
+
 export interface Supplement {
   id: number;
   name: string;
@@ -17,7 +27,9 @@ export interface Supplement {
   whatItSupports: string;
   timeToNotice: string;
   keyCautions: string;
+  timingIcon: string;
   products: Product[];
+  productDosing?: { [productName: string]: ProductDosing };
 }
 
 export type AlertLevel =

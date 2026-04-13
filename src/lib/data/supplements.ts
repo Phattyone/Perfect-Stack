@@ -20,11 +20,41 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Baseline micronutrient coverage, methylation, antioxidant defense",
     timeToNotice: "4–8 weeks",
     keyCautions: "Avoid doubling with standalone vitamins already in stack",
+    timingIcon: "☀️",
     products: [
       { name: "Thorne Men's Multi 50+", price: 54, servings: 90, url: amzSearch("Thorne Men's Multi 50+") },
       { name: "Micro Ingredients Methylated Multi", price: 28, servings: 120, url: amzSearch("Micro Ingredients Methylated Multi") },
       { name: "Life Extension Two-Per-Day", price: 22, servings: 120, url: amzSearch("Life Extension Two-Per-Day") },
     ],
+    productDosing: {
+      "Thorne Men's Multi 50+": {
+        servingSize: 6,
+        unit: "caps",
+        servingsPerDay: 1,
+        dailyTotal: 6,
+        timing: "Morning",
+        timingIcon: "☀️",
+        withMeals: true,
+      },
+      "Micro Ingredients Methylated Multi": {
+        servingSize: 2,
+        unit: "caps",
+        servingsPerDay: 1,
+        dailyTotal: 2,
+        timing: "Morning",
+        timingIcon: "☀️",
+        withMeals: true,
+      },
+      "Life Extension Two-Per-Day": {
+        servingSize: 2,
+        unit: "tabs",
+        servingsPerDay: 1,
+        dailyTotal: 2,
+        timing: "Morning",
+        timingIcon: "☀️",
+        withMeals: true,
+      },
+    },
   },
   {
     id: 2,
@@ -38,6 +68,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Testosterone support, bone density, immune function, calcium routing",
     timeToNotice: "8–12 weeks for serum levels",
     keyCautions: "K2 may interact with blood thinners (warfarin). Monitor INR.",
+    timingIcon: "☀️",
     products: [
       { name: "Sports Research D3+K2", price: 20, servings: 120, url: amz("B01GGH5C38") },
       { name: "Thorne D3+K2 Liquid", price: 24, servings: 576, url: amz("B0BFYZ57RS") },
@@ -56,6 +87,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Sleep quality, muscle relaxation, testosterone cofactor, stress reduction",
     timeToNotice: "1–2 weeks for sleep, 4 weeks full effect",
     keyCautions: "May enhance BP-lowering effect of antihypertensives",
+    timingIcon: "🌙",
     products: [
       { name: "Thorne Magnesium Bisglycinate", price: 25, servings: 90, url: amz("B07L8BBWMR") },
       { name: "Doctor's Best High Absorption Mg", price: 20, servings: 120, url: amz("B000BD0RT0") },
@@ -74,6 +106,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Cardiovascular health, inflammation reduction, brain function",
     timeToNotice: "4–8 weeks",
     keyCautions: "Additive antiplatelet effect with blood thinners",
+    timingIcon: "☀️🌙",
     products: [
       { name: "Nordic Naturals Ultimate Omega", price: 45, servings: 60, url: amz("B002CQU564") },
       { name: "Carlson Super Omega-3", price: 30, servings: 100, url: amz("B000GG91VK") },
@@ -92,6 +125,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Testosterone synthesis, immune function, prostate health",
     timeToNotice: "4–8 weeks",
     keyCautions: "High doses deplete copper. Keep at 15–30mg.",
+    timingIcon: "☀️",
     products: [
       { name: "Thorne Zinc Picolinate 15mg", price: 18, servings: 60, url: amz("B0001VKSNO") },
       { name: "NOW Zinc Picolinate 50mg", price: 12, servings: 120, url: amzSearch("NOW Zinc Picolinate 50mg") },
@@ -110,6 +144,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Energy metabolism, methylation, nervous system, homocysteine control",
     timeToNotice: "2–4 weeks",
     keyCautions: "Methylated forms preferred for MTHFR variants",
+    timingIcon: "☀️",
     products: [
       { name: "Jarrow B-Right Complex", price: 22, servings: 100, url: amzSearch("Jarrow B-Right Complex") },
       { name: "Thorne B-Complex with Metafolin", price: 28, servings: 60, url: amzSearch("Thorne B-Complex Metafolin") },
@@ -128,6 +163,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Free testosterone increase, estrogen metabolism, bone mineral density",
     timeToNotice: "1–2 weeks",
     keyCautions: "Do not exceed 20mg/day",
+    timingIcon: "☀️🌙",
     products: [
       { name: "Life Extension Boron 3mg", price: 14, servings: 100, url: amzSearch("Life Extension Boron 3mg") },
       { name: "NOW Boron 3mg", price: 10, servings: 250, url: amzSearch("NOW Boron 3mg") },
@@ -146,6 +182,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Thyroid function, antioxidant defense, prostate health",
     timeToNotice: "4–8 weeks",
     keyCautions: "Do not exceed 400mcg/day. Monitor if on thyroid meds.",
+    timingIcon: "☀️",
     products: [
       { name: "Life Extension Se-Methyl L-Selenocysteine", price: 15, servings: 90, url: amzSearch("Life Extension Selenium") },
       { name: "Thorne Selenomethionine", price: 18, servings: 60, url: amzSearch("Thorne Selenomethionine") },
@@ -166,6 +203,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Cortisol reduction, testosterone support, anxiety, sleep quality",
     timeToNotice: "2–4 weeks",
     keyCautions: "May affect thyroid hormones. Consult if on thyroid medication.",
+    timingIcon: "☀️🌙",
     products: [
       { name: "Jarrow KSM-66 300mg", price: 25, servings: 120, url: amz("B009LD5S1A") },
       { name: "Nootropics Depot KSM-66 600mg", price: 30, servings: 60, url: amzSearch("Nootropics Depot KSM-66 600mg") },
@@ -184,6 +222,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "LH signaling, free testosterone, libido, stress hormones",
     timeToNotice: "2–4 weeks",
     keyCautions: "Limited benefit on exogenous TRT. Cycle 5 days on / 2 off.",
+    timingIcon: "☀️",
     products: [
       { name: "Toniiq Ultra High Strength", price: 45, servings: 60, url: amzSearch("Toniiq Tongkat Ali") },
       { name: "Nootropics Depot Tongkat Ali", price: 35, servings: 60, url: amzSearch("Nootropics Depot Tongkat Ali") },
@@ -202,6 +241,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "LH stimulation, testosterone production support",
     timeToNotice: "2–4 weeks",
     keyCautions: "Limited human data. Cycle 5 on / 2 off. Limited benefit on TRT.",
+    timingIcon: "☀️",
     products: [
       { name: "Nootropics Depot Fadogia", price: 30, servings: 90, url: amzSearch("Nootropics Depot Fadogia Agrestis") },
       { name: "Gorilla Mind Fadogia", price: 45, servings: 90, url: amzSearch("Gorilla Mind Fadogia") },
@@ -220,6 +260,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Free testosterone via aromatase inhibition, libido, blood sugar",
     timeToNotice: "4–8 weeks",
     keyCautions: "May lower blood sugar  -  caution with diabetes medications",
+    timingIcon: "☀️🌙",
     products: [
       { name: "NOW Fenugreek 500mg", price: 10, servings: 100, url: amz("B0009W2OAO") },
       { name: "Jarrow Fenugreek", price: 12, servings: 100, url: amzSearch("Jarrow Fenugreek") },
@@ -238,6 +279,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Precursor to testosterone and estrogen, adrenal support",
     timeToNotice: "4–8 weeks",
     keyCautions: "Not recommended on TRT/HRT or under 40. Monitor hormones.",
+    timingIcon: "☀️",
     products: [
       { name: "Life Extension DHEA 25mg", price: 10, servings: 100, url: amzSearch("Life Extension DHEA 25mg") },
       { name: "Natrol DHEA 25mg", price: 10, servings: 300, url: amzSearch("Natrol DHEA 25mg") },
@@ -258,6 +300,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Nitric oxide production, blood flow, erection quality, exercise performance",
     timeToNotice: "1–2 weeks",
     keyCautions: "Absolute contraindication with nitrate medications. Halve dose with PDE5.",
+    timingIcon: "⚡",
     products: [
       { name: "Nutricost L-Citrulline 500g", price: 32, servings: 166, url: amzSearch("Nutricost L-Citrulline 500g") },
       { name: "Bulk Supplements L-Citrulline 500g", price: 28, servings: 166, url: amzSearch("Bulk Supplements L-Citrulline 500g") },
@@ -276,6 +319,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Dietary nitrate conversion to NO, endothelial function, exercise capacity",
     timeToNotice: "Acute (same day) + cumulative over 2 weeks",
     keyCautions: "Absolute contraindication with nitrate medications. Halve dose with PDE5.",
+    timingIcon: "⚡",
     products: [
       { name: "HumanN BeetElite", price: 55, servings: 30, url: amzSearch("HumanN BeetElite") },
       { name: "HumanN SuperBeets Sport", price: 40, servings: 25, url: amzSearch("HumanN SuperBeets Sport") },
@@ -294,6 +338,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Mitochondrial energy, heart health, antioxidant protection",
     timeToNotice: "4–8 weeks",
     keyCautions: "Generally well tolerated. Important if on statins.",
+    timingIcon: "☀️",
     products: [
       { name: "Jarrow QH-Absorb Ubiquinol", price: 35, servings: 60, url: amzSearch("Jarrow QH-Absorb Ubiquinol") },
       { name: "Life Extension Super Ubiquinol", price: 55, servings: 60, url: amzSearch("Life Extension Super Ubiquinol") },
@@ -312,6 +357,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "eNOS activation, blood flow, erection quality synergy with L-Arginine",
     timeToNotice: "2–4 weeks",
     keyCautions: "Contraindicated with nitrate medications. Reduce dose with PDE5.",
+    timingIcon: "☀️",
     products: [
       { name: "Life Extension Pycnogenol", price: 35, servings: 60, url: amzSearch("Life Extension Pycnogenol") },
       { name: "Puritan's Pride Pycnogenol", price: 18, servings: 30, url: amzSearch("Puritan's Pride Pycnogenol") },
@@ -330,6 +376,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Antioxidant, collagen synthesis, NO preservation, immune support",
     timeToNotice: "2–4 weeks",
     keyCautions: "Generally safe. High doses may cause GI discomfort.",
+    timingIcon: "☀️",
     products: [
       { name: "NOW Vitamin C-1000", price: 15, servings: 100, url: amzSearch("NOW Vitamin C-1000") },
       { name: "Thorne Ascorbic Acid", price: 18, servings: 250, url: amzSearch("Thorne Ascorbic Acid") },
@@ -348,6 +395,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Antioxidant, anti-inflammatory, senolytic, cardiovascular support",
     timeToNotice: "4–8 weeks",
     keyCautions: "Inhibits CYP3A4  -  caution with warfarin and some medications",
+    timingIcon: "☀️",
     products: [
       { name: "Jarrow Quercetin 500mg", price: 22, servings: 100, url: amzSearch("Jarrow Quercetin 500mg") },
       { name: "NOW Quercetin 500mg", price: 18, servings: 100, url: amzSearch("NOW Quercetin 500mg") },
@@ -368,6 +416,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Libido, sexual desire, energy, mood balance",
     timeToNotice: "2–6 weeks",
     keyCautions: "Generally well tolerated. Start at lower dose.",
+    timingIcon: "☀️",
     products: [
       { name: "Organic Veda Maca Powder", price: 20, servings: 100, url: amzSearch("Organic Veda Maca Powder") },
       { name: "Gaia Herbs Maca Root", price: 25, servings: 60, url: amzSearch("Gaia Herbs Maca Root") },
@@ -386,6 +435,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "PDE5 inhibition (mild), libido, bone health, blood flow",
     timeToNotice: "2–4 weeks",
     keyCautions: "Mild antiplatelet activity  -  note if on blood thinners",
+    timingIcon: "☀️🌙",
     products: [
       { name: "NOW Horny Goat Weed", price: 16, servings: 90, url: amzSearch("NOW Horny Goat Weed") },
       { name: "Nature's Way Horny Goat Weed", price: 18, servings: 60, url: amzSearch("Nature's Way Horny Goat Weed") },
@@ -404,6 +454,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Energy, cognitive function, erectile function, immune modulation",
     timeToNotice: "2–4 weeks",
     keyCautions: "May interact with blood thinners and diabetes medications",
+    timingIcon: "☀️",
     products: [
       { name: "Korea Ginseng Corp Red Panax", price: 30, servings: 60, url: amzSearch("Korea Ginseng Corp Red Panax") },
       { name: "Solgar Korean Ginseng", price: 22, servings: 60, url: amzSearch("Solgar Korean Ginseng") },
@@ -422,6 +473,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Calm focus, anxiety reduction, sleep quality, stress buffer",
     timeToNotice: "30–60 minutes (acute)",
     keyCautions: "Generally very safe. May enhance effects of BP medications.",
+    timingIcon: "🌙",
     products: [
       { name: "Jarrow L-Theanine", price: 18, servings: 60, url: amzSearch("Jarrow L-Theanine 200mg") },
       { name: "NOW L-Theanine", price: 15, servings: 60, url: amzSearch("NOW L-Theanine 200mg") },
@@ -442,6 +494,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "NAD+ production, cellular energy, DNA repair, longevity pathways",
     timeToNotice: "2–4 weeks for energy, 8+ weeks full benefit",
     keyCautions: "Emerging research. Generally well tolerated.",
+    timingIcon: "☀️",
     products: [
       { name: "Tru Niagen NR 300mg", price: 45, servings: 30, url: amzSearch("Tru Niagen NR 300mg") },
       { name: "Doublewood NMN 250mg", price: 30, servings: 60, url: amzSearch("Doublewood NMN 250mg") },
@@ -460,6 +513,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Sirtuin activation, cardiovascular protection, anti-inflammatory",
     timeToNotice: "4–8 weeks",
     keyCautions: "Inhibits CYP2C9  -  caution with warfarin",
+    timingIcon: "☀️",
     products: [
       { name: "Life Extension Optimized Resveratrol", price: 30, servings: 60, url: amzSearch("Life Extension Optimized Resveratrol") },
       { name: "Jarrow Resveratrol 100mg", price: 20, servings: 60, url: amzSearch("Jarrow Resveratrol") },
@@ -478,6 +532,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "AMPK activation, blood sugar regulation, lipid metabolism, gut health",
     timeToNotice: "4–8 weeks",
     keyCautions: "NOT recommended with diabetes medications  -  hypoglycemia risk",
+    timingIcon: "☀️🌙",
     products: [
       { name: "Thorne Berberine", price: 42, servings: 60, url: amzSearch("Thorne Berberine") },
       { name: "NOW Berberine HCl", price: 25, servings: 90, url: amzSearch("NOW Berberine HCl") },
@@ -496,6 +551,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "5-alpha reductase inhibition, prostate health, DHT modulation",
     timeToNotice: "4–8 weeks",
     keyCautions: "May affect PSA readings. Inform urologist.",
+    timingIcon: "🌙",
     products: [
       { name: "NOW Saw Palmetto", price: 20, servings: 90, url: amzSearch("NOW Saw Palmetto 320mg") },
       { name: "Life Extension Saw Palmetto", price: 22, servings: 60, url: amzSearch("Life Extension Saw Palmetto") },
@@ -514,6 +570,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Prostate protection, cardiovascular antioxidant, skin health",
     timeToNotice: "8–12 weeks",
     keyCautions: "Generally safe. Fat-soluble  -  take with dietary fat.",
+    timingIcon: "☀️",
     products: [
       { name: "Life Extension Lycopene", price: 18, servings: 60, url: amzSearch("Life Extension Lycopene") },
       { name: "NOW Lycopene", price: 15, servings: 60, url: amzSearch("NOW Lycopene 15mg") },
@@ -532,6 +589,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Gut microbiome, nutrient absorption, immune function, mood (gut-brain axis)",
     timeToNotice: "2–4 weeks",
     keyCautions: "Refrigerate if required. Start slowly if new to probiotics.",
+    timingIcon: "☀️",
     products: [
       { name: "Garden of Life RAW Probiotics Men", price: 45, servings: 90, url: amzSearch("Garden of Life RAW Probiotics Men") },
       { name: "Renew Life Ultimate Flora", price: 35, servings: 90, url: amzSearch("Renew Life Ultimate Flora") },
@@ -550,6 +608,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "ATP regeneration, muscle strength, cognitive function, hydration",
     timeToNotice: "2–4 weeks (loading) or 4–6 weeks (maintenance)",
     keyCautions: "Stay well hydrated. Safe long-term at 5g/day.",
+    timingIcon: "☀️🌤️🌙",
     products: [
       { name: "Thorne Creatine", price: 28, servings: 90, url: amzSearch("Thorne Creatine Monohydrate") },
       { name: "ON Micronized Creatine", price: 25, servings: 83, url: amzSearch("Optimum Nutrition Micronized Creatine") },
@@ -568,6 +627,7 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Joint health, skin elasticity, tendon recovery, gut lining",
     timeToNotice: "4–8 weeks",
     keyCautions: "Generally safe. Take with Vitamin C for synthesis.",
+    timingIcon: "☀️",
     products: [
       { name: "Vital Proteins Collagen", price: 45, servings: 28, url: amzSearch("Vital Proteins Collagen Peptides") },
       { name: "Sports Research Collagen", price: 32, servings: 30, url: amzSearch("Sports Research Collagen Peptides") },
