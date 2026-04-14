@@ -83,7 +83,7 @@ function SupplementRow({ s }: { s: CalculatedSupplement }) {
       {(pd?.timingIcon ?? s.timingIcon) && (
         <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-0.5">
           <span className="text-xs text-zinc-400 print:text-gray-500">
-            {pd?.timingIcon ?? s.timingIcon} {TIMING_LABELS[pd?.timingIcon ?? s.timingIcon] ?? ""}
+            {pd?.timingIcon ?? s.timingIcon} {pd?.timing ?? TIMING_LABELS[s.timingIcon] ?? ""}
           </span>
           <span className="text-xs font-medium text-yellow-500 print:text-gray-700">
             Daily total: {pd ? `${pd.dailyTotal.toLocaleString()} ${pd.unit}` : `${(s.baseDose * s.dailyServings).toLocaleString()} ${s.unit}`}
