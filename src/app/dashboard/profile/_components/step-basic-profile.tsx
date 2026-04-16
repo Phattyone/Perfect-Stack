@@ -96,28 +96,49 @@ export default function StepBasicProfile({ data, onChange }: StepBasicProfilePro
         <p className="mb-2 text-xs text-zinc-500">Select all that apply.</p>
         <div className="space-y-2">
           {HEALTH_STATUSES.map((opt) => {
+            const NO_CONDITIONS = "No significant conditions";
             const selected = data.health_status.includes(opt);
+            const hasOtherConditions = data.health_status.some(
+              (s: string) => s !== NO_CONDITIONS
+            );
+            const noConditionsSelected = data.health_status.includes(NO_CONDITIONS);
+            // Disable "No significant conditions" when other items are selected;
+            // disable all other items when "No significant conditions" is selected.
+            const disabled =
+              (opt === NO_CONDITIONS && hasOtherConditions) ||
+              (opt !== NO_CONDITIONS && noConditionsSelected);
             return (
               <label
                 key={opt}
-                className={`flex cursor-pointer items-center gap-2 rounded-md border px-3 py-2.5 text-sm transition ${
-                  selected
-                    ? "border-yellow-600 bg-yellow-600/10 text-white"
-                    : "border-zinc-700 bg-zinc-900 text-zinc-400 hover:border-zinc-600"
+                className={`flex items-center gap-2 rounded-md border px-3 py-2.5 text-sm transition ${
+                  disabled
+                    ? "cursor-not-allowed border-zinc-800 bg-zinc-900/50 text-zinc-600"
+                    : selected
+                    ? "cursor-pointer border-yellow-600 bg-yellow-600/10 text-white"
+                    : "cursor-pointer border-zinc-700 bg-zinc-900 text-zinc-400 hover:border-zinc-600"
                 }`}
               >
                 <input
                   type="checkbox"
                   checked={selected}
+                  disabled={disabled}
                   onChange={() => {
-                    const next = selected
-                      ? data.health_status.filter((s: string) => s !== opt)
-                      : [...data.health_status, opt];
-                    onChange("health_status", next);
+                    if (disabled) return;
+                    if (opt === NO_CONDITIONS) {
+                      // Selecting "No conditions" clears everything else
+                      onChange("health_status", selected ? [] : [NO_CONDITIONS]);
+                    } else {
+                      // Selecting any other option removes "No conditions"
+                      const without = data.health_status.filter(
+                        (s: string) => s !== NO_CONDITIONS && s !== opt
+                      );
+                      const next = selected ? without : [...without, opt];
+                      onChange("health_status", next);
+                    }
                   }}
                   className="sr-only"
                 />
-                <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${selected ? "border-yellow-600 bg-yellow-600" : "border-zinc-600"}`}>
+                <span className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${selected ? "border-yellow-600 bg-yellow-600" : disabled ? "border-zinc-700 bg-zinc-800" : "border-zinc-600"}`}>
                   {selected && <svg className="h-3 w-3 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>}
                 </span>
                 {opt}

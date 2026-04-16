@@ -76,8 +76,8 @@ export const SUPPLEMENTS: Supplement[] = [
     keyCautions: "K2 may interact with blood thinners (warfarin). Monitor INR.",
     timingIcon: "☀️",
     products: [
-      { name: "Sports Research D3+K2", price: 20, servings: 120, url: amz("B01GGH5C38") },
-      { name: "Thorne D3+K2 Liquid", price: 24, servings: 576, url: amz("B0BFYZ57RS") },
+      { name: "Sports Research D3+K2", price: 20, servings: 120, url: amz("B07NXW4GW7") },
+      { name: "Thorne D3+K2 Liquid", price: 24, servings: 576, url: amz("B0038NF8MG") },
       { name: "NOW D-3+K-2", price: 16, servings: 120, url: amzSearch("NOW D-3 K-2 5000IU") },
     ],
   },
@@ -86,7 +86,7 @@ export const SUPPLEMENTS: Supplement[] = [
     name: "Magnesium Glycinate",
     stack: "A",
     category: "Foundation",
-    baseDose: 400,
+    baseDose: 200,
     unit: "mg",
     dailyServings: 1,
     bestTiming: "Evening 30–60 min before bed",
@@ -95,7 +95,7 @@ export const SUPPLEMENTS: Supplement[] = [
     keyCautions: "May enhance BP-lowering effect of antihypertensives",
     timingIcon: "🌙",
     products: [
-      { name: "Thorne Magnesium Bisglycinate", price: 25, servings: 90, url: amz("B07L8BBWMR") },
+      { name: "Thorne Magnesium Bisglycinate", price: 25, servings: 90, url: amz("B0797HBLL3") },
       { name: "Doctor's Best High Absorption Mg", price: 20, servings: 120, url: amz("B000BD0RT0") },
       { name: "NOW Magnesium Glycinate", price: 18, servings: 180, url: amzSearch("NOW Magnesium Glycinate") },
     ],
@@ -115,7 +115,7 @@ export const SUPPLEMENTS: Supplement[] = [
     timingIcon: "☀️",
     products: [
       { name: "Nordic Naturals Ultimate Omega", price: 45, servings: 60, url: amz("B002CQU564") },
-      { name: "Carlson Super Omega-3", price: 30, servings: 100, url: amz("B000GG91VK") },
+      { name: "Carlson Super Omega-3", price: 30, servings: 100, url: amz("B003BVIAW0") },
       { name: "NOW Ultra Omega-3", price: 25, servings: 90, url: amzSearch("NOW Ultra Omega-3") },
     ],
   },
@@ -133,9 +133,9 @@ export const SUPPLEMENTS: Supplement[] = [
     keyCautions: "High doses deplete copper. Keep at 15–30mg.",
     timingIcon: "☀️",
     products: [
-      { name: "Thorne Zinc Picolinate 15mg", price: 18, servings: 60, url: amz("B0001VKSNO") },
+      { name: "Thorne Zinc Picolinate 15mg", price: 18, servings: 60, url: amz("B0797NSHQX") },
       { name: "NOW Zinc Picolinate 50mg", price: 12, servings: 120, url: amzSearch("NOW Zinc Picolinate 50mg") },
-      { name: "Jarrow Zinc Balance", price: 10, servings: 100, url: amz("B00031DAS4") },
+      { name: "Jarrow Zinc Balance", price: 10, servings: 100, url: amzSearch("Jarrow Formulas Zinc Balance 15mg") },
     ],
   },
   {
@@ -211,7 +211,7 @@ export const SUPPLEMENTS: Supplement[] = [
     keyCautions: "May affect thyroid hormones. Consult if on thyroid medication.",
     timingIcon: "🌙",
     products: [
-      { name: "Jarrow KSM-66 300mg", price: 25, servings: 120, url: amz("B009LD5S1A") },
+      { name: "Jarrow KSM-66 Ashwagandha", price: 25, servings: 120, url: amz("B0013OQEO8") },
       { name: "Nootropics Depot KSM-66 600mg", price: 30, servings: 60, url: amzSearch("Nootropics Depot KSM-66 600mg") },
       { name: "Solgar Ashwagandha", price: 22, servings: 60, url: amzSearch("Solgar Ashwagandha") },
     ],
@@ -249,7 +249,7 @@ export const SUPPLEMENTS: Supplement[] = [
     keyCautions: "Limited human data. Cycle 5 on / 2 off. Limited benefit on TRT.",
     timingIcon: "☀️",
     products: [
-      { name: "Nootropics Depot Fadogia", price: 30, servings: 90, url: amzSearch("Nootropics Depot Fadogia Agrestis") },
+      { name: "Double Wood Fadogia Agrestis 600mg", price: 25, servings: 90, url: amzSearch("Double Wood Fadogia Agrestis 600mg") },
       { name: "Gorilla Mind Fadogia", price: 45, servings: 90, url: amzSearch("Gorilla Mind Fadogia") },
       { name: "Doublewood Fadogia", price: 25, servings: 90, url: amzSearch("Doublewood Fadogia Agrestis") },
     ],
@@ -268,8 +268,8 @@ export const SUPPLEMENTS: Supplement[] = [
     keyCautions: "May lower blood sugar  -  caution with diabetes medications",
     timingIcon: "☀️🌙",
     products: [
-      { name: "NOW Fenugreek 500mg", price: 10, servings: 100, url: amz("B0009W2OAO") },
-      { name: "Jarrow Fenugreek", price: 12, servings: 100, url: amzSearch("Jarrow Fenugreek") },
+      { name: "NOW Fenugreek 500mg", price: 10, servings: 100, url: amz("B007ECYYSQ") },
+      { name: "Nootropics Depot Fenugreek Extract 500mg", price: 12, servings: 100, url: amz("B0C3JK177R") },
       { name: "Nature's Way Fenugreek", price: 10, servings: 180, url: amzSearch("Nature's Way Fenugreek") },
     ],
   },
@@ -288,7 +288,7 @@ export const SUPPLEMENTS: Supplement[] = [
     timingIcon: "☀️",
     products: [
       { name: "Life Extension DHEA 25mg", price: 10, servings: 100, url: amzSearch("Life Extension DHEA 25mg") },
-      { name: "Natrol DHEA 25mg", price: 10, servings: 300, url: amzSearch("Natrol DHEA 25mg") },
+      { name: "Natrol DHEA 25mg", price: 10, servings: 300, url: amz("B00016XI2K") },
       { name: "Pure Encapsulations DHEA", price: 25, servings: 180, url: amzSearch("Pure Encapsulations DHEA 25mg") },
     ],
   },
@@ -367,7 +367,7 @@ export const SUPPLEMENTS: Supplement[] = [
     products: [
       { name: "Life Extension Pycnogenol", price: 35, servings: 60, url: amzSearch("Life Extension Pycnogenol") },
       { name: "Puritan's Pride Pycnogenol", price: 18, servings: 30, url: amzSearch("Puritan's Pride Pycnogenol") },
-      { name: "Jarrow OPCs+95 Grape Seed", price: 22, servings: 100, url: amzSearch("Jarrow OPCs+95") },
+      { name: "Jarrow OPCs+95 Grape Seed", price: 22, servings: 100, url: amz("B0013OXA2M") },
     ],
   },
   {
@@ -424,7 +424,7 @@ export const SUPPLEMENTS: Supplement[] = [
     keyCautions: "Generally well tolerated. Start at lower dose.",
     timingIcon: "☀️",
     products: [
-      { name: "Organic Veda Maca Powder", price: 20, servings: 100, url: amzSearch("Organic Veda Maca Powder") },
+      { name: "Organic Veda Maca Powder", price: 20, servings: 100, url: amzSearch("Organic Veda Maca Root Powder") },
       { name: "Gaia Herbs Maca Root", price: 25, servings: 60, url: amzSearch("Gaia Herbs Maca Root") },
       { name: "NOW Maca 500mg", price: 15, servings: 250, url: amzSearch("NOW Maca 500mg") },
     ],
@@ -443,7 +443,7 @@ export const SUPPLEMENTS: Supplement[] = [
     keyCautions: "Mild antiplatelet activity  -  note if on blood thinners",
     timingIcon: "☀️",
     products: [
-      { name: "NOW Horny Goat Weed", price: 16, servings: 90, url: amzSearch("NOW Horny Goat Weed") },
+      { name: "NOW Horny Goat Weed 750mg", price: 16, servings: 90, url: amz("B007ECYYSQ") },
       { name: "Nature's Way Horny Goat Weed", price: 18, servings: 60, url: amzSearch("Nature's Way Horny Goat Weed") },
       { name: "Jarrow Epimedium", price: 20, servings: 60, url: amzSearch("Jarrow Epimedium") },
     ],
@@ -462,9 +462,10 @@ export const SUPPLEMENTS: Supplement[] = [
     keyCautions: "May interact with blood thinners and diabetes medications",
     timingIcon: "☀️",
     products: [
-      { name: "Korea Ginseng Corp Red Panax", price: 30, servings: 60, url: amzSearch("Korea Ginseng Corp Red Panax") },
+      { name: "NutraChamps Korean Red Panax Ginseng", price: 30, servings: 60, url: amzSearch("NutraChamps Korean Red Panax Ginseng") },
       { name: "Solgar Korean Ginseng", price: 22, servings: 60, url: amzSearch("Solgar Korean Ginseng") },
       { name: "Nature's Bounty Ginseng", price: 15, servings: 60, url: amzSearch("Nature's Bounty Ginseng") },
+      { name: "Micro Ingredients Red Panax Ginseng", price: 20, servings: 60, url: amz("B07S17DJS3") },
     ],
   },
   {
@@ -502,9 +503,8 @@ export const SUPPLEMENTS: Supplement[] = [
     keyCautions: "Emerging research. Generally well tolerated.",
     timingIcon: "☀️",
     products: [
-      { name: "Tru Niagen NR 300mg", price: 45, servings: 30, url: amzSearch("Tru Niagen NR 300mg") },
+      { name: "Tru Niagen NAD+ Precursor 300mg", price: 45, servings: 30, url: amzSearch("Tru Niagen 300mg") },
       { name: "Doublewood NMN 250mg", price: 30, servings: 60, url: amzSearch("Doublewood NMN 250mg") },
-      { name: "Alive by Science NMN", price: 48, servings: 90, url: amzSearch("Alive by Science NMN") },
     ],
   },
   {
@@ -580,7 +580,7 @@ export const SUPPLEMENTS: Supplement[] = [
     products: [
       { name: "Life Extension Lycopene", price: 18, servings: 60, url: amzSearch("Life Extension Lycopene") },
       { name: "NOW Lycopene", price: 15, servings: 60, url: amzSearch("NOW Lycopene 15mg") },
-      { name: "Jarrow Lyco-Sorb", price: 20, servings: 60, url: amzSearch("Jarrow Lyco-Sorb") },
+      { name: "Life Extension Lycopene 15mg", price: 20, servings: 60, url: amzSearch("Life Extension Lycopene 15mg") },
     ],
   },
   {

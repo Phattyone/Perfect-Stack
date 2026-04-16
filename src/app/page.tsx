@@ -363,6 +363,9 @@ export default function LandingPage() {
             <span className="text-xs text-zinc-500">Contact</span>
           </div>
         </div>
+        <div className="mx-auto mt-2 max-w-6xl px-6 text-center">
+          <span className="text-xs text-zinc-500">Perfect Stack v1.0</span>
+        </div>
       </footer>
     </div>
   );

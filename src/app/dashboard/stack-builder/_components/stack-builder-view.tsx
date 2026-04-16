@@ -134,8 +134,13 @@ export default function StackBuilderView({
         </div>
       )}
 
+      {/* Price disclaimer */}
+      <p className="mt-6 text-sm text-zinc-400">
+        Prices shown are estimates and subject to change. Always check the retailer&apos;s website for current pricing.
+      </p>
+
       {/* Active stack sections */}
-      <div className="mt-6 space-y-4">
+      <div className="mt-3 space-y-4">
         {STACK_ORDER.filter((s) => activeStacks.has(s)).map((stack) => {
           const stackSupps = groupedByStack[stack] ?? [];
           if (stackSupps.length === 0) return null;

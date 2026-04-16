@@ -51,6 +51,9 @@ export default async function DashboardLayout({
             <Link href="/terms" className="text-xs text-zinc-600 hover:text-zinc-400">Terms</Link>
           </div>
         </div>
+        <div className="mx-auto mt-2 max-w-5xl px-6 text-center">
+          <span className="text-xs text-zinc-500">Perfect Stack v1.0</span>
+        </div>
       </footer>
       <ChatBubble
         subscriptionStatus={subscriptionStatus}
