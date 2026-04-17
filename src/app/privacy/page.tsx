@@ -93,7 +93,7 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="mb-3 text-lg font-bold text-yellow-600">Contact</h2>
-            <p>For privacy-related questions or requests, contact us at <span className="text-yellow-600">contact@perfectstack.com</span></p>
+            <p>For privacy-related questions or requests, contact us at <span className="text-yellow-600">hello@getperfectstack.com</span></p>
           </section>
         </div>
       </main>

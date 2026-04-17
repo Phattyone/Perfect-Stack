@@ -360,7 +360,7 @@ export default function LandingPage() {
           <div className="flex gap-6">
             <Link href="/privacy" className="text-xs text-zinc-500 transition hover:text-zinc-400">Privacy</Link>
             <Link href="/terms" className="text-xs text-zinc-500 transition hover:text-zinc-400">Terms</Link>
-            <a href="mailto:hello@perfectstack.com" className="text-xs text-zinc-500 transition hover:text-zinc-400">Contact</a>
+            <a href="mailto:hello@getperfectstack.com" className="text-xs text-zinc-500 transition hover:text-zinc-400">Contact</a>
           </div>
         </div>
         <div className="mx-auto mt-2 max-w-6xl px-6 text-center">
