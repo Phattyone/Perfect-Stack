@@ -4,11 +4,20 @@ import { createClient } from "@/lib/supabase/server";
 import { signout } from "@/app/(auth)/actions";
 import { getJournalEntries, getSignedPhotoUrls } from "./actions";
 import JournalView from "./_components/journal-view";
+import { isUltimate } from "@/lib/subscription";
+import LockedFeature from "@/components/locked-feature";
 
 export default async function JournalPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
+
+  const { data: subData } = await supabase
+    .from("profiles")
+    .select("subscription_status")
+    .eq("id", user.id)
+    .single();
+  const subscriptionStatus = subData?.subscription_status ?? null;
 
   const entries = await getJournalEntries(user.id);
 
@@ -34,7 +43,15 @@ export default async function JournalPage() {
         </Link>
         <h1 className="text-2xl font-bold text-white">My 8-Week Journal</h1>
         <p className="mt-1 text-zinc-400">Track your weekly progress, protocol notes, and reflections.</p>
-        <div className="mt-6"><JournalView entries={entries} userId={user.id} initialSignedUrls={signedUrls} /></div>
+        {!isUltimate(subscriptionStatus) ? (
+          <LockedFeature
+            featureName="8-Week Journal"
+            description="Log weekly reflections, protocol notes, performance scores, and progress photos across all 8 weeks."
+            requiredPlan="ultimate"
+          />
+        ) : (
+          <div className="mt-6"><JournalView entries={entries} userId={user.id} initialSignedUrls={signedUrls} /></div>
+        )}
       </main>
     </div>
   );

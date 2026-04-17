@@ -3,11 +3,20 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { signout } from "@/app/(auth)/actions";
 import PelvicFloorView from "./_components/pelvic-floor-view";
+import { isUltimate } from "@/lib/subscription";
+import LockedFeature from "@/components/locked-feature";
 
 export default async function PelvicFloorPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
+
+  const { data: subData } = await supabase
+    .from("profiles")
+    .select("subscription_status")
+    .eq("id", user.id)
+    .single();
+  const subscriptionStatus = subData?.subscription_status ?? null;
 
   return (
     <div className="min-h-screen bg-zinc-950">
@@ -27,7 +36,15 @@ export default async function PelvicFloorPage() {
         </Link>
         <h1 className="text-2xl font-bold text-white">Pelvic Floor & Kegels</h1>
         <p className="mt-1 text-zinc-400">Progressive 8-week pelvic floor training for erection quality, control, and urinary health.</p>
-        <div className="mt-6"><PelvicFloorView /></div>
+        {!isUltimate(subscriptionStatus) ? (
+          <LockedFeature
+            featureName="Pelvic Floor & Kegels"
+            description="Access the progressive 8-week pelvic floor training program for erection quality and control."
+            requiredPlan="ultimate"
+          />
+        ) : (
+          <div className="mt-6"><PelvicFloorView /></div>
+        )}
       </main>
     </div>
   );

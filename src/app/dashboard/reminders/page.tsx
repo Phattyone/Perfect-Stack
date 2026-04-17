@@ -28,6 +28,8 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { signout } from "@/app/(auth)/actions";
 import RemindersView from "./_components/reminders-view";
+import { isFree } from "@/lib/subscription";
+import LockedFeature from "@/components/locked-feature";
 
 export default async function RemindersPage() {
   const supabase = await createClient();
@@ -38,6 +40,13 @@ export default async function RemindersPage() {
   if (!user) {
     redirect("/login");
   }
+
+  const { data: subData } = await supabase
+    .from("profiles")
+    .select("subscription_status")
+    .eq("id", user.id)
+    .single();
+  const subscriptionStatus = subData?.subscription_status ?? null;
 
   // Fetch saved preferences — if the table doesn't exist yet or no row exists,
   // initialPrefs will be null and the client will fall back to defaults.
@@ -119,9 +128,17 @@ export default async function RemindersPage() {
           Set daily reminders for your supplements, meals, drinks, and wellness habits.
         </p>
 
-        <div className="mt-6">
-          <RemindersView userId={user.id} initialPrefs={initialPrefs} />
-        </div>
+        {isFree(subscriptionStatus) ? (
+          <LockedFeature
+            featureName="Reminders & Notifications"
+            description="Set daily reminders for your supplements, meals, performance drinks, and wellness habits."
+            requiredPlan="foundation"
+          />
+        ) : (
+          <div className="mt-6">
+            <RemindersView userId={user.id} initialPrefs={initialPrefs} />
+          </div>
+        )}
       </main>
     </div>
   );

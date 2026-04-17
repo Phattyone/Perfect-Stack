@@ -36,7 +36,7 @@ export default function ChatBubble({ subscriptionStatus, userProfile }: ChatBubb
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const isPaid = ["foundation", "complete", "ultimate", "active"].includes(subscriptionStatus);
+  const isPaid = ["foundation", "complete", "ultimate", "active"].includes(subscriptionStatus); // mirrors isFoundation()
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });

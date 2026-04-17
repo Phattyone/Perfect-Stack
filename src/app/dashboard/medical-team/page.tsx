@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { signout } from "@/app/(auth)/actions";
 import { PROVIDERS } from "@/lib/data/medical-providers";
+import { isUltimate } from "@/lib/subscription";
+import LockedFeature from "@/components/locked-feature";
 
 export default async function MedicalTeamPage() {
   const supabase = await createClient();
@@ -13,6 +15,13 @@ export default async function MedicalTeamPage() {
   if (!user) {
     redirect("/login");
   }
+
+  const { data: subData } = await supabase
+    .from("profiles")
+    .select("subscription_status")
+    .eq("id", user.id)
+    .single();
+  const subscriptionStatus = subData?.subscription_status ?? null;
 
   const localProviders = PROVIDERS.filter((p) => p.type === "local");
   const telehealthProviders = PROVIDERS.filter((p) => p.type === "telehealth");
@@ -59,6 +68,14 @@ export default async function MedicalTeamPage() {
           hormone optimization, and the tests that matter.
         </p>
 
+        {!isUltimate(subscriptionStatus) ? (
+          <LockedFeature
+            featureName="Your Medical Team"
+            description="Connect with physicians and labs specializing in men's health, hormone optimization, and the tests that matter."
+            requiredPlan="ultimate"
+          />
+        ) : (
+          <>
         {/* Disclaimer */}
         <div className="mt-6 rounded-lg border border-yellow-600/30 bg-yellow-600/5 px-4 py-3 text-xs leading-relaxed text-yellow-500/80">
           This page contains referral links to medical providers. Perfect Stack
@@ -215,6 +232,8 @@ export default async function MedicalTeamPage() {
             ))}
           </div>
         </section>
+          </>
+        )}
       </main>
     </div>
   );

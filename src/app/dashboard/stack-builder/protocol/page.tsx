@@ -6,6 +6,8 @@ import { calculateStack } from "@/lib/stack-builder/calculator";
 import { PROTOCOL_NAMES } from "@/lib/types/profile";
 import type { ProfileFormData } from "@/lib/types/profile";
 import ProtocolView from "./protocol-view";
+import { isFree } from "@/lib/subscription";
+import LockedFeature from "@/components/locked-feature";
 
 export default async function ProtocolPage() {
   const supabase = await createClient();
@@ -43,6 +45,7 @@ export default async function ProtocolPage() {
     pde5_warning_acknowledged: profile.pde5_warning_acknowledged,
   };
 
+  const subscriptionStatus = profile.subscription_status ?? null;
   const result = calculateStack(profileData);
   const protocolName = PROTOCOL_NAMES[profileData.stack_selection] ?? "Your Protocol";
 
@@ -66,7 +69,15 @@ export default async function ProtocolPage() {
         <h1 className="text-2xl font-bold text-white print:text-black">My Protocol Summary</h1>
         <p className="mt-1 text-zinc-400 print:text-gray-600">{protocolName}</p>
 
-        <ProtocolView profile={profileData} result={result} />
+        {isFree(subscriptionStatus) ? (
+          <LockedFeature
+            featureName="Protocol Summary"
+            description="View your full supplement protocol, timing schedule, and printable summary."
+            requiredPlan="foundation"
+          />
+        ) : (
+          <ProtocolView profile={profileData} result={result} />
+        )}
       </main>
     </div>
   );

@@ -3,11 +3,20 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { signout } from "@/app/(auth)/actions";
 import SleepRecoveryView from "./_components/sleep-recovery-view";
+import { isFree } from "@/lib/subscription";
+import LockedFeature from "@/components/locked-feature";
 
 export default async function SleepRecoveryPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
+
+  const { data: subData } = await supabase
+    .from("profiles")
+    .select("subscription_status")
+    .eq("id", user.id)
+    .single();
+  const subscriptionStatus = subData?.subscription_status ?? null;
 
   return (
     <div className="min-h-screen bg-zinc-950">
@@ -27,7 +36,15 @@ export default async function SleepRecoveryPage() {
         </Link>
         <h1 className="text-2xl font-bold text-white">Sleep & Recovery</h1>
         <p className="mt-1 text-zinc-400">Sleep optimization, recovery protocols, and stress management for peak testosterone.</p>
-        <div className="mt-6"><SleepRecoveryView /></div>
+        {isFree(subscriptionStatus) ? (
+          <LockedFeature
+            featureName="Sleep & Recovery"
+            description="Access sleep optimization protocols, recovery strategies, and stress management for peak testosterone."
+            requiredPlan="foundation"
+          />
+        ) : (
+          <div className="mt-6"><SleepRecoveryView /></div>
+        )}
       </main>
     </div>
   );

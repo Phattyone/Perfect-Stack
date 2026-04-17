@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { signout } from "@/app/(auth)/actions";
 import RecipesView from "./_components/recipes-view";
+import { isFree } from "@/lib/subscription";
+import LockedFeature from "@/components/locked-feature";
 
 export default async function RecipesPage() {
   const supabase = await createClient();
@@ -13,6 +15,13 @@ export default async function RecipesPage() {
   if (!user) {
     redirect("/login");
   }
+
+  const { data: subData } = await supabase
+    .from("profiles")
+    .select("subscription_status")
+    .eq("id", user.id)
+    .single();
+  const subscriptionStatus = subData?.subscription_status ?? null;
 
   return (
     <div className="min-h-screen bg-zinc-950">
@@ -60,9 +69,17 @@ export default async function RecipesPage() {
           Performance recipes, your 7-day starter plan, and shopping list.
         </p>
 
-        <div className="mt-6">
-          <RecipesView />
-        </div>
+        {isFree(subscriptionStatus) ? (
+          <LockedFeature
+            featureName="Recipes & Meal Plan"
+            description="Access performance recipes, your 7-day starter plan, shopping list, and daily drinks protocol."
+            requiredPlan="foundation"
+          />
+        ) : (
+          <div className="mt-6">
+            <RecipesView />
+          </div>
+        )}
       </main>
     </div>
   );

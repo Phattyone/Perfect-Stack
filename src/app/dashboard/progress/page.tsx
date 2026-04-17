@@ -4,6 +4,8 @@ import { createClient } from "@/lib/supabase/server";
 import { signout } from "@/app/(auth)/actions";
 import { getProgressData } from "./actions";
 import ProgressTracker from "./_components/progress-tracker";
+import { isFree } from "@/lib/subscription";
+import LockedFeature from "@/components/locked-feature";
 
 export default async function ProgressPage() {
   const supabase = await createClient();
@@ -14,6 +16,13 @@ export default async function ProgressPage() {
   if (!user) {
     redirect("/login");
   }
+
+  const { data: subData } = await supabase
+    .from("profiles")
+    .select("subscription_status")
+    .eq("id", user.id)
+    .single();
+  const subscriptionStatus = subData?.subscription_status ?? null;
 
   const progressData = await getProgressData(user.id);
 
@@ -63,9 +72,17 @@ export default async function ProgressPage() {
           Track your 8-week protocol with baseline measurements and weekly check-ins.
         </p>
 
-        <div className="mt-6">
-          <ProgressTracker initialData={progressData} userId={user.id} />
-        </div>
+        {isFree(subscriptionStatus) ? (
+          <LockedFeature
+            featureName="Progress Tracker"
+            description="Track your 8-week protocol with baseline measurements, weekly check-ins, and visual charts."
+            requiredPlan="foundation"
+          />
+        ) : (
+          <div className="mt-6">
+            <ProgressTracker initialData={progressData} userId={user.id} />
+          </div>
+        )}
       </main>
     </div>
   );

@@ -3,11 +3,20 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { signout } from "@/app/(auth)/actions";
 import ExerciseView from "./_components/exercise-view";
+import { isFree } from "@/lib/subscription";
+import LockedFeature from "@/components/locked-feature";
 
 export default async function ExercisePage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect("/login");
+
+  const { data: subData } = await supabase
+    .from("profiles")
+    .select("subscription_status")
+    .eq("id", user.id)
+    .single();
+  const subscriptionStatus = subData?.subscription_status ?? null;
 
   return (
     <div className="min-h-screen bg-zinc-950">
@@ -27,7 +36,15 @@ export default async function ExercisePage() {
         </Link>
         <h1 className="text-2xl font-bold text-white">Exercise & Training</h1>
         <p className="mt-1 text-zinc-400">The 3-day resistance protocol, daily mobility, and home gym setup.</p>
-        <div className="mt-6"><ExerciseView /></div>
+        {isFree(subscriptionStatus) ? (
+          <LockedFeature
+            featureName="Exercise & Training"
+            description="Access the 3-day resistance protocol, daily mobility work, and home gym setup."
+            requiredPlan="foundation"
+          />
+        ) : (
+          <div className="mt-6"><ExerciseView /></div>
+        )}
       </main>
     </div>
   );

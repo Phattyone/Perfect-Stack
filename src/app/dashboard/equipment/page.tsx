@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { signout } from "@/app/(auth)/actions";
 import EquipmentView from "./_components/equipment-view";
+import { isFree } from "@/lib/subscription";
+import LockedFeature from "@/components/locked-feature";
 
 export default async function EquipmentPage() {
   const supabase = await createClient();
@@ -13,6 +15,13 @@ export default async function EquipmentPage() {
   if (!user) {
     redirect("/login");
   }
+
+  const { data: subData } = await supabase
+    .from("profiles")
+    .select("subscription_status")
+    .eq("id", user.id)
+    .single();
+  const subscriptionStatus = subData?.subscription_status ?? null;
 
   return (
     <div className="min-h-screen bg-zinc-950">
@@ -60,9 +69,17 @@ export default async function EquipmentPage() {
           Kitchen tools and home gym setup to run the protocol from home.
         </p>
 
-        <div className="mt-6">
-          <EquipmentView />
-        </div>
+        {isFree(subscriptionStatus) ? (
+          <LockedFeature
+            featureName="Equipment Guide"
+            description="Access kitchen tools and home gym setup recommendations with curated Amazon links."
+            requiredPlan="foundation"
+          />
+        ) : (
+          <div className="mt-6">
+            <EquipmentView />
+          </div>
+        )}
       </main>
     </div>
   );

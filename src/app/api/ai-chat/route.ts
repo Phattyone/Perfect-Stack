@@ -1,8 +1,26 @@
 import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { createClient } from "@/lib/supabase/server";
+import { isFoundation } from "@/lib/subscription";
 
 export async function POST(request: Request) {
   try {
+    // Auth + subscription check
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("subscription_status, stripe_subscription_id")
+      .eq("id", user.id)
+      .single();
+    const status = profile?.subscription_status ?? (profile?.stripe_subscription_id ? "active" : null);
+    if (!isFoundation(status)) {
+      return NextResponse.json({ error: "Subscription required" }, { status: 403 });
+    }
+
     const { message, userProfile, conversationHistory } = await request.json();
 
     if (!message) {

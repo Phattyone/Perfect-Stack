@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { signout } from "@/app/(auth)/actions";
+import { isFree } from "@/lib/subscription";
 
 const cards = [
   {
@@ -74,7 +75,7 @@ export default async function DashboardPage() {
     .eq("id", user.id)
     .single();
 
-  const isFree = (profile?.subscription_status ?? "free") === "free";
+  const userIsFree = isFree(profile?.subscription_status ?? null);
 
   return (
     <div className="min-h-screen bg-zinc-950">
@@ -99,7 +100,7 @@ export default async function DashboardPage() {
         <h1 className="text-2xl font-bold text-white">Welcome back</h1>
         <p className="mt-1 text-zinc-400">Here&apos;s your dashboard. Pick up where you left off.</p>
 
-        {isFree && (
+        {userIsFree && (
           <Link href="/pricing" className="mt-6 flex flex-col gap-2 rounded-lg border border-yellow-600/50 bg-yellow-600/5 px-6 py-4 transition hover:bg-yellow-600/10 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <span className="text-sm font-bold text-yellow-600">Unlock the full Perfect Stack system.</span>
