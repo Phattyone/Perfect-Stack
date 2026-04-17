@@ -42,23 +42,27 @@ type ReminderKey = Exclude<keyof Prefs, "notification_sound">;
 // ─── Defaults ─────────────────────────────────────────────────────────────────
 
 const DEFAULT_PREFS: Prefs = {
-  morning_supplements:       { enabled: true,  hour: 8,  minute: 0,  ampm: "AM" },
-  afternoon_supplements:     { enabled: true,  hour: 1,  minute: 0,  ampm: "PM" },
-  evening_supplements:       { enabled: true,  hour: 8,  minute: 0,  ampm: "PM" },
-  pre_activity_supplements:  { enabled: true,  hour: 5,  minute: 0,  ampm: "PM" },
-  breakfast:                 { enabled: true,  hour: 7,  minute: 30, ampm: "AM" },
-  lunch:                     { enabled: true,  hour: 12, minute: 0,  ampm: "PM" },
-  dinner:                    { enabled: true,  hour: 6,  minute: 30, ampm: "PM" },
-  post_workout_nutrition:    { enabled: true,  hour: 6,  minute: 0,  ampm: "PM" },
-  morning_performance_drink: { enabled: true,  hour: 7,  minute: 0,  ampm: "AM" },
-  nitric_oxide_shot:         { enabled: true,  hour: 4,  minute: 30, ampm: "PM" },
-  morning_water:             { enabled: true,  hour: 7,  minute: 0,  ampm: "AM" },
-  midday_water:              { enabled: true,  hour: 12, minute: 30, ampm: "PM" },
-  afternoon_water:           { enabled: true,  hour: 3,  minute: 30, ampm: "PM" },
-  daily_journal:             { enabled: true,  hour: 9,  minute: 0,  ampm: "PM" },
-  weekly_checkin:            { enabled: true,  hour: 9,  minute: 0,  ampm: "AM", day: 0 },
-  bedtime_winddown:          { enabled: true,  hour: 10, minute: 0,  ampm: "PM" },
-  morning_motivation:        { enabled: true,  hour: 6,  minute: 30, ampm: "AM" },
+  // Supplement Reminders
+  morning_supplements:       { enabled: true, hour: 7,  minute: 30, ampm: "AM" },
+  afternoon_supplements:     { enabled: true, hour: 1,  minute: 0,  ampm: "PM" },
+  evening_supplements:       { enabled: true, hour: 8,  minute: 0,  ampm: "PM" },
+  pre_activity_supplements:  { enabled: true, hour: 5,  minute: 0,  ampm: "PM" },
+  // Meal & Nutrition Reminders
+  breakfast:                 { enabled: true, hour: 7,  minute: 0,  ampm: "AM" },
+  lunch:                     { enabled: true, hour: 12, minute: 0,  ampm: "PM" },
+  dinner:                    { enabled: true, hour: 6,  minute: 30, ampm: "PM" },
+  post_workout_nutrition:    { enabled: true, hour: 6,  minute: 0,  ampm: "PM" },
+  // Drink & Hydration Reminders
+  morning_water:             { enabled: true, hour: 6,  minute: 30, ampm: "AM" },
+  midday_water:              { enabled: true, hour: 12, minute: 0,  ampm: "PM" },
+  afternoon_water:           { enabled: true, hour: 3,  minute: 0,  ampm: "PM" },
+  morning_performance_drink: { enabled: true, hour: 7,  minute: 0,  ampm: "AM" },
+  nitric_oxide_shot:         { enabled: true, hour: 4,  minute: 30, ampm: "PM" },
+  // Wellness Reminders
+  daily_journal:             { enabled: true, hour: 9,  minute: 0,  ampm: "PM" },
+  weekly_checkin:            { enabled: true, hour: 9,  minute: 0,  ampm: "AM", day: 0 },
+  bedtime_winddown:          { enabled: true, hour: 10, minute: 0,  ampm: "PM" },
+  morning_motivation:        { enabled: true, hour: 6,  minute: 0,  ampm: "AM" },
   notification_sound: "Default Chime",
 };
 
@@ -192,6 +196,8 @@ export default function RemindersView({ userId, initialPrefs }: RemindersViewPro
   const [saving, setSaving] = useState(false);
   const [saved,  setSaved]  = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [resetNotice, setResetNotice] = useState(false);
 
   // ── State updaters ──────────────────────────────────────────────────────────
 
@@ -238,6 +244,15 @@ export default function RemindersView({ userId, initialPrefs }: RemindersViewPro
 
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
+  }
+
+  // ── Reset handler ───────────────────────────────────────────────────────────
+
+  function handleConfirmReset() {
+    setPrefs({ ...DEFAULT_PREFS, weekly_checkin: { ...DEFAULT_PREFS.weekly_checkin } });
+    setShowResetConfirm(false);
+    setResetNotice(true);
+    setTimeout(() => setResetNotice(false), 3000);
   }
 
   // ── Select class helper ─────────────────────────────────────────────────────
@@ -396,27 +411,69 @@ export default function RemindersView({ userId, initialPrefs }: RemindersViewPro
         </div>
       </div>
 
-      {/* Save button + feedback */}
-      <div className="flex items-center gap-4 pb-4">
-        <button
-          type="button"
-          onClick={handleSave}
-          disabled={saving}
-          className="rounded-lg bg-yellow-500 px-6 py-2.5 text-sm font-semibold text-black transition hover:bg-yellow-400 disabled:opacity-60"
-        >
-          {saving ? "Saving…" : "Save Preferences"}
-        </button>
+      {/* Save / Reset buttons + feedback */}
+      <div className="space-y-3 pb-4">
+        {/* Button row */}
+        <div className="flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            onClick={handleSave}
+            disabled={saving}
+            className="rounded-lg bg-yellow-500 px-6 py-2.5 text-sm font-semibold text-black transition hover:bg-yellow-400 disabled:opacity-60"
+          >
+            {saving ? "Saving…" : "Save Preferences"}
+          </button>
 
-        {saved && (
-          <span className="text-sm font-medium text-yellow-500">
-            ✓ Saved
-          </span>
+          <button
+            type="button"
+            onClick={() => {
+              setShowResetConfirm(c => !c);
+              setResetNotice(false);
+            }}
+            className="rounded-lg bg-zinc-700 px-5 py-2.5 text-sm font-medium text-zinc-300 transition hover:bg-zinc-600"
+          >
+            Reset to Defaults
+          </button>
+
+          {saved && (
+            <span className="text-sm font-medium text-yellow-500">✓ Saved</span>
+          )}
+
+          {saveError && (
+            <span className="text-sm text-red-400">Error: {saveError}</span>
+          )}
+        </div>
+
+        {/* Inline reset confirmation */}
+        {showResetConfirm && (
+          <div className="rounded-lg border border-zinc-700 bg-zinc-800 px-5 py-4">
+            <p className="mb-3 text-sm text-zinc-300">
+              This will reset all reminders to the Perfect Stack recommended schedule. Are you sure?
+            </p>
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={handleConfirmReset}
+                className="rounded-md bg-red-700 px-4 py-1.5 text-sm font-medium text-white transition hover:bg-red-600"
+              >
+                Yes, Reset
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowResetConfirm(false)}
+                className="rounded-md bg-zinc-600 px-4 py-1.5 text-sm font-medium text-zinc-200 transition hover:bg-zinc-500"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
         )}
 
-        {saveError && (
-          <span className="text-sm text-red-400">
-            Error: {saveError}
-          </span>
+        {/* Post-reset notice */}
+        {resetNotice && (
+          <p className="text-sm font-medium text-yellow-500">
+            ↺ Reset to defaults — click Save to apply
+          </p>
         )}
       </div>
     </div>
