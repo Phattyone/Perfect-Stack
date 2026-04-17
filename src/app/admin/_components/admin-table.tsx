@@ -5,7 +5,6 @@ import { useState, useMemo } from "react";
 export interface AdminUserRow {
   id: string;
   email: string;
-  full_name: string | null;
   subscription_status: string;
   age_group: string | null;
   stack_selection: string[] | null;
@@ -47,11 +46,7 @@ export default function AdminTable({ rows }: { rows: AdminUserRow[] }) {
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return rows;
-    return rows.filter(
-      (r) =>
-        r.email.toLowerCase().includes(q) ||
-        (r.full_name ?? "").toLowerCase().includes(q)
-    );
+    return rows.filter((r) => r.email.toLowerCase().includes(q));
   }, [rows, query]);
 
   return (
@@ -121,9 +116,11 @@ export default function AdminTable({ rows }: { rows: AdminUserRow[] }) {
                     {row.email}
                   </td>
 
-                  {/* Name */}
+                  {/* Name (email prefix) */}
                   <td className="min-w-32 px-4 py-3 text-zinc-300">
-                    {row.full_name ?? <span className="text-zinc-600">—</span>}
+                    {row.email !== "N/A"
+                      ? row.email.split("@")[0]
+                      : <span className="text-zinc-600">N/A</span>}
                   </td>
 
                   {/* Subscription */}

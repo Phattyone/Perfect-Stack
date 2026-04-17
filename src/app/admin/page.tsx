@@ -53,7 +53,7 @@ export default async function AdminPage() {
     const { data: profiles, error: profilesErr } = await admin
       .from("profiles")
       .select(
-        "id, full_name, subscription_status, health_status, age_group, stack_selection, created_at, updated_at"
+        "id, subscription_status, health_status, age_group, stack_selection, created_at, updated_at"
       );
 
     if (profilesErr) {
@@ -121,7 +121,6 @@ export default async function AdminPage() {
     // ── 5. Merge ──────────────────────────────────────────────────────────
     const rows: AdminUserRow[] = (profiles ?? []).map((p: {
       id: string;
-      full_name: string | null;
       subscription_status: string | null;
       health_status: string[] | null;
       age_group: string | null;
@@ -135,7 +134,6 @@ export default async function AdminPage() {
       return {
         id: p.id,
         email: emailMap.get(p.id) ?? "N/A",
-        full_name: p.full_name ?? null,
         subscription_status: p.subscription_status ?? "free",
         age_group: p.age_group ?? null,
         stack_selection: p.stack_selection ?? null,
