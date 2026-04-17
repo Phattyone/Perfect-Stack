@@ -1,7 +1,12 @@
 "use client";
 
 import { useState, useMemo, useCallback } from "react";
+import Link from "next/link";
 import { RECIPES, type Recipe, type RecipeCategory } from "@/lib/data/recipes";
+import { isFree } from "@/lib/subscription";
+
+/** Recipe IDs that belong to Days 4–7 of the meal plan (locked for free users) */
+const LOCKED_RECIPE_IDS = [26, 25, 24, 7, 12, 3, 13, 16, 20, 6, 8, 17, 22, 19, 4, 9];
 
 const CATEGORIES: { key: RecipeCategory | "all"; label: string }[] = [
   { key: "all", label: "All" },
@@ -31,13 +36,13 @@ function PhotoPlaceholder({ recipe }: { recipe: Recipe }) {
   );
 }
 
-function RecipeCard({ recipe }: { recipe: Recipe }) {
+function RecipeCard({ recipe, locked }: { recipe: Recipe; locked?: boolean }) {
   const [open, setOpen] = useState(false);
   const [imgError, setImgError] = useState(false);
 
   const handleImgError = useCallback(() => setImgError(true), []);
 
-  return (
+  const card = (
     <div className="overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900 transition hover:border-yellow-600/40">
       {/* Photo header */}
       {recipe.photoUrl && !imgError ? (
@@ -140,11 +145,34 @@ function RecipeCard({ recipe }: { recipe: Recipe }) {
       </div>
     </div>
   );
+
+  if (!locked) return card;
+
+  return (
+    <div className="relative">
+      {/* Blurred card — non-interactive */}
+      <div className="pointer-events-none select-none" style={{ filter: "blur(4px)" }}>
+        {card}
+      </div>
+      {/* Clickable lock overlay */}
+      <Link
+        href="/pricing"
+        className="pointer-events-auto absolute inset-0 flex items-center justify-center rounded-lg"
+      >
+        <div className="flex flex-col items-center gap-1.5 rounded-lg bg-zinc-900/90 px-6 py-4 shadow-lg ring-1 ring-yellow-600/30">
+          <span className="text-2xl leading-none">🔒</span>
+          <span className="text-xs font-medium text-yellow-400">Upgrade to unlock</span>
+        </div>
+      </Link>
+    </div>
+  );
 }
 
-export default function RecipesTab() {
+export default function RecipesTab({ subscriptionStatus }: { subscriptionStatus: string }) {
+  const userIsFree = isFree(subscriptionStatus);
   const [category, setCategory] = useState<RecipeCategory | "all">("all");
   const [search, setSearch] = useState("");
+
 
   const filtered = useMemo(() => {
     let list = RECIPES;
@@ -192,7 +220,11 @@ export default function RecipesTab() {
       {/* Recipe grid */}
       <div className="grid gap-4 sm:grid-cols-2">
         {filtered.map((recipe) => (
-          <RecipeCard key={recipe.id} recipe={recipe} />
+          <RecipeCard
+            key={recipe.id}
+            recipe={recipe}
+            locked={userIsFree && LOCKED_RECIPE_IDS.includes(recipe.id)}
+          />
         ))}
         {filtered.length === 0 && (
           <p className="col-span-2 py-8 text-center text-sm text-zinc-500">
