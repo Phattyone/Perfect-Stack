@@ -46,6 +46,11 @@ const cards = [
     href: "/dashboard/sleep-recovery",
   },
   {
+    title: "Reminders & Notifications",
+    description: "Set daily reminders for supplements, meals, drinks, and wellness habits. Syncs with the mobile app.",
+    href: "/dashboard/reminders",
+  },
+  {
     title: "Equipment Guide",
     description: "Kitchen tools and home gym setup with Amazon links.",
     href: "/dashboard/equipment",
