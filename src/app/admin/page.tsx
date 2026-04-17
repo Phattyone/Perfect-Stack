@@ -136,8 +136,8 @@ export default async function AdminPage() {
         email: emailMap.get(p.id) ?? "N/A",
         subscription_status: p.subscription_status ?? "free",
         age_group: p.age_group ?? null,
-        stack_selection: p.stack_selection ?? null,
-        health_status: p.health_status ?? null,
+        stack_selection: Array.isArray(p.stack_selection) ? p.stack_selection : p.stack_selection ? [p.stack_selection] : null,
+        health_status: Array.isArray(p.health_status) ? p.health_status : p.health_status ? [p.health_status] : null,
         latest_checkin_score:
           checkinScore !== null ? Math.round(checkinScore * 10) / 10 : null,
         journal_count: journalCounts.get(p.id) ?? 0,

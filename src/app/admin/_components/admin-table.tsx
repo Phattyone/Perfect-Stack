@@ -130,9 +130,9 @@ export default function AdminTable({ rows }: { rows: AdminUserRow[] }) {
 
                   {/* Health Status */}
                   <td className="min-w-52 px-4 py-3 text-zinc-400">
-                    {row.health_status && row.health_status.length > 0 ? (
+                    {Array.isArray(row.health_status) && row.health_status.length > 0 ? (
                       <span className="text-xs">
-                        {row.health_status.join(", ")}
+                        {(Array.isArray(row.health_status) ? row.health_status : []).join(", ")}
                       </span>
                     ) : (
                       <span className="text-zinc-600">—</span>
@@ -146,9 +146,9 @@ export default function AdminTable({ rows }: { rows: AdminUserRow[] }) {
 
                   {/* Stacks */}
                   <td className="min-w-24 px-4 py-3">
-                    {row.stack_selection && row.stack_selection.length > 0 ? (
+                    {Array.isArray(row.stack_selection) && row.stack_selection.length > 0 ? (
                       <span className="text-xs font-medium text-yellow-500">
-                        {row.stack_selection.join(", ")}
+                        {(Array.isArray(row.stack_selection) ? row.stack_selection : []).join(", ")}
                       </span>
                     ) : (
                       <span className="text-zinc-600">—</span>
