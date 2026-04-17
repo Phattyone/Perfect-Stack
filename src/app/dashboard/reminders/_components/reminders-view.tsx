@@ -87,18 +87,18 @@ const SECTIONS: Section[] = [
     items: [
       { key: "morning_supplements",      label: "Morning supplements" },
       { key: "afternoon_supplements",    label: "Afternoon supplements" },
-      { key: "evening_supplements",      label: "Evening supplements" },
       { key: "pre_activity_supplements", label: "Pre-activity supplements" },
+      { key: "evening_supplements",      label: "Evening supplements" },
     ],
   },
   {
     title: "Meal & Nutrition Reminders",
     icon: "🍽️",
     items: [
-      { key: "breakfast",             label: "Breakfast reminder" },
-      { key: "lunch",                 label: "Lunch reminder" },
-      { key: "dinner",                label: "Dinner reminder" },
+      { key: "breakfast",              label: "Breakfast reminder" },
+      { key: "lunch",                  label: "Lunch reminder" },
       { key: "post_workout_nutrition", label: "Post-workout nutrition" },
+      { key: "dinner",                 label: "Dinner reminder" },
     ],
   },
   {
@@ -106,9 +106,9 @@ const SECTIONS: Section[] = [
     icon: "💧",
     items: [
       { key: "morning_water",             label: "Morning water" },
+      { key: "morning_performance_drink", label: "Morning performance drink" },
       { key: "midday_water",              label: "Midday water" },
       { key: "afternoon_water",           label: "Afternoon water" },
-      { key: "morning_performance_drink", label: "Morning performance drink" },
       { key: "nitric_oxide_shot",         label: "Nitric oxide shot" },
     ],
   },
@@ -116,10 +116,10 @@ const SECTIONS: Section[] = [
     title: "Wellness Reminders",
     icon: "🧘",
     items: [
-      { key: "daily_journal",     label: "Daily journal check-in" },
-      { key: "weekly_checkin",    label: "Weekly progress check-in", isWeekly: true },
-      { key: "bedtime_winddown",  label: "Bedtime wind-down" },
       { key: "morning_motivation", label: "Morning motivation" },
+      { key: "daily_journal",      label: "Daily journal check-in" },
+      { key: "bedtime_winddown",   label: "Bedtime wind-down" },
+      { key: "weekly_checkin",     label: "Weekly progress check-in", isWeekly: true },
     ],
   },
 ];
