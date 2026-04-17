@@ -80,7 +80,7 @@ export default function LandingPage() {
       <nav className="sticky top-0 z-50 border-b border-zinc-800 bg-zinc-950/95 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <span className="text-lg font-bold text-yellow-600">
-            PerfectStack<sup className="text-[8px]">&trade;</sup>
+            Perfect Stack<sup className="text-[8px]">&trade;</sup>
           </span>
           <div className="flex items-center gap-4">
             <Link href="/login" className="hidden text-sm text-zinc-400 transition hover:text-white sm:inline">
@@ -360,7 +360,7 @@ export default function LandingPage() {
           <div className="flex gap-6">
             <Link href="/privacy" className="text-xs text-zinc-500 transition hover:text-zinc-400">Privacy</Link>
             <Link href="/terms" className="text-xs text-zinc-500 transition hover:text-zinc-400">Terms</Link>
-            <span className="text-xs text-zinc-500">Contact</span>
+            <a href="mailto:hello@perfectstack.com" className="text-xs text-zinc-500 transition hover:text-zinc-400">Contact</a>
           </div>
         </div>
         <div className="mx-auto mt-2 max-w-6xl px-6 text-center">

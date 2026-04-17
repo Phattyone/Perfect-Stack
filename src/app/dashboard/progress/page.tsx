@@ -26,7 +26,7 @@ export default async function ProgressPage() {
             href="/dashboard"
             className="text-lg font-bold text-yellow-600 transition hover:text-yellow-500"
           >
-            PerfectStack
+            Perfect Stack
           </Link>
           <div className="flex items-center gap-4">
             <span className="hidden text-sm text-zinc-400 sm:inline">{user.email}</span>

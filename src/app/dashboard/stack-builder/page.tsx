@@ -60,7 +60,7 @@ export default async function StackBuilderPage() {
       <nav className="border-b border-zinc-800">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <Link href="/" className="text-lg font-bold text-yellow-600 hover:text-yellow-500 transition">
-            PerfectStack
+            Perfect Stack
           </Link>
           <div className="flex items-center gap-4">
             <span className="hidden text-sm text-zinc-400 sm:inline">{user.email}</span>
@@ -91,6 +91,18 @@ export default async function StackBuilderPage() {
           {PROTOCOL_NAMES[profileData.stack_selection] ?? "Your personalized supplement protocol"}{" "}
            -  based on your health profile.
         </p>
+
+        {/* Medical disclaimer */}
+        <div className="mt-4 rounded-lg bg-zinc-800 px-4 py-3">
+          <p className="text-xs leading-relaxed text-zinc-400">
+            <span className="mr-1">⚠️</span>
+            <strong className="text-zinc-300">These statements have not been evaluated by the Food and Drug Administration.</strong>{" "}
+            This product is not intended to diagnose, treat, cure, or prevent any disease. The supplement
+            recommendations on this page are personalized based on your health profile and are for informational
+            purposes only. Always consult your healthcare provider before starting any new supplement regimen,
+            especially if you have a medical condition or are taking prescription medications.
+          </p>
+        </div>
 
         <div className="mt-6">
           <StackBuilderView profile={profileData} result={result} />

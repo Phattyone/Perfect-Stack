@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PerfectStack  -  Men's Performance System",
+  title: "Perfect Stack  -  Men's Performance System",
   description:
     "A complete system for men who want more testosterone, better performance, sharper energy, and a protocol that actually works.",
 };

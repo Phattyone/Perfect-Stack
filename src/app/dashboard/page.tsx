@@ -76,7 +76,7 @@ export default async function DashboardPage() {
       <nav className="border-b border-zinc-800">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <Link href="/" className="text-lg font-bold text-yellow-600 transition hover:text-yellow-500">
-            PerfectStack
+            Perfect Stack
           </Link>
           <div className="flex items-center gap-4">
             <Link href="/pricing" className="text-sm text-zinc-400 transition hover:text-yellow-500">Pricing</Link>

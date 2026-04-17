@@ -55,7 +55,7 @@ export default async function ProfilePage() {
       <nav className="border-b border-zinc-800">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <Link href="/" className="text-lg font-bold text-yellow-600 hover:text-yellow-500 transition">
-            PerfectStack
+            Perfect Stack
           </Link>
           <div className="flex items-center gap-4">
             <span className="hidden text-sm text-zinc-400 sm:inline">{user.email}</span>

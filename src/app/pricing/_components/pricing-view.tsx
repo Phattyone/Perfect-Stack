@@ -75,7 +75,7 @@ export default function PricingView({
       {/* Success / canceled banners */}
       {success && (
         <div className="mb-8 rounded-lg border border-green-500/30 bg-green-500/10 px-4 py-3 text-center text-sm text-green-400">
-          Subscription activated! Welcome to PerfectStack.
+          Subscription activated! Welcome to Perfect Stack.
         </div>
       )}
       {canceled && (
@@ -95,7 +95,7 @@ export default function PricingView({
           Choose Your Protocol
         </h1>
         <p className="mt-2 text-zinc-400">
-          Unlock the full PerfectStack system. Cancel anytime.
+          Unlock the full Perfect Stack system. Cancel anytime.
         </p>
       </div>
 
