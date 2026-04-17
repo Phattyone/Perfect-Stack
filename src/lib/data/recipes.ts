@@ -620,7 +620,7 @@ export const RECIPES: Recipe[] = [
     name: "Chicken Thighs with Pomegranate Glaze",
     category: "meal",
     tags: ["testosterone", "libido", "protein"],
-    photoUrl: `${BASE}pomergranate%20chicken%20thighs.png`,
+    photoUrl: `${BASE}pomegranate%20chicken%20thighs.png`,
     theme: "longevity",
     prepTime: 35,
     servings: 2,
