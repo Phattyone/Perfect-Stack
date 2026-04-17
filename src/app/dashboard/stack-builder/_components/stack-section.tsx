@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import type { CalculatedSupplement } from "@/lib/stack-builder/types";
 import SupplementCard from "./supplement-card";
 
@@ -17,6 +18,8 @@ interface StackSectionProps {
   supplements: CalculatedSupplement[];
   isNitrateBlocked: boolean;
   onProductSelect: (supplementId: number, productIndex: number) => void;
+  /** Number of trailing supplements to blur for free users (0 = none) */
+  freeBlurCount?: number;
 }
 
 export default function StackSection({
@@ -24,7 +27,11 @@ export default function StackSection({
   supplements,
   isNitrateBlocked,
   onProductSelect,
+  freeBlurCount = 0,
 }: StackSectionProps) {
+  const blurStartIndex = freeBlurCount > 0
+    ? Math.max(0, supplements.length - freeBlurCount)
+    : supplements.length;
   const [open, setOpen] = useState(true);
   const info = STACK_INFO[stack] ?? { name: `Stack ${stack}`, description: "" };
 
@@ -64,12 +71,27 @@ export default function StackSection({
       {/* Cards */}
       {open && (
         <div className={`space-y-3 px-4 pb-4 ${isNitrateBlocked ? "opacity-40" : ""}`}>
-          {supplements.map((supp) => (
+          {/* Visible (unlocked) supplements */}
+          {supplements.slice(0, blurStartIndex).map((supp) => (
             <SupplementCard
               key={supp.id}
               supplement={supp}
               onProductSelect={onProductSelect}
             />
+          ))}
+          {/* Blurred (locked) supplements for free users */}
+          {supplements.slice(blurStartIndex).map((supp) => (
+            <Link key={supp.id} href="/pricing" className="relative block">
+              <div className="pointer-events-none select-none" style={{ filter: "blur(4px)" }}>
+                <SupplementCard supplement={supp} onProductSelect={() => {}} />
+              </div>
+              <div className="absolute inset-0 flex items-center justify-center rounded-lg">
+                <div className="rounded-lg bg-zinc-900/90 px-5 py-3 text-center shadow-lg ring-1 ring-yellow-600/30">
+                  <span className="block text-lg leading-none">🔒</span>
+                  <span className="mt-1 block text-xs font-medium text-yellow-400">Upgrade to unlock</span>
+                </div>
+              </div>
+            </Link>
           ))}
         </div>
       )}

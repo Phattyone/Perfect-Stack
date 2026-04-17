@@ -6,8 +6,6 @@ import { calculateStack } from "@/lib/stack-builder/calculator";
 import type { ProfileFormData } from "@/lib/types/profile";
 import { PROTOCOL_NAMES } from "@/lib/types/profile";
 import StackBuilderView from "./_components/stack-builder-view";
-import { isFree } from "@/lib/subscription";
-import LockedFeature from "@/components/locked-feature";
 
 export default async function StackBuilderPage() {
   const supabase = await createClient();
@@ -108,17 +106,13 @@ export default async function StackBuilderPage() {
           </p>
         </div>
 
-        {isFree(subscriptionStatus) ? (
-          <LockedFeature
-            featureName="Stack Builder"
-            description="Build your personalized supplement stack based on your health profile and goals."
-            requiredPlan="foundation"
+        <div className="mt-6">
+          <StackBuilderView
+            profile={profileData}
+            result={result}
+            subscriptionStatus={subscriptionStatus ?? "free"}
           />
-        ) : (
-          <div className="mt-6">
-            <StackBuilderView profile={profileData} result={result} />
-          </div>
-        )}
+        </div>
       </main>
     </div>
   );

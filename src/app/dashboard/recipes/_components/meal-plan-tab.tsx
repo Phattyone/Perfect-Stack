@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { MEAL_PLAN } from "@/lib/data/meal-plan";
 import { RECIPES } from "@/lib/data/recipes";
+import { isFree, FREE_MEAL_PLAN_DAYS } from "@/lib/subscription";
 
 function InlineRecipe({ recipeId }: { recipeId: number | null }) {
   const [open, setOpen] = useState(false);
@@ -49,8 +51,13 @@ function MealRow({ label, name, recipeId }: { label: string; name: string; recip
   );
 }
 
-export default function MealPlanTab() {
+interface MealPlanTabProps {
+  subscriptionStatus: string;
+}
+
+export default function MealPlanTab({ subscriptionStatus }: MealPlanTabProps) {
   const [openDay, setOpenDay] = useState<number | null>(1);
+  const userIsFree = isFree(subscriptionStatus);
 
   return (
     <div className="space-y-4">
@@ -60,23 +67,39 @@ export default function MealPlanTab() {
 
       {MEAL_PLAN.map((day) => {
         const isOpen = openDay === day.dayNumber;
+        const isLocked = userIsFree && day.dayNumber > FREE_MEAL_PLAN_DAYS;
         return (
-          <div key={day.dayNumber} className="rounded-lg border border-zinc-800">
-            <button
-              type="button"
-              onClick={() => setOpenDay(isOpen ? null : day.dayNumber)}
-              className="flex w-full items-center justify-between px-4 py-3 text-left"
-            >
-              <div>
-                <span className="text-sm font-bold text-yellow-600">Day {day.dayNumber}</span>
-                <span className="ml-2 text-sm text-zinc-400"> - {day.theme}</span>
-              </div>
-              <svg className={`h-4 w-4 shrink-0 text-zinc-500 transition-transform ${isOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
+          <div key={day.dayNumber} className={`rounded-lg border border-zinc-800${isLocked ? " opacity-50" : ""}`}>
+            {isLocked ? (
+              <Link
+                href="/pricing"
+                className="flex w-full items-center justify-between px-4 py-3 text-left"
+              >
+                <div>
+                  <span className="text-sm font-bold text-yellow-600">Day {day.dayNumber}</span>
+                  <span className="ml-2 text-sm text-zinc-400"> - {day.theme}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-medium text-yellow-500">🔒 Upgrade to unlock</span>
+                </div>
+              </Link>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setOpenDay(isOpen ? null : day.dayNumber)}
+                className="flex w-full items-center justify-between px-4 py-3 text-left"
+              >
+                <div>
+                  <span className="text-sm font-bold text-yellow-600">Day {day.dayNumber}</span>
+                  <span className="ml-2 text-sm text-zinc-400"> - {day.theme}</span>
+                </div>
+                <svg className={`h-4 w-4 shrink-0 text-zinc-500 transition-transform ${isOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+            )}
 
-            {isOpen && (
+            {isOpen && !isLocked && (
               <div className="border-t border-zinc-800 px-4 py-3">
                 <MealRow label="Breakfast" name={day.breakfast.name} recipeId={day.breakfast.recipeId} />
                 <MealRow label="Lunch" name={day.lunch.name} recipeId={day.lunch.recipeId} />

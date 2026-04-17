@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import {
   SHOPPING_LIST,
   CATEGORY_LABELS,
   type ShoppingCategory,
 } from "@/lib/data/shopping-list";
+import { isFree } from "@/lib/subscription";
 
 const CATEGORY_ORDER: ShoppingCategory[] = [
   "proteins",
@@ -20,8 +22,33 @@ const PRIORITY_DOT: Record<string, string> = {
   optional: "bg-zinc-500",
 };
 
-export default function ShoppingListTab() {
+interface ShoppingListTabProps {
+  subscriptionStatus: string;
+}
+
+export default function ShoppingListTab({ subscriptionStatus }: ShoppingListTabProps) {
   const [checked, setChecked] = useState<Set<number>>(new Set());
+  const userIsFree = isFree(subscriptionStatus);
+
+  if (userIsFree) {
+    return (
+      <div className="flex flex-col items-center justify-center py-16 text-center">
+        <span className="flex h-14 w-14 items-center justify-center rounded-full bg-yellow-600/10 text-3xl">
+          🔒
+        </span>
+        <h3 className="mt-4 text-lg font-semibold text-white">Shopping List</h3>
+        <p className="mx-auto mt-2 max-w-xs text-sm text-zinc-400">
+          The curated Week 1 shopping list is included with the Foundation plan.
+        </p>
+        <Link
+          href="/pricing"
+          className="mt-6 rounded-lg bg-yellow-500 px-6 py-2.5 text-sm font-semibold text-black transition hover:bg-yellow-400"
+        >
+          Upgrade to Foundation
+        </Link>
+      </div>
+    );
+  }
 
   function toggle(id: number) {
     setChecked((prev) => {

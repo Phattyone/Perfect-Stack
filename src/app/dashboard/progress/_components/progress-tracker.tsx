@@ -1,11 +1,33 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import type { BaselineData, WeeklyEntryData, ProgressData } from "@/lib/types/progress";
 import BaselineForm from "./baseline-form";
 import BaselineSummary from "./baseline-summary";
 import WeeklyForm from "./weekly-form";
 import ProgressOverview from "./progress-overview";
+import { isFree } from "@/lib/subscription";
+
+function LockedTabContent({ featureName }: { featureName: string }) {
+  return (
+    <Link
+      href="/pricing"
+      className="flex flex-col items-center justify-center py-16 text-center transition hover:opacity-90"
+    >
+      <span className="flex h-14 w-14 items-center justify-center rounded-full bg-yellow-600/10 text-3xl">
+        🔒
+      </span>
+      <h3 className="mt-4 text-lg font-semibold text-white">{featureName}</h3>
+      <p className="mx-auto mt-2 max-w-xs text-sm text-zinc-400">
+        Foundation plan required to access this feature.
+      </p>
+      <span className="mt-6 rounded-lg bg-yellow-500 px-6 py-2.5 text-sm font-semibold text-black">
+        Upgrade to Foundation
+      </span>
+    </Link>
+  );
+}
 
 type Tab = "baseline" | "weekly" | "progress";
 
@@ -18,9 +40,11 @@ const TABS: { key: Tab; label: string }[] = [
 interface ProgressTrackerProps {
   initialData: ProgressData;
   userId: string;
+  subscriptionStatus: string;
 }
 
-export default function ProgressTracker({ initialData, userId }: ProgressTrackerProps) {
+export default function ProgressTracker({ initialData, userId, subscriptionStatus }: ProgressTrackerProps) {
+  const userIsFree = isFree(subscriptionStatus);
   const [activeTab, setActiveTab] = useState<Tab>("baseline");
   const [baseline, setBaseline] = useState<BaselineData | null>(initialData.baseline);
   const [entries, setEntries] = useState<WeeklyEntryData[]>(initialData.weeklyEntries);
@@ -75,16 +99,20 @@ export default function ProgressTracker({ initialData, userId }: ProgressTracker
         )}
 
         {activeTab === "weekly" && (
-          <WeeklyForm
-            baseline={baseline}
-            existingEntries={entries}
-            userId={userId}
-            onSaved={handleWeeklySaved}
-          />
+          userIsFree
+            ? <LockedTabContent featureName="Weekly Check-In" />
+            : <WeeklyForm
+                baseline={baseline}
+                existingEntries={entries}
+                userId={userId}
+                onSaved={handleWeeklySaved}
+              />
         )}
 
         {activeTab === "progress" && (
-          <ProgressOverview baseline={baseline} entries={entries} />
+          userIsFree
+            ? <LockedTabContent featureName="My Progress" />
+            : <ProgressOverview baseline={baseline} entries={entries} />
         )}
       </div>
     </div>

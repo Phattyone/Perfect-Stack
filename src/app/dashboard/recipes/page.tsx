@@ -3,8 +3,6 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { signout } from "@/app/(auth)/actions";
 import RecipesView from "./_components/recipes-view";
-import { isFree } from "@/lib/subscription";
-import LockedFeature from "@/components/locked-feature";
 
 export default async function RecipesPage() {
   const supabase = await createClient();
@@ -69,17 +67,9 @@ export default async function RecipesPage() {
           Performance recipes, your 7-day starter plan, and shopping list.
         </p>
 
-        {isFree(subscriptionStatus) ? (
-          <LockedFeature
-            featureName="Recipes & Meal Plan"
-            description="Access performance recipes, your 7-day starter plan, shopping list, and daily drinks protocol."
-            requiredPlan="foundation"
-          />
-        ) : (
-          <div className="mt-6">
-            <RecipesView />
-          </div>
-        )}
+        <div className="mt-6">
+          <RecipesView subscriptionStatus={subscriptionStatus ?? "free"} />
+        </div>
       </main>
     </div>
   );

@@ -14,3 +14,9 @@ export function isUltimate(status: string | null): boolean {
 export function isFree(status: string | null): boolean {
   return !isFoundation(status)
 }
+
+/** Number of Stack A supplements blurred/locked for free users */
+export const FREE_STACK_A_LOCKED_SUPPLEMENTS: number = 2
+
+/** Number of meal plan days fully accessible for free users */
+export const FREE_MEAL_PLAN_DAYS: number = 3

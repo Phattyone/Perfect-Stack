@@ -15,7 +15,11 @@ const TABS: { key: Tab; label: string }[] = [
   { key: "shopping", label: "Shopping List" },
 ];
 
-export default function RecipesView() {
+interface RecipesViewProps {
+  subscriptionStatus: string;
+}
+
+export default function RecipesView({ subscriptionStatus }: RecipesViewProps) {
   const [activeTab, setActiveTab] = useState<Tab>("plan");
 
   return (
@@ -41,9 +45,9 @@ export default function RecipesView() {
       {/* Tab content */}
       <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-6">
         {activeTab === "recipes" && <RecipesTab />}
-        {activeTab === "plan" && <MealPlanTab />}
+        {activeTab === "plan" && <MealPlanTab subscriptionStatus={subscriptionStatus} />}
         {activeTab === "drinks" && <DrinksProtocolTab />}
-        {activeTab === "shopping" && <ShoppingListTab />}
+        {activeTab === "shopping" && <ShoppingListTab subscriptionStatus={subscriptionStatus} />}
       </div>
     </div>
   );

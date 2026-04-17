@@ -8,10 +8,12 @@ import ProfileSummary from "./profile-summary";
 import FactorScoresDisplay from "./factor-scores";
 import StackSection from "./stack-section";
 import LockedStackSection from "./locked-stack-section";
+import { isFree, FREE_STACK_A_LOCKED_SUPPLEMENTS } from "@/lib/subscription";
 
 interface StackBuilderViewProps {
   profile: ProfileFormData;
   result: StackResult;
+  subscriptionStatus: string;
 }
 
 const STACK_ORDER = ["A", "B", "C", "D", "E"] as const;
@@ -30,7 +32,9 @@ const STACK_MAP: Record<string, Set<string>> = {
 export default function StackBuilderView({
   profile,
   result,
+  subscriptionStatus,
 }: StackBuilderViewProps) {
+  const userIsFree = isFree(subscriptionStatus);
   // Product selection state: { [supplementId]: productIndex }
   const [selectedProducts, setSelectedProducts] = useState<
     Record<number, number>
@@ -108,8 +112,23 @@ export default function StackBuilderView({
 
   return (
     <div className="pb-24">
+      {/* Free-tier controls gate banner */}
+      {userIsFree && (
+        <div className="mb-3 flex items-center justify-between rounded-lg border border-yellow-600/40 bg-yellow-600/5 px-4 py-2.5">
+          <span className="text-xs font-medium text-yellow-500">
+            Customize your stack — Foundation plan required
+          </span>
+          <Link
+            href="/pricing"
+            className="rounded bg-yellow-600 px-3 py-1 text-xs font-semibold text-black transition hover:bg-yellow-500"
+          >
+            Upgrade
+          </Link>
+        </div>
+      )}
+
       {/* Profile summary + factor scores */}
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className={`grid gap-4 sm:grid-cols-2${userIsFree ? " pointer-events-none opacity-50" : ""}`}>
         <ProfileSummary profile={profile} />
         <FactorScoresDisplay factors={result.factors} />
       </div>
@@ -152,6 +171,7 @@ export default function StackBuilderView({
               supplements={stackSupps}
               isNitrateBlocked={false}
               onProductSelect={handleProductSelect}
+              freeBlurCount={userIsFree && stack === "A" ? FREE_STACK_A_LOCKED_SUPPLEMENTS : 0}
             />
           );
         })}
@@ -190,12 +210,21 @@ export default function StackBuilderView({
               ${totalMonthlyCost.toFixed(2)}
             </span>
           </div>
-          <Link
-            href="/dashboard/stack-builder/protocol"
-            className="rounded-md bg-yellow-600 px-5 py-2 text-sm font-semibold text-black transition hover:bg-yellow-500"
-          >
-            View My Full Protocol
-          </Link>
+          {userIsFree ? (
+            <Link
+              href="/pricing"
+              className="rounded-md bg-zinc-700 px-5 py-2 text-sm font-semibold text-zinc-300 transition hover:bg-zinc-600"
+            >
+              Upgrade to View Protocol
+            </Link>
+          ) : (
+            <Link
+              href="/dashboard/stack-builder/protocol"
+              className="rounded-md bg-yellow-600 px-5 py-2 text-sm font-semibold text-black transition hover:bg-yellow-500"
+            >
+              View My Full Protocol
+            </Link>
+          )}
         </div>
       </div>
     </div>
