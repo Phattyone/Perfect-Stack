@@ -88,14 +88,16 @@ function RecipeCard({ recipe, locked }: { recipe: Recipe; locked?: boolean }) {
       <p className="mt-2 text-xs italic text-yellow-500/80">{recipe.performanceBenefits}</p>
       <p className="mt-1 text-xs text-zinc-500">{recipe.bestTiming}</p>
 
-      {/* Expand */}
-      <button
-        type="button"
-        onClick={() => setOpen(!open)}
-        className="mt-3 text-xs font-medium text-yellow-600 hover:text-yellow-500"
-      >
-        {open ? "Hide details" : "View recipe"}
-      </button>
+      {/* Expand — hidden on locked cards (blur overlay already covers them) */}
+      {!locked && (
+        <button
+          type="button"
+          onClick={() => setOpen(!open)}
+          className="mt-3 text-xs font-medium text-yellow-600 hover:text-yellow-500"
+        >
+          {open ? "Hide details" : "View recipe"}
+        </button>
+      )}
 
       {open && (
         <div className="mt-3 space-y-3 border-t border-zinc-800 pt-3">
