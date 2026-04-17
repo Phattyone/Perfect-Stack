@@ -18,6 +18,7 @@ interface WeeklyReminder extends ReminderTime {
 
 interface Prefs {
   morning_supplements: ReminderTime;
+  afternoon_supplements: ReminderTime;
   evening_supplements: ReminderTime;
   pre_activity_supplements: ReminderTime;
   breakfast: ReminderTime;
@@ -26,7 +27,9 @@ interface Prefs {
   post_workout_nutrition: ReminderTime;
   morning_performance_drink: ReminderTime;
   nitric_oxide_shot: ReminderTime;
-  daily_water_check: ReminderTime;
+  morning_water: ReminderTime;
+  midday_water: ReminderTime;
+  afternoon_water: ReminderTime;
   daily_journal: ReminderTime;
   weekly_checkin: WeeklyReminder;
   bedtime_winddown: ReminderTime;
@@ -40,6 +43,7 @@ type ReminderKey = Exclude<keyof Prefs, "notification_sound">;
 
 const DEFAULT_PREFS: Prefs = {
   morning_supplements:       { enabled: true,  hour: 8,  minute: 0,  ampm: "AM" },
+  afternoon_supplements:     { enabled: true,  hour: 1,  minute: 0,  ampm: "PM" },
   evening_supplements:       { enabled: true,  hour: 8,  minute: 0,  ampm: "PM" },
   pre_activity_supplements:  { enabled: true,  hour: 5,  minute: 0,  ampm: "PM" },
   breakfast:                 { enabled: true,  hour: 7,  minute: 30, ampm: "AM" },
@@ -48,7 +52,9 @@ const DEFAULT_PREFS: Prefs = {
   post_workout_nutrition:    { enabled: true,  hour: 6,  minute: 0,  ampm: "PM" },
   morning_performance_drink: { enabled: true,  hour: 7,  minute: 0,  ampm: "AM" },
   nitric_oxide_shot:         { enabled: true,  hour: 4,  minute: 30, ampm: "PM" },
-  daily_water_check:         { enabled: true,  hour: 2,  minute: 0,  ampm: "PM" },
+  morning_water:             { enabled: true,  hour: 7,  minute: 0,  ampm: "AM" },
+  midday_water:              { enabled: true,  hour: 12, minute: 30, ampm: "PM" },
+  afternoon_water:           { enabled: true,  hour: 3,  minute: 30, ampm: "PM" },
   daily_journal:             { enabled: true,  hour: 9,  minute: 0,  ampm: "PM" },
   weekly_checkin:            { enabled: true,  hour: 9,  minute: 0,  ampm: "AM", day: 0 },
   bedtime_winddown:          { enabled: true,  hour: 10, minute: 0,  ampm: "PM" },
@@ -76,6 +82,7 @@ const SECTIONS: Section[] = [
     icon: "💊",
     items: [
       { key: "morning_supplements",      label: "Morning supplements" },
+      { key: "afternoon_supplements",    label: "Afternoon supplements" },
       { key: "evening_supplements",      label: "Evening supplements" },
       { key: "pre_activity_supplements", label: "Pre-activity supplements" },
     ],
@@ -94,9 +101,11 @@ const SECTIONS: Section[] = [
     title: "Drink & Hydration Reminders",
     icon: "💧",
     items: [
+      { key: "morning_water",             label: "Morning water" },
+      { key: "midday_water",              label: "Midday water" },
+      { key: "afternoon_water",           label: "Afternoon water" },
       { key: "morning_performance_drink", label: "Morning performance drink" },
       { key: "nitric_oxide_shot",         label: "Nitric oxide shot" },
-      { key: "daily_water_check",         label: "Daily water intake check" },
     ],
   },
   {
@@ -148,6 +157,7 @@ function buildPrefs(saved: Record<string, unknown> | null): Prefs {
 
   return {
     morning_supplements:       safeRT("morning_supplements",       DEFAULT_PREFS.morning_supplements),
+    afternoon_supplements:     safeRT("afternoon_supplements",     DEFAULT_PREFS.afternoon_supplements),
     evening_supplements:       safeRT("evening_supplements",       DEFAULT_PREFS.evening_supplements),
     pre_activity_supplements:  safeRT("pre_activity_supplements",  DEFAULT_PREFS.pre_activity_supplements),
     breakfast:                 safeRT("breakfast",                 DEFAULT_PREFS.breakfast),
@@ -156,7 +166,9 @@ function buildPrefs(saved: Record<string, unknown> | null): Prefs {
     post_workout_nutrition:    safeRT("post_workout_nutrition",    DEFAULT_PREFS.post_workout_nutrition),
     morning_performance_drink: safeRT("morning_performance_drink", DEFAULT_PREFS.morning_performance_drink),
     nitric_oxide_shot:         safeRT("nitric_oxide_shot",         DEFAULT_PREFS.nitric_oxide_shot),
-    daily_water_check:         safeRT("daily_water_check",         DEFAULT_PREFS.daily_water_check),
+    morning_water:             safeRT("morning_water",             DEFAULT_PREFS.morning_water),
+    midday_water:              safeRT("midday_water",              DEFAULT_PREFS.midday_water),
+    afternoon_water:           safeRT("afternoon_water",           DEFAULT_PREFS.afternoon_water),
     daily_journal:             safeRT("daily_journal",             DEFAULT_PREFS.daily_journal),
     weekly_checkin:            { ...base, day },
     bedtime_winddown:          safeRT("bedtime_winddown",          DEFAULT_PREFS.bedtime_winddown),
