@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { RECIPES } from "@/lib/data/recipes";
+import { isFree } from "@/lib/subscription";
 
 function InlineRecipe({ recipeId }: { recipeId: number | null }) {
   const [open, setOpen] = useState(false);
@@ -72,7 +73,8 @@ const PROTOCOL = [
   },
 ];
 
-export default function DrinksProtocolTab() {
+export default function DrinksProtocolTab({ subscriptionStatus }: { subscriptionStatus: string }) {
+  const userIsFree = isFree(subscriptionStatus);
   return (
     <div className="space-y-4">
       <p className="text-sm text-zinc-400">
@@ -90,7 +92,7 @@ export default function DrinksProtocolTab() {
             </div>
           </div>
           <p className="mt-2 text-xs leading-relaxed text-zinc-400">{item.why}</p>
-          <InlineRecipe recipeId={item.recipeId} />
+          {!userIsFree && <InlineRecipe recipeId={item.recipeId} />}
         </div>
       ))}
     </div>

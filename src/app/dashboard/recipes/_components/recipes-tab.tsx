@@ -36,7 +36,7 @@ function PhotoPlaceholder({ recipe }: { recipe: Recipe }) {
   );
 }
 
-function RecipeCard({ recipe, locked }: { recipe: Recipe; locked?: boolean }) {
+function RecipeCard({ recipe, locked, userIsFree }: { recipe: Recipe; locked?: boolean; userIsFree?: boolean }) {
   const [open, setOpen] = useState(false);
   const [imgError, setImgError] = useState(false);
 
@@ -88,8 +88,8 @@ function RecipeCard({ recipe, locked }: { recipe: Recipe; locked?: boolean }) {
       <p className="mt-2 text-xs italic text-yellow-500/80">{recipe.performanceBenefits}</p>
       <p className="mt-1 text-xs text-zinc-500">{recipe.bestTiming}</p>
 
-      {/* Expand — hidden on locked cards (blur overlay already covers them) */}
-      {!locked && (
+      {/* Expand — hidden on locked cards and for all free users */}
+      {!locked && !userIsFree && (
         <button
           type="button"
           onClick={() => setOpen(!open)}
@@ -226,6 +226,7 @@ export default function RecipesTab({ subscriptionStatus }: { subscriptionStatus:
             key={recipe.id}
             recipe={recipe}
             locked={userIsFree && LOCKED_RECIPE_IDS.includes(recipe.id)}
+            userIsFree={userIsFree}
           />
         ))}
         {filtered.length === 0 && (

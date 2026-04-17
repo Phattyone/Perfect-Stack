@@ -42,11 +42,13 @@ function MealRow({
   name,
   recipeId,
   locked,
+  subscriptionStatus,
 }: {
   label: string;
   name: string;
   recipeId: number | null;
   locked?: boolean;
+  subscriptionStatus: string;
 }) {
   const inner = (
     <div className="py-1.5">
@@ -54,7 +56,7 @@ function MealRow({
         <span className="w-20 shrink-0 text-xs font-medium text-zinc-500">{label}</span>
         <div>
           <span className="text-sm text-zinc-300">{name}</span>
-          {!locked && <InlineRecipe recipeId={recipeId} />}
+          {!locked && !isFree(subscriptionStatus) && <InlineRecipe recipeId={recipeId} />}
         </div>
       </div>
     </div>
@@ -129,11 +131,11 @@ export default function MealPlanTab({ subscriptionStatus }: MealPlanTabProps) {
 
             {isOpen && (
               <div className="border-t border-zinc-800 px-4 py-3">
-                <MealRow label="Breakfast" name={day.breakfast.name} recipeId={day.breakfast.recipeId} locked={isLocked} />
-                <MealRow label="Lunch"     name={day.lunch.name}     recipeId={day.lunch.recipeId}     locked={isLocked} />
-                <MealRow label="Dinner"    name={day.dinner.name}    recipeId={day.dinner.recipeId}    locked={isLocked} />
-                <MealRow label="Smoothie"  name={day.smoothie.name}  recipeId={day.smoothie.recipeId}  locked={isLocked} />
-                <MealRow label="Shot"      name={day.shot.name}      recipeId={day.shot.recipeId}      locked={isLocked} />
+                <MealRow label="Breakfast" name={day.breakfast.name} recipeId={day.breakfast.recipeId} locked={isLocked} subscriptionStatus={subscriptionStatus} />
+                <MealRow label="Lunch"     name={day.lunch.name}     recipeId={day.lunch.recipeId}     locked={isLocked} subscriptionStatus={subscriptionStatus} />
+                <MealRow label="Dinner"    name={day.dinner.name}    recipeId={day.dinner.recipeId}    locked={isLocked} subscriptionStatus={subscriptionStatus} />
+                <MealRow label="Smoothie"  name={day.smoothie.name}  recipeId={day.smoothie.recipeId}  locked={isLocked} subscriptionStatus={subscriptionStatus} />
+                <MealRow label="Shot"      name={day.shot.name}      recipeId={day.shot.recipeId}      locked={isLocked} subscriptionStatus={subscriptionStatus} />
 
                 {day.notes && !isLocked && (
                   <p className="mt-2 text-xs italic text-zinc-500">{day.notes}</p>

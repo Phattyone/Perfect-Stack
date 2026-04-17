@@ -46,7 +46,7 @@ export default function RecipesView({ subscriptionStatus }: RecipesViewProps) {
       <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-6">
         {activeTab === "recipes" && <RecipesTab subscriptionStatus={subscriptionStatus} />}
         {activeTab === "plan" && <MealPlanTab subscriptionStatus={subscriptionStatus} />}
-        {activeTab === "drinks" && <DrinksProtocolTab />}
+        {activeTab === "drinks" && <DrinksProtocolTab subscriptionStatus={subscriptionStatus} />}
         {activeTab === "shopping" && <ShoppingListTab subscriptionStatus={subscriptionStatus} />}
       </div>
     </div>
