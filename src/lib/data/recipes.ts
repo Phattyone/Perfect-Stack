@@ -32,6 +32,8 @@ export interface Recipe {
   amazonIngredients?: AmazonIngredient[];
 }
 
+const BASE = "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/";
+
 export const RECIPES: Recipe[] = [
   // ─── SMOOTHIES ─────────────────────────────────────────────────────
   {
@@ -40,6 +42,7 @@ export const RECIPES: Recipe[] = [
     category: "smoothie",
     tags: ["nitric-oxide", "performance"],
     theme: "energize",
+    photoUrl: `${BASE}id%201.png`,
     prepTime: 5,
     servings: 1,
     ingredients: [
@@ -69,6 +72,7 @@ export const RECIPES: Recipe[] = [
     category: "smoothie",
     tags: ["testosterone", "hormone"],
     theme: "strengthen",
+    photoUrl: `${BASE}id%202.png`,
     prepTime: 5,
     servings: 1,
     ingredients: [
@@ -95,6 +99,7 @@ export const RECIPES: Recipe[] = [
     category: "smoothie",
     tags: ["nitric-oxide", "vascular"],
     theme: "vascular",
+    photoUrl: `${BASE}id%203.png`,
     prepTime: 5,
     servings: 1,
     ingredients: [
@@ -114,6 +119,7 @@ export const RECIPES: Recipe[] = [
     category: "smoothie",
     tags: ["testosterone", "antioxidant"],
     theme: "longevity",
+    photoUrl: `${BASE}id%204.png`,
     prepTime: 5,
     servings: 1,
     ingredients: [
@@ -138,6 +144,7 @@ export const RECIPES: Recipe[] = [
     category: "smoothie",
     tags: ["anti-inflammatory", "recovery"],
     theme: "anti-inflammatory",
+    photoUrl: `${BASE}id%205.png`,
     prepTime: 5,
     servings: 1,
     ingredients: [
@@ -159,6 +166,7 @@ export const RECIPES: Recipe[] = [
     category: "smoothie",
     tags: ["recovery", "sleep"],
     theme: "recovery",
+    photoUrl: `${BASE}id%206.png`,
     prepTime: 5,
     servings: 1,
     ingredients: [
@@ -183,6 +191,7 @@ export const RECIPES: Recipe[] = [
     category: "smoothie",
     tags: ["testosterone", "energy"],
     theme: "testosterone",
+    photoUrl: `${BASE}id7.png`,
     prepTime: 5,
     servings: 1,
     ingredients: [
@@ -204,6 +213,7 @@ export const RECIPES: Recipe[] = [
     category: "smoothie",
     tags: ["sleep", "recovery"],
     theme: "recovery",
+    photoUrl: `${BASE}id%208.png`,
     prepTime: 10,
     servings: 1,
     ingredients: [
@@ -234,6 +244,7 @@ export const RECIPES: Recipe[] = [
     category: "shot",
     tags: ["nitric-oxide", "performance"],
     theme: "energize",
+    photoUrl: `${BASE}id%209.png`,
     prepTime: 3,
     servings: 1,
     ingredients: [
@@ -252,6 +263,7 @@ export const RECIPES: Recipe[] = [
     category: "shot",
     tags: ["testosterone", "hormone"],
     theme: "strengthen",
+    photoUrl: `${BASE}id%2010.png`,
     prepTime: 3,
     servings: 1,
     ingredients: [
@@ -271,6 +283,7 @@ export const RECIPES: Recipe[] = [
     category: "shot",
     tags: ["anti-inflammatory", "recovery"],
     theme: "anti-inflammatory",
+    photoUrl: `${BASE}id%2011.png`,
     prepTime: 3,
     servings: 1,
     ingredients: [
@@ -290,6 +303,7 @@ export const RECIPES: Recipe[] = [
     category: "shot",
     tags: ["testosterone", "energy"],
     theme: "testosterone",
+    photoUrl: `${BASE}id%2012.png`,
     prepTime: 2,
     servings: 1,
     ingredients: [
@@ -311,6 +325,7 @@ export const RECIPES: Recipe[] = [
     category: "shot",
     tags: ["nitric-oxide", "vascular"],
     theme: "vascular",
+    photoUrl: `${BASE}id%2013.png`,
     prepTime: 3,
     servings: 1,
     ingredients: [
@@ -334,6 +349,7 @@ export const RECIPES: Recipe[] = [
     category: "drink",
     tags: ["nitric-oxide", "hydration"],
     theme: "energize",
+    photoUrl: `${BASE}id%2014.png`,
     prepTime: 5,
     servings: 8,
     ingredients: [
@@ -357,6 +373,7 @@ export const RECIPES: Recipe[] = [
     category: "drink",
     tags: ["testosterone", "hydration"],
     theme: "testosterone",
+    photoUrl: `${BASE}id%2015.png`,
     prepTime: 5,
     servings: 8,
     ingredients: [
@@ -655,6 +672,7 @@ export const RECIPES: Recipe[] = [
     category: "meal",
     tags: ["testosterone", "protein", "quick"],
     theme: "testosterone",
+    photoUrl: `${BASE}ID%2026.jpeg`,
     prepTime: 10,
     servings: 1,
     ingredients: [
@@ -681,6 +699,7 @@ export const RECIPES: Recipe[] = [
     category: "drink",
     tags: ["anti-inflammatory", "sleep", "recovery"],
     theme: "anti-inflammatory",
+    photoUrl: `${BASE}id%2027nb.png`,
     prepTime: 5,
     servings: 1,
     ingredients: [
@@ -707,6 +726,7 @@ export const RECIPES: Recipe[] = [
     category: "drink",
     tags: ["testosterone", "antioxidant", "vascular"],
     theme: "vascular",
+    photoUrl: `${BASE}id%2028nb.png`,
     prepTime: 10,
     servings: 1,
     ingredients: [
@@ -730,6 +750,7 @@ export const RECIPES: Recipe[] = [
     category: "drink",
     tags: ["recovery", "hydration", "performance"],
     theme: "recovery",
+    photoUrl: `${BASE}id%2029nb.png`,
     prepTime: 3,
     servings: 1,
     ingredients: [
@@ -754,6 +775,7 @@ export const RECIPES: Recipe[] = [
     category: "drink",
     tags: ["nitric-oxide", "anti-inflammatory", "recovery"],
     theme: "energize",
+    photoUrl: `${BASE}id%2030nb.png`,
     prepTime: 5,
     servings: 1,
     ingredients: [
