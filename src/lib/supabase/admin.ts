@@ -20,6 +20,9 @@ export function createAdminClient() {
     );
   }
 
+  console.log("[admin] NEXT_PUBLIC_SUPABASE_URL defined:", !!url);
+  console.log("[admin] SUPABASE_SERVICE_ROLE_KEY defined:", !!serviceKey);
+
   return createClient(url, serviceKey, {
     auth: {
       autoRefreshToken: false,
