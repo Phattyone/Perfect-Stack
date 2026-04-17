@@ -36,7 +36,7 @@ function PhotoPlaceholder({ recipe }: { recipe: Recipe }) {
   );
 }
 
-function RecipeCard({ recipe, locked, userIsFree }: { recipe: Recipe; locked?: boolean; userIsFree?: boolean }) {
+function RecipeCard({ recipe, locked, userIsFree, isFirst }: { recipe: Recipe; locked?: boolean; userIsFree?: boolean; isFirst?: boolean }) {
   const [open, setOpen] = useState(false);
   const [imgError, setImgError] = useState(false);
 
@@ -88,15 +88,30 @@ function RecipeCard({ recipe, locked, userIsFree }: { recipe: Recipe; locked?: b
       <p className="mt-2 text-xs italic text-yellow-500/80">{recipe.performanceBenefits}</p>
       <p className="mt-1 text-xs text-zinc-500">{recipe.bestTiming}</p>
 
-      {/* Expand — hidden on locked cards and for all free users */}
-      {!locked && !userIsFree && (
-        <button
-          type="button"
-          onClick={() => setOpen(!open)}
-          className="mt-3 text-xs font-medium text-yellow-600 hover:text-yellow-500"
-        >
-          {open ? "Hide details" : "View recipe"}
-        </button>
+      {/* Expand — hidden on locked cards; teaser/disabled logic for free users */}
+      {!locked && (
+        <>
+          {!userIsFree || isFirst ? (
+            <button
+              type="button"
+              onClick={() => setOpen(!open)}
+              className="mt-3 text-xs font-medium text-yellow-600 hover:text-yellow-500"
+            >
+              {open ? "Hide details" : "View recipe"}
+            </button>
+          ) : (
+            <div className="mt-3 flex items-center gap-2">
+              <button
+                type="button"
+                disabled
+                className="cursor-not-allowed text-xs font-medium text-yellow-600 opacity-50"
+              >
+                View recipe
+              </button>
+              <span className="text-xs text-yellow-400/70">Available in Foundation plan</span>
+            </div>
+          )}
+        </>
       )}
 
       {open && (
@@ -221,12 +236,13 @@ export default function RecipesTab({ subscriptionStatus }: { subscriptionStatus:
 
       {/* Recipe grid */}
       <div className="grid gap-4 sm:grid-cols-2">
-        {filtered.map((recipe) => (
+        {filtered.map((recipe, index) => (
           <RecipeCard
             key={recipe.id}
             recipe={recipe}
             locked={userIsFree && LOCKED_RECIPE_IDS.includes(recipe.id)}
             userIsFree={userIsFree}
+            isFirst={index === 0}
           />
         ))}
         {filtered.length === 0 && (

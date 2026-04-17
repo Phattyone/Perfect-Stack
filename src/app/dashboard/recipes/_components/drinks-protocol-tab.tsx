@@ -82,7 +82,7 @@ export default function DrinksProtocolTab({ subscriptionStatus }: { subscription
         plan to maximize blood flow, hormone production, and recovery.
       </p>
 
-      {PROTOCOL.map((item) => (
+      {PROTOCOL.map((item, index) => (
         <div key={item.time} className="rounded-lg border border-zinc-800 bg-zinc-900/50 p-4">
           <div className="flex items-center gap-2">
             <span className="text-lg">{item.icon}</span>
@@ -92,7 +92,21 @@ export default function DrinksProtocolTab({ subscriptionStatus }: { subscription
             </div>
           </div>
           <p className="mt-2 text-xs leading-relaxed text-zinc-400">{item.why}</p>
-          {!userIsFree && <InlineRecipe recipeId={item.recipeId} />}
+          {!userIsFree || index === 0
+            ? <InlineRecipe recipeId={item.recipeId} />
+            : item.recipeId && (
+                <div className="mt-1 flex items-center gap-2">
+                  <button
+                    type="button"
+                    disabled
+                    className="cursor-not-allowed text-[10px] text-yellow-600 opacity-50"
+                  >
+                    View recipe
+                  </button>
+                  <span className="text-xs text-yellow-400/70">Available in Foundation plan</span>
+                </div>
+              )
+          }
         </div>
       ))}
     </div>

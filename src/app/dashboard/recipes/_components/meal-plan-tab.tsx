@@ -43,20 +43,41 @@ function MealRow({
   recipeId,
   locked,
   subscriptionStatus,
+  isFirst,
 }: {
   label: string;
   name: string;
   recipeId: number | null;
   locked?: boolean;
   subscriptionStatus: string;
+  isFirst?: boolean;
 }) {
+  const userIsFree = isFree(subscriptionStatus);
+
+  function RecipeToggle() {
+    if (!recipeId) return null;
+    if (!userIsFree || isFirst) return <InlineRecipe recipeId={recipeId} />;
+    return (
+      <div className="mt-1 flex items-center gap-2">
+        <button
+          type="button"
+          disabled
+          className="cursor-not-allowed text-[10px] text-yellow-600 opacity-50"
+        >
+          View recipe
+        </button>
+        <span className="text-xs text-yellow-400/70">Available in Foundation plan</span>
+      </div>
+    );
+  }
+
   const inner = (
     <div className="py-1.5">
       <div className="flex items-start gap-3">
         <span className="w-20 shrink-0 text-xs font-medium text-zinc-500">{label}</span>
         <div>
           <span className="text-sm text-zinc-300">{name}</span>
-          {!locked && !isFree(subscriptionStatus) && <InlineRecipe recipeId={recipeId} />}
+          {!locked && <RecipeToggle />}
         </div>
       </div>
     </div>
@@ -131,7 +152,7 @@ export default function MealPlanTab({ subscriptionStatus }: MealPlanTabProps) {
 
             {isOpen && (
               <div className="border-t border-zinc-800 px-4 py-3">
-                <MealRow label="Breakfast" name={day.breakfast.name} recipeId={day.breakfast.recipeId} locked={isLocked} subscriptionStatus={subscriptionStatus} />
+                <MealRow label="Breakfast" name={day.breakfast.name} recipeId={day.breakfast.recipeId} locked={isLocked} subscriptionStatus={subscriptionStatus} isFirst={day.dayNumber === 1} />
                 <MealRow label="Lunch"     name={day.lunch.name}     recipeId={day.lunch.recipeId}     locked={isLocked} subscriptionStatus={subscriptionStatus} />
                 <MealRow label="Dinner"    name={day.dinner.name}    recipeId={day.dinner.recipeId}    locked={isLocked} subscriptionStatus={subscriptionStatus} />
                 <MealRow label="Smoothie"  name={day.smoothie.name}  recipeId={day.smoothie.recipeId}  locked={isLocked} subscriptionStatus={subscriptionStatus} />
