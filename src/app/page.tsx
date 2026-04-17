@@ -83,6 +83,9 @@ export default function LandingPage() {
             Perfect Stack<sup className="text-[8px]">&trade;</sup>
           </span>
           <div className="flex items-center gap-4">
+            <Link href="/products" className="hidden text-sm text-zinc-400 transition hover:text-white sm:inline">
+              Products
+            </Link>
             <Link href="/login" className="hidden text-sm text-zinc-400 transition hover:text-white sm:inline">
               Sign In
             </Link>
@@ -126,6 +129,12 @@ export default function LandingPage() {
           >
             See How It Works
           </a>
+          <Link
+            href="/join"
+            className="rounded-md border border-zinc-700 px-6 py-3 text-sm font-semibold text-zinc-400 transition hover:border-zinc-500 hover:text-zinc-300"
+          >
+            Join the Waitlist
+          </Link>
         </div>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
@@ -357,7 +366,9 @@ export default function LandingPage() {
           <span className="text-xs text-zinc-600">
             &copy; 2026 Perfect Stack. All rights reserved.
           </span>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap justify-center gap-6">
+            <Link href="/products" className="text-xs text-zinc-500 transition hover:text-zinc-400">Products</Link>
+            <Link href="/join" className="text-xs text-zinc-500 transition hover:text-zinc-400">Waitlist</Link>
             <Link href="/privacy" className="text-xs text-zinc-500 transition hover:text-zinc-400">Privacy</Link>
             <Link href="/terms" className="text-xs text-zinc-500 transition hover:text-zinc-400">Terms</Link>
             <a href="mailto:hello@getperfectstack.com" className="text-xs text-zinc-500 transition hover:text-zinc-400">Contact</a>
