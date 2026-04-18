@@ -150,14 +150,32 @@ function SkeletonCard() {
 
 // ─── Day card ─────────────────────────────────────────────────────────────────
 
+function ChevronIcon({ expanded }: { expanded: boolean }) {
+  return (
+    <svg
+      className={`h-4 w-4 shrink-0 text-zinc-500 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`}
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth={2}
+    >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+    </svg>
+  );
+}
+
 function DayCard({
   row,
   swappingKey,
   onSwap,
+  isExpanded,
+  onToggle,
 }: {
   row: MealMakerRow;
   swappingKey: string | null;
   onSwap: (dayNumber: number, mealType: MealType) => void;
+  isExpanded: boolean;
+  onToggle: () => void;
 }) {
   const dateStr = new Date(row.created_at).toLocaleDateString(undefined, {
     month: "short",
@@ -167,8 +185,12 @@ function DayCard({
 
   return (
     <div className="rounded-lg border border-zinc-800 bg-zinc-900">
-      {/* Header */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-zinc-800 px-4 py-3">
+      {/* Clickable header */}
+      <button
+        type="button"
+        onClick={onToggle}
+        className={`flex w-full flex-wrap items-center gap-2 px-4 py-3 text-left transition-colors hover:bg-zinc-800/50 ${isExpanded ? "border-b border-zinc-800" : ""}`}
+      >
         <span className="text-sm font-bold text-yellow-500">Day {row.day_number}</span>
         <span className="rounded-full bg-yellow-600/20 px-2.5 py-0.5 text-[10px] font-medium text-yellow-500">
           Week {row.week_number} - {row.week_phase}
@@ -176,25 +198,34 @@ function DayCard({
         <span className="rounded-full bg-zinc-800 px-2.5 py-0.5 text-[10px] text-zinc-300">
           {row.day_theme}
         </span>
-        <span className="ml-auto text-[10px] text-zinc-600">{dateStr}</span>
-      </div>
+        <span className="text-[10px] text-zinc-600">{dateStr}</span>
+        <span className="ml-auto">
+          <ChevronIcon expanded={isExpanded} />
+        </span>
+      </button>
 
-      {/* Meal rows */}
-      <div className="divide-y divide-zinc-800 px-4">
-        {MEAL_TYPES.map((type) => {
-          const recipeId = row[`${type}_id` as keyof MealMakerRow] as number | null;
-          const swapped  = row[`${type}_swapped` as keyof MealMakerRow] as boolean;
-          return (
-            <MealRow
-              key={type}
-              label={MEAL_LABELS[type]}
-              recipeId={recipeId}
-              swapped={swapped}
-              swapping={swappingKey === `${row.day_number}-${type}`}
-              onSwap={() => onSwap(row.day_number, type)}
-            />
-          );
-        })}
+      {/* Meal rows — animated accordion */}
+      <div
+        className={`overflow-hidden transition-[max-height] duration-200 ease-in-out ${
+          isExpanded ? "max-h-[600px]" : "max-h-0"
+        }`}
+      >
+        <div className="divide-y divide-zinc-800 px-4">
+          {MEAL_TYPES.map((type) => {
+            const recipeId = row[`${type}_id` as keyof MealMakerRow] as number | null;
+            const swapped  = row[`${type}_swapped` as keyof MealMakerRow] as boolean;
+            return (
+              <MealRow
+                key={type}
+                label={MEAL_LABELS[type]}
+                recipeId={recipeId}
+                swapped={swapped}
+                swapping={swappingKey === `${row.day_number}-${type}`}
+                onSwap={() => onSwap(row.day_number, type)}
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );
@@ -214,6 +245,7 @@ export default function MealMakerTab({
   const [generating, setGenerating] = useState(false);
   const [swappingKey, setSwappingKey] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [expandedDay, setExpandedDay] = useState<number | null>(null);
 
   const userIsUltimate = isUltimate(subscriptionStatus);
   const dayLimit = userIsUltimate ? 56 : 14;
@@ -250,6 +282,7 @@ export default function MealMakerTab({
       setError(result.error);
     } else if (result.data) {
       setLog((prev) => [...prev, result.data!]);
+      setExpandedDay(result.data.day_number);
     }
     setGenerating(false);
   };
@@ -371,6 +404,8 @@ export default function MealMakerTab({
               row={row}
               swappingKey={swappingKey}
               onSwap={handleSwap}
+              isExpanded={expandedDay === row.day_number}
+              onToggle={() => setExpandedDay(expandedDay === row.day_number ? null : row.day_number)}
             />
           ))}
         </div>

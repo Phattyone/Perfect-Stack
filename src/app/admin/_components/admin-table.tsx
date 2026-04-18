@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { resetMealMakerLog } from "../admin-actions";
 
 export interface AdminUserRow {
   id: string;
@@ -42,6 +43,8 @@ function fmt(dateStr: string | null): string {
 
 export default function AdminTable({ rows }: { rows: AdminUserRow[] }) {
   const [query, setQuery] = useState("");
+  const [confirmingId, setConfirmingId] = useState<string | null>(null);
+  const [doneId, setDoneId] = useState<string | null>(null);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -85,6 +88,7 @@ export default function AdminTable({ rows }: { rows: AdminUserRow[] }) {
                 "Journal Entries",
                 "Created",
                 "Updated",
+                "Actions",
               ].map((h) => (
                 <th
                   key={h}
@@ -99,7 +103,7 @@ export default function AdminTable({ rows }: { rows: AdminUserRow[] }) {
             {filtered.length === 0 ? (
               <tr>
                 <td
-                  colSpan={10}
+                  colSpan={11}
                   className="px-4 py-8 text-center text-zinc-500"
                 >
                   No users match your filter.
@@ -194,6 +198,43 @@ export default function AdminTable({ rows }: { rows: AdminUserRow[] }) {
                   {/* Updated */}
                   <td className="min-w-32 whitespace-nowrap px-4 py-3 text-xs text-zinc-400">
                     {fmt(row.updated_at)}
+                  </td>
+
+                  {/* Actions */}
+                  <td className="min-w-36 px-4 py-3">
+                    {doneId === row.id ? (
+                      <span className="text-xs text-green-400">Done</span>
+                    ) : confirmingId === row.id ? (
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={async () => {
+                            await resetMealMakerLog(row.id);
+                            setConfirmingId(null);
+                            setDoneId(row.id);
+                            setTimeout(() => setDoneId(null), 2000);
+                          }}
+                          className="rounded bg-red-600 px-2 py-1 text-xs font-semibold text-white hover:bg-red-500"
+                        >
+                          Confirm
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setConfirmingId(null)}
+                          className="text-xs text-zinc-400 hover:text-zinc-200"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => setConfirmingId(row.id)}
+                        className="rounded border border-zinc-700 px-2 py-1 text-xs text-zinc-400 transition hover:border-red-600/50 hover:text-red-400"
+                      >
+                        Reset Meals
+                      </button>
+                    )}
                   </td>
                 </tr>
               ))
