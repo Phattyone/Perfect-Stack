@@ -55,8 +55,9 @@ function MealRow({
     <div className="py-1.5">
       <div className="flex items-start gap-3">
         <span className="w-20 shrink-0 text-xs font-medium text-zinc-500">{label}</span>
-        <div>
+        <div className="flex flex-wrap items-center gap-x-1.5">
           <span className="text-sm text-zinc-300">{name}</span>
+          {!locked && recipeId && <span className="text-xs text-zinc-600">-</span>}
           {!locked && <RecipeButton />}
         </div>
       </div>
