@@ -25,7 +25,7 @@
  */
 
 import { NextResponse } from "next/server";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import Anthropic from "@anthropic-ai/sdk";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { isFoundation, isUltimate } from "@/lib/subscription";
@@ -87,11 +87,10 @@ export async function POST(request: Request) {
       );
     // ── End rate limiting ──────────────────────────────────────────────────
 
-    if (!process.env.GEMINI_API_KEY) {
-      console.error("GEMINI_API_KEY is not set");
+    if (!process.env.ANTHROPIC_API_KEY) {
+      console.error("ANTHROPIC_API_KEY is not set");
       return NextResponse.json({ error: "API key not configured" }, { status: 500 });
     }
-    const apiKey = process.env.GEMINI_API_KEY;
 
     // Build system prompt with user context
     let systemPrompt = `You are the Perfect Stack AI assistant, a knowledgeable and supportive men's health guide built into the Perfect Stack app. You help users understand and get the most out of their personalized supplement protocol.
@@ -120,37 +119,41 @@ Guidelines:
       if (userProfile.blood_thinners) systemPrompt += ", On blood thinners";
     }
 
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({
-      model: "gemini-2.5-flash",
-      systemInstruction: systemPrompt,
-    });
-
-    // Build conversation history for Gemini (must start with user, not model)
+    // Build conversation history for Anthropic (must start with user, alternating user/assistant)
     const history = ((conversationHistory ?? []) as { role: string; content: string }[])
       .slice(-10)
       .filter((msg) => msg.role && msg.content && msg.content.trim() !== "")
-      .reduce((acc: { role: string; parts: { text: string }[] }[], msg) => {
+      .reduce((acc: { role: "user" | "assistant"; content: string }[], msg) => {
         if (acc.length === 0 && msg.role === "assistant") return acc;
         acc.push({
-          role: msg.role === "assistant" ? "model" : "user",
-          parts: [{ text: msg.content }],
+          role: msg.role === "assistant" ? "assistant" : "user",
+          content: msg.content,
         });
         return acc;
       }, []);
 
-    const chat = model.startChat({ history });
-    const result = await chat.sendMessage(message);
-    const responseText = result.response.text();
+    const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+    const response = await anthropic.messages.create({
+      model: "claude-haiku-4-5-20251001",
+      max_tokens: 1024,
+      system: systemPrompt,
+      messages: [
+        ...history,
+        { role: "user", content: message },
+      ],
+    });
+
+    const responseText = response.content[0].type === "text" ? response.content[0].text : "";
 
     return NextResponse.json({ response: responseText });
   } catch (error: unknown) {
     const err = error as { message?: string; status?: number };
-    console.error("Gemini API error:", err?.message, err?.status, JSON.stringify(error));
+    console.error("Anthropic API error:", err?.message, err?.status, JSON.stringify(error));
 
     if (
+      err?.status === 429 ||
       err?.message?.includes("429") ||
-      err?.message?.includes("quota") ||
+      err?.message?.includes("rate limit") ||
       err?.message?.includes("Too Many Requests")
     ) {
       return NextResponse.json(
