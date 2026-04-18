@@ -61,7 +61,7 @@ export default async function StackBuilderPage() {
       {/* Navigation */}
       <nav className="border-b border-zinc-800">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <Link href="/" className="text-lg font-bold text-yellow-600 hover:text-yellow-500 transition">
+          <Link href="/" className="text-lg font-bold text-yellow-600 transition-all duration-200 hover:text-yellow-400 hover:drop-shadow-[0_0_6px_rgba(234,179,8,0.5)]">
             Perfect Stack
           </Link>
           <div className="flex items-center gap-4">

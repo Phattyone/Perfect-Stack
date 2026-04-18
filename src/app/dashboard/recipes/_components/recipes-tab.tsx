@@ -42,7 +42,7 @@ function RecipeCard({ recipe, locked }: { recipe: Recipe; locked?: boolean }) {
 
   const card = (
     <div
-      className={`overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900 transition hover:border-yellow-600/40${!locked ? " cursor-pointer" : ""}`}
+      className={`group overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900 transition hover:border-yellow-600/40${!locked ? " cursor-pointer" : ""}`}
       onClick={!locked ? () => openRecipe(recipe.id) : undefined}
     >
       {/* Photo header */}
@@ -64,7 +64,7 @@ function RecipeCard({ recipe, locked }: { recipe: Recipe; locked?: boolean }) {
       <div className="p-4">
         {/* Header */}
         <div className="flex items-start justify-between gap-2">
-          <h3 className="text-sm font-bold text-white">{recipe.name}</h3>
+          <h3 className="text-sm font-bold text-white transition-colors duration-200 group-hover:text-yellow-400">{recipe.name}</h3>
           <span className={`shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-medium ${CATEGORY_BADGE[recipe.category]}`}>
             {recipe.category}
           </span>
@@ -94,7 +94,7 @@ function RecipeCard({ recipe, locked }: { recipe: Recipe; locked?: boolean }) {
           <button
             type="button"
             onClick={(e) => { e.stopPropagation(); openRecipe(recipe.id); }}
-            className="mt-3 text-xs font-medium text-yellow-600 hover:text-yellow-500"
+            className="mt-3 text-xs font-medium text-yellow-600 hover:text-yellow-400 transition-colors duration-200"
           >
             View recipe
           </button>

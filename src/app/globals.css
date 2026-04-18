@@ -34,3 +34,18 @@ body {
     display: none !important;
   }
 }
+
+/* ─── Gold glow hover effects ──────────────────────────────────────────── */
+a:not([aria-disabled="true"]) {
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+a:not([aria-disabled="true"]):hover {
+  color: #facc15;
+  text-shadow: 0 0 8px rgba(234, 179, 8, 0.6);
+}
+
+nav a:not([aria-disabled="true"]):hover {
+  text-decoration: underline;
+  text-decoration-color: rgba(234, 179, 8, 0.4);
+}

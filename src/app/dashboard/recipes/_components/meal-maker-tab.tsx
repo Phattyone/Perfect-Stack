@@ -98,7 +98,7 @@ function MealRow({
           <button
             type="button"
             onClick={() => openRecipe(recipe.id)}
-            className="block max-w-full truncate text-left text-sm text-zinc-200 hover:text-white"
+            className="block max-w-full truncate text-left text-sm text-zinc-200 hover:text-yellow-400 transition-colors duration-200"
           >
             {recipe.name}
           </button>
