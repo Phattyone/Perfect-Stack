@@ -117,7 +117,7 @@ export default function EquipmentView() {
           Essential Setup Cost
         </span>
         <span className="mt-1 block text-xl font-bold text-yellow-500">
-          ${essentialCost.min} – ${essentialCost.max}
+          ${essentialCost.min} - ${essentialCost.max}
         </span>
         <span className="text-xs text-zinc-500">one-time investment</span>
       </div>

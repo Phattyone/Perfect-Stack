@@ -93,7 +93,7 @@ export default function ProductsPage() {
             {/* Description */}
             <p className="mt-3 text-sm leading-relaxed text-zinc-400">
               A complete personalized system covering supplements, nutrition,
-              training, sleep, and recovery — optimized for testosterone, nitric
+              training, sleep, and recovery - optimized for testosterone, nitric
               oxide, and sexual health.
             </p>
 

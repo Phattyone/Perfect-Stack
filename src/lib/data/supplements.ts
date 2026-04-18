@@ -18,7 +18,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 3,
     bestTiming: "With meals",
     whatItSupports: "Baseline micronutrient coverage, methylation, antioxidant defense",
-    timeToNotice: "4–8 weeks",
+    timeToNotice: "4-8 weeks",
     keyCautions: "Avoid doubling with standalone vitamins already in stack",
     timingIcon: "☀️",
     products: [
@@ -72,7 +72,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 1,
     bestTiming: "Morning with fat-containing meal",
     whatItSupports: "Testosterone support, bone density, immune function, calcium routing",
-    timeToNotice: "8–12 weeks for serum levels",
+    timeToNotice: "8-12 weeks for serum levels",
     keyCautions: "K2 may interact with blood thinners (warfarin). Monitor INR.",
     timingIcon: "☀️",
     products: [
@@ -89,9 +89,9 @@ export const SUPPLEMENTS: Supplement[] = [
     baseDose: 200,
     unit: "mg",
     dailyServings: 1,
-    bestTiming: "Evening 30–60 min before bed",
+    bestTiming: "Evening 30-60 min before bed",
     whatItSupports: "Sleep quality, muscle relaxation, testosterone cofactor, stress reduction",
-    timeToNotice: "1–2 weeks for sleep, 4 weeks full effect",
+    timeToNotice: "1-2 weeks for sleep, 4 weeks full effect",
     keyCautions: "May enhance BP-lowering effect of antihypertensives",
     timingIcon: "🌙",
     products: [
@@ -110,7 +110,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 1,
     bestTiming: "With largest meal",
     whatItSupports: "Cardiovascular health, inflammation reduction, brain function",
-    timeToNotice: "4–8 weeks",
+    timeToNotice: "4-8 weeks",
     keyCautions: "Additive antiplatelet effect with blood thinners",
     timingIcon: "☀️",
     products: [
@@ -129,8 +129,8 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 1,
     bestTiming: "With food",
     whatItSupports: "Testosterone synthesis, immune function, prostate health",
-    timeToNotice: "4–8 weeks",
-    keyCautions: "High doses deplete copper. Keep at 15–30mg.",
+    timeToNotice: "4-8 weeks",
+    keyCautions: "High doses deplete copper. Keep at 15-30mg.",
     timingIcon: "☀️",
     products: [
       { name: "Thorne Zinc Picolinate 15mg", price: 18, servings: 60, url: amz("B0797NSHQX") },
@@ -148,7 +148,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 1,
     bestTiming: "Morning with breakfast",
     whatItSupports: "Energy metabolism, methylation, nervous system, homocysteine control",
-    timeToNotice: "2–4 weeks",
+    timeToNotice: "2-4 weeks",
     keyCautions: "Methylated forms preferred for MTHFR variants",
     timingIcon: "☀️",
     products: [
@@ -167,7 +167,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 1,
     bestTiming: "With a meal",
     whatItSupports: "Free testosterone increase, estrogen metabolism, bone mineral density",
-    timeToNotice: "1–2 weeks",
+    timeToNotice: "1-2 weeks",
     keyCautions: "Do not exceed 20mg/day",
     timingIcon: "☀️",
     products: [
@@ -186,7 +186,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 1,
     bestTiming: "With a meal",
     whatItSupports: "Thyroid function, antioxidant defense, prostate health",
-    timeToNotice: "4–8 weeks",
+    timeToNotice: "4-8 weeks",
     keyCautions: "Do not exceed 400mcg/day. Monitor if on thyroid meds.",
     timingIcon: "☀️",
     products: [
@@ -207,7 +207,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 1,
     bestTiming: "Evening",
     whatItSupports: "Cortisol reduction, testosterone support, anxiety, sleep quality",
-    timeToNotice: "2–4 weeks",
+    timeToNotice: "2-4 weeks",
     keyCautions: "May affect thyroid hormones. Consult if on thyroid medication.",
     timingIcon: "🌙",
     products: [
@@ -226,7 +226,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 1,
     bestTiming: "Morning or pre-workout",
     whatItSupports: "LH signaling, free testosterone, libido, stress hormones",
-    timeToNotice: "2–4 weeks",
+    timeToNotice: "2-4 weeks",
     keyCautions: "Limited benefit on exogenous TRT. Cycle 5 days on / 2 off.",
     timingIcon: "☀️",
     products: [
@@ -245,7 +245,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 1,
     bestTiming: "Morning or pre-workout",
     whatItSupports: "LH stimulation, testosterone production support",
-    timeToNotice: "2–4 weeks",
+    timeToNotice: "2-4 weeks",
     keyCautions: "Limited human data. Cycle 5 on / 2 off. Limited benefit on TRT.",
     timingIcon: "☀️",
     products: [
@@ -264,7 +264,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 2,
     bestTiming: "With a meal",
     whatItSupports: "Free testosterone via aromatase inhibition, libido, blood sugar",
-    timeToNotice: "4–8 weeks",
+    timeToNotice: "4-8 weeks",
     keyCautions: "May lower blood sugar  -  caution with diabetes medications",
     timingIcon: "☀️🌙",
     products: [
@@ -283,7 +283,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 1,
     bestTiming: "Morning with fat-containing meal",
     whatItSupports: "Precursor to testosterone and estrogen, adrenal support",
-    timeToNotice: "4–8 weeks",
+    timeToNotice: "4-8 weeks",
     keyCautions: "Not recommended on TRT/HRT or under 40. Monitor hormones.",
     timingIcon: "☀️",
     products: [
@@ -302,9 +302,9 @@ export const SUPPLEMENTS: Supplement[] = [
     baseDose: 6,
     unit: "g",
     dailyServings: 1,
-    bestTiming: "45–90 min before activity",
+    bestTiming: "45-90 min before activity",
     whatItSupports: "Nitric oxide production, blood flow, erection quality, exercise performance",
-    timeToNotice: "1–2 weeks",
+    timeToNotice: "1-2 weeks",
     keyCautions: "Absolute contraindication with nitrate medications. Halve dose with PDE5.",
     timingIcon: "⚡",
     products: [
@@ -321,7 +321,7 @@ export const SUPPLEMENTS: Supplement[] = [
     baseDose: 500,
     unit: "mg nitrates",
     dailyServings: 1,
-    bestTiming: "60–120 min before activity",
+    bestTiming: "60-120 min before activity",
     whatItSupports: "Dietary nitrate conversion to NO, endothelial function, exercise capacity",
     timeToNotice: "Acute (same day) + cumulative over 2 weeks",
     keyCautions: "Absolute contraindication with nitrate medications. Halve dose with PDE5.",
@@ -342,7 +342,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 1,
     bestTiming: "With fat-containing meal",
     whatItSupports: "Mitochondrial energy, heart health, antioxidant protection",
-    timeToNotice: "4–8 weeks",
+    timeToNotice: "4-8 weeks",
     keyCautions: "Generally well tolerated. Important if on statins.",
     timingIcon: "☀️",
     products: [
@@ -361,7 +361,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 1,
     bestTiming: "With a meal",
     whatItSupports: "eNOS activation, blood flow, erection quality synergy with L-Arginine",
-    timeToNotice: "2–4 weeks",
+    timeToNotice: "2-4 weeks",
     keyCautions: "Contraindicated with nitrate medications. Reduce dose with PDE5.",
     timingIcon: "☀️",
     products: [
@@ -380,7 +380,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 1,
     bestTiming: "With meals",
     whatItSupports: "Antioxidant, collagen synthesis, NO preservation, immune support",
-    timeToNotice: "2–4 weeks",
+    timeToNotice: "2-4 weeks",
     keyCautions: "Generally safe. High doses may cause GI discomfort.",
     timingIcon: "☀️",
     products: [
@@ -399,7 +399,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 1,
     bestTiming: "With meals",
     whatItSupports: "Antioxidant, anti-inflammatory, senolytic, cardiovascular support",
-    timeToNotice: "4–8 weeks",
+    timeToNotice: "4-8 weeks",
     keyCautions: "Inhibits CYP3A4  -  caution with warfarin and some medications",
     timingIcon: "☀️",
     products: [
@@ -420,7 +420,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 1,
     bestTiming: "With a meal",
     whatItSupports: "Libido, sexual desire, energy, mood balance",
-    timeToNotice: "2–6 weeks",
+    timeToNotice: "2-6 weeks",
     keyCautions: "Generally well tolerated. Start at lower dose.",
     timingIcon: "☀️",
     products: [
@@ -439,7 +439,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 1,
     bestTiming: "With a meal",
     whatItSupports: "PDE5 inhibition (mild), libido, bone health, blood flow",
-    timeToNotice: "2–4 weeks",
+    timeToNotice: "2-4 weeks",
     keyCautions: "Mild antiplatelet activity  -  note if on blood thinners",
     timingIcon: "☀️",
     products: [
@@ -458,7 +458,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 1,
     bestTiming: "Morning with food",
     whatItSupports: "Energy, cognitive function, erectile function, immune modulation",
-    timeToNotice: "2–4 weeks",
+    timeToNotice: "2-4 weeks",
     keyCautions: "May interact with blood thinners and diabetes medications",
     timingIcon: "☀️",
     products: [
@@ -478,7 +478,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 1,
     bestTiming: "Evening or as needed",
     whatItSupports: "Calm focus, anxiety reduction, sleep quality, stress buffer",
-    timeToNotice: "30–60 minutes (acute)",
+    timeToNotice: "30-60 minutes (acute)",
     keyCautions: "Generally very safe. May enhance effects of BP medications.",
     timingIcon: "🌙",
     products: [
@@ -499,7 +499,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 1,
     bestTiming: "Morning empty stomach",
     whatItSupports: "NAD+ production, cellular energy, DNA repair, longevity pathways",
-    timeToNotice: "2–4 weeks for energy, 8+ weeks full benefit",
+    timeToNotice: "2-4 weeks for energy, 8+ weeks full benefit",
     keyCautions: "Emerging research. Generally well tolerated.",
     timingIcon: "☀️",
     products: [
@@ -517,7 +517,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 1,
     bestTiming: "With fat-containing meal",
     whatItSupports: "Sirtuin activation, cardiovascular protection, anti-inflammatory",
-    timeToNotice: "4–8 weeks",
+    timeToNotice: "4-8 weeks",
     keyCautions: "Inhibits CYP2C9  -  caution with warfarin",
     timingIcon: "☀️",
     products: [
@@ -536,7 +536,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 2,
     bestTiming: "With meals before 2 main meals",
     whatItSupports: "AMPK activation, blood sugar regulation, lipid metabolism, gut health",
-    timeToNotice: "4–8 weeks",
+    timeToNotice: "4-8 weeks",
     keyCautions: "NOT recommended with diabetes medications  -  hypoglycemia risk",
     timingIcon: "☀️🌙",
     products: [
@@ -555,7 +555,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 1,
     bestTiming: "With fat-containing meal",
     whatItSupports: "5-alpha reductase inhibition, prostate health, DHT modulation",
-    timeToNotice: "4–8 weeks",
+    timeToNotice: "4-8 weeks",
     keyCautions: "May affect PSA readings. Inform urologist.",
     timingIcon: "☀️",
     products: [
@@ -574,7 +574,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 1,
     bestTiming: "With fat-containing meal",
     whatItSupports: "Prostate protection, cardiovascular antioxidant, skin health",
-    timeToNotice: "8–12 weeks",
+    timeToNotice: "8-12 weeks",
     keyCautions: "Generally safe. Fat-soluble  -  take with dietary fat.",
     timingIcon: "☀️",
     products: [
@@ -593,7 +593,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 1,
     bestTiming: "With breakfast or before bed",
     whatItSupports: "Gut microbiome, nutrient absorption, immune function, mood (gut-brain axis)",
-    timeToNotice: "2–4 weeks",
+    timeToNotice: "2-4 weeks",
     keyCautions: "Refrigerate if required. Start slowly if new to probiotics.",
     timingIcon: "☀️🌙",
     products: [
@@ -612,7 +612,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 1,
     bestTiming: "Post-workout or with any meal",
     whatItSupports: "ATP regeneration, muscle strength, cognitive function, hydration",
-    timeToNotice: "2–4 weeks (loading) or 4–6 weeks (maintenance)",
+    timeToNotice: "2-4 weeks (loading) or 4-6 weeks (maintenance)",
     keyCautions: "Stay well hydrated. Safe long-term at 5g/day.",
     timingIcon: "☀️🌤️🌙",
     products: [
@@ -631,7 +631,7 @@ export const SUPPLEMENTS: Supplement[] = [
     dailyServings: 1,
     bestTiming: "Morning or post-workout with Vitamin C",
     whatItSupports: "Joint health, skin elasticity, tendon recovery, gut lining",
-    timeToNotice: "4–8 weeks",
+    timeToNotice: "4-8 weeks",
     keyCautions: "Generally safe. Take with Vitamin C for synthesis.",
     timingIcon: "☀️",
     products: [

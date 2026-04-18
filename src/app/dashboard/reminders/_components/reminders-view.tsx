@@ -472,7 +472,7 @@ export default function RemindersView({ userId, initialPrefs }: RemindersViewPro
         {/* Post-reset notice */}
         {resetNotice && (
           <p className="text-sm font-medium text-yellow-500">
-            ↺ Reset to defaults — click Save to apply
+            ↺ Reset to defaults - click Save to apply
           </p>
         )}
       </div>

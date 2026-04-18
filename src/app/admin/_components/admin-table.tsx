@@ -32,7 +32,7 @@ function SubBadge({ status }: { status: string }) {
 }
 
 function fmt(dateStr: string | null): string {
-  if (!dateStr) return "—";
+  if (!dateStr) return "-";
   return new Date(dateStr).toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
@@ -135,13 +135,13 @@ export default function AdminTable({ rows }: { rows: AdminUserRow[] }) {
                         {(Array.isArray(row.health_status) ? row.health_status : []).join(", ")}
                       </span>
                     ) : (
-                      <span className="text-zinc-600">—</span>
+                      <span className="text-zinc-600">-</span>
                     )}
                   </td>
 
                   {/* Age Group */}
                   <td className="min-w-24 px-4 py-3 text-zinc-400">
-                    {row.age_group ?? <span className="text-zinc-600">—</span>}
+                    {row.age_group ?? <span className="text-zinc-600">-</span>}
                   </td>
 
                   {/* Stacks */}
@@ -151,7 +151,7 @@ export default function AdminTable({ rows }: { rows: AdminUserRow[] }) {
                         {(Array.isArray(row.stack_selection) ? row.stack_selection : []).join(", ")}
                       </span>
                     ) : (
-                      <span className="text-zinc-600">—</span>
+                      <span className="text-zinc-600">-</span>
                     )}
                   </td>
 
@@ -173,7 +173,7 @@ export default function AdminTable({ rows }: { rows: AdminUserRow[] }) {
                         </span>
                       </span>
                     ) : (
-                      <span className="text-zinc-600">—</span>
+                      <span className="text-zinc-600">-</span>
                     )}
                   </td>
 

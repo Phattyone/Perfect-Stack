@@ -153,7 +153,7 @@ export default function ChatBubble({ subscriptionStatus, userProfile }: ChatBubb
     if (remaining === 0) {
       return (
         <p className="mb-2 text-right text-[10px] font-medium text-red-400">
-          Daily limit reached — resets at midnight
+          Daily limit reached - resets at midnight
         </p>
       );
     }

@@ -116,7 +116,7 @@ export default function StackBuilderView({
       {userIsFree && (
         <div className="mb-3 flex items-center justify-between rounded-lg border border-yellow-600/40 bg-yellow-600/5 px-4 py-2.5">
           <span className="text-xs font-medium text-yellow-500">
-            Customize your stack — Foundation plan required
+            Customize your stack - Foundation plan required
           </span>
           <Link
             href="/pricing"

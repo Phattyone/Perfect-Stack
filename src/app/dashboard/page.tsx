@@ -148,7 +148,7 @@ export default async function DashboardPage() {
         ) : !userIsUltimate ? (
           <div className="mt-6 flex flex-col gap-3 rounded-lg border border-zinc-700 bg-zinc-900 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-sm text-zinc-300">
-              Unlock AI Chat, Journal, Pelvic Floor training, and your Medical Team — upgrade to Ultimate.
+              Limited AI Chat, Journal, Pelvic Floor training, and your Medical Team - upgrade to Ultimate.
             </p>
             <Link
               href="/pricing"

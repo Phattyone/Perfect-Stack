@@ -160,7 +160,7 @@ export default async function AdminPage() {
             Perfect Stack <span className="text-yellow-500">Admin</span>
           </h1>
           <p className="mt-1 text-sm text-zinc-500">
-            Internal user overview — server-rendered, service role only.
+            Internal user overview - server-rendered, service role only.
           </p>
         </div>
 
@@ -168,7 +168,7 @@ export default async function AdminPage() {
         {warnings.length > 0 && (
           <div className="mb-6 rounded-lg border border-yellow-700/50 bg-yellow-900/20 p-4">
             <p className="mb-1 text-sm font-semibold text-yellow-400">
-              ⚠ Some data sources returned errors — table shows partial data:
+              ⚠ Some data sources returned errors - table shows partial data:
             </p>
             <ul className="list-inside list-disc space-y-0.5">
               {warnings.map((w, i) => (

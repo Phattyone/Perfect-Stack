@@ -236,7 +236,7 @@ export default function LandingPage() {
             </div>
             <div className="mt-4 flex items-center justify-between border-t border-zinc-800 pt-3">
               <span className="text-xs text-zinc-500">Monthly est.</span>
-              <span className="text-sm font-bold text-yellow-600">$115 – $130</span>
+              <span className="text-sm font-bold text-yellow-600">$115 - $130</span>
             </div>
           </div>
         </div>

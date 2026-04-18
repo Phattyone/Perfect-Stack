@@ -19,7 +19,7 @@ export const EQUIPMENT: EquipmentItem[] = [
     name: "High-Power Blender",
     category: "kitchen",
     priority: "essential",
-    estimatedPrice: "$45 – $400",
+    estimatedPrice: "$45 - $400",
     description:
       "Required for daily smoothies and performance drinks. A weak blender won't fully break down beets, frozen fruit, and fibrous ingredients. Vitamix or Ninja are the top picks.",
     amazonUrl:
@@ -30,7 +30,7 @@ export const EQUIPMENT: EquipmentItem[] = [
     name: "Juicer (Centrifugal or Masticating)",
     category: "kitchen",
     priority: "essential",
-    estimatedPrice: "$60 – $300",
+    estimatedPrice: "$60 - $300",
     description:
       "Needed for fresh beet juice, ginger shots, and turmeric shots. Masticating juicers preserve more nutrients but cost more. Centrifugal juicers are faster and more affordable.",
     amazonUrl:
@@ -41,7 +41,7 @@ export const EQUIPMENT: EquipmentItem[] = [
     name: "Cast Iron Skillet 12-inch",
     category: "kitchen",
     priority: "essential",
-    estimatedPrice: "$30 – $50",
+    estimatedPrice: "$30 - $50",
     description:
       "The best tool for searing steak, cooking eggs, and building the crust on proteins that preserves flavor and nutrients. Builds testosterone-supporting meals the right way.",
     amazonUrl:
@@ -52,7 +52,7 @@ export const EQUIPMENT: EquipmentItem[] = [
     name: "Large Glass Meal Prep Containers Set",
     category: "kitchen",
     priority: "essential",
-    estimatedPrice: "$30 – $50",
+    estimatedPrice: "$30 - $50",
     description:
       "Meal prepping is the difference between following the protocol and abandoning it by day 3. Glass containers are safer than plastic for storing hot foods and oils.",
     amazonUrl:
@@ -63,7 +63,7 @@ export const EQUIPMENT: EquipmentItem[] = [
     name: "Large Glass Water Bottle or Pitcher 2L",
     category: "kitchen",
     priority: "essential",
-    estimatedPrice: "$15 – $35",
+    estimatedPrice: "$15 - $35",
     description:
       "For your daily infused performance waters. Prep the night before, track your 1.5L minimum intake through the day. Glass keeps flavors clean.",
     amazonUrl:
@@ -74,7 +74,7 @@ export const EQUIPMENT: EquipmentItem[] = [
     name: "Digital Kitchen Scale",
     category: "kitchen",
     priority: "essential",
-    estimatedPrice: "$10 – $25",
+    estimatedPrice: "$10 - $25",
     description:
       "For accurately measuring supplement powders like L-Citrulline, maca root, and collagen peptides. Accuracy matters when dosing performance ingredients.",
     amazonUrl:
@@ -87,7 +87,7 @@ export const EQUIPMENT: EquipmentItem[] = [
     name: "Instant Read Meat Thermometer",
     category: "kitchen",
     priority: "recommended",
-    estimatedPrice: "$15 – $30",
+    estimatedPrice: "$15 - $30",
     description:
       "Takes the guesswork out of cooking proteins correctly. Overcooked salmon and steak lose nutrients and flavor. 130-135\u00B0F for medium rare steak, 125\u00B0F for salmon.",
     amazonUrl:
@@ -98,7 +98,7 @@ export const EQUIPMENT: EquipmentItem[] = [
     name: "Immersion Blender",
     category: "kitchen",
     priority: "recommended",
-    estimatedPrice: "$25 – $60",
+    estimatedPrice: "$25 - $60",
     description:
       "Faster than a full blender for golden milk, protein shakes, and soups. Easier to clean for daily use.",
     amazonUrl:
@@ -109,7 +109,7 @@ export const EQUIPMENT: EquipmentItem[] = [
     name: "Baking Sheet with Wire Rack",
     category: "kitchen",
     priority: "recommended",
-    estimatedPrice: "$20 – $40",
+    estimatedPrice: "$20 - $40",
     description:
       "For roasting vegetables, asparagus, and sweet potatoes. Wire rack allows air circulation for even cooking without steaming.",
     amazonUrl:
@@ -120,7 +120,7 @@ export const EQUIPMENT: EquipmentItem[] = [
     name: "Shaker Bottle Set",
     category: "kitchen",
     priority: "recommended",
-    estimatedPrice: "$15 – $25",
+    estimatedPrice: "$15 - $25",
     description:
       "For mixing performance shots, electrolyte drinks, and protein shakes on the go. BPA-free with a mixing ball.",
     amazonUrl:
@@ -131,7 +131,7 @@ export const EQUIPMENT: EquipmentItem[] = [
     name: "Mortar and Pestle",
     category: "kitchen",
     priority: "recommended",
-    estimatedPrice: "$20 – $40",
+    estimatedPrice: "$20 - $40",
     description:
       "For grinding whole spices like black pepper, which activates turmeric absorption. Fresh ground spices have significantly higher bioavailability than pre-ground.",
     amazonUrl:
@@ -144,7 +144,7 @@ export const EQUIPMENT: EquipmentItem[] = [
     name: "Cold Press Shot Machine",
     category: "kitchen",
     priority: "optional",
-    estimatedPrice: "$100 – $200",
+    estimatedPrice: "$100 - $200",
     description:
       "For men who take their daily performance shots seriously. Makes clean 2oz shots from ginger, beet, and turmeric without the mess of a full juicer.",
     amazonUrl:
@@ -155,7 +155,7 @@ export const EQUIPMENT: EquipmentItem[] = [
     name: "Sous Vide Precision Cooker",
     category: "kitchen",
     priority: "optional",
-    estimatedPrice: "$80 – $200",
+    estimatedPrice: "$80 - $200",
     description:
       "For perfectly cooked proteins every time. Salmon at 125\u00B0F for 45 min produces restaurant-quality results that preserve omega-3s. Worth it for serious protocol followers.",
     amazonUrl:
@@ -168,7 +168,7 @@ export const EQUIPMENT: EquipmentItem[] = [
     name: "Adjustable Dumbbells Set",
     category: "gym",
     priority: "essential",
-    estimatedPrice: "$150 – $400",
+    estimatedPrice: "$150 - $400",
     description:
       "The single most versatile piece of home gym equipment. Covers compound and isolation movements for the testosterone-boosting resistance training protocol.",
     amazonUrl:
@@ -179,7 +179,7 @@ export const EQUIPMENT: EquipmentItem[] = [
     name: "Pull-Up Bar (Doorframe or Wall-Mounted)",
     category: "gym",
     priority: "essential",
-    estimatedPrice: "$25 – $80",
+    estimatedPrice: "$25 - $80",
     description:
       "Pull-ups and chin-ups are among the highest testosterone-stimulating bodyweight movements. One of the best investments per dollar for home training.",
     amazonUrl:
@@ -190,7 +190,7 @@ export const EQUIPMENT: EquipmentItem[] = [
     name: "Smart Body Composition Scale",
     category: "gym",
     priority: "essential",
-    estimatedPrice: "$30 – $80",
+    estimatedPrice: "$30 - $80",
     description:
       "Tracks weight, body fat percentage, muscle mass, and BMI. Essential for monitoring protocol results beyond just the scale number. Syncs to your phone.",
     amazonUrl:
@@ -203,7 +203,7 @@ export const EQUIPMENT: EquipmentItem[] = [
     name: "Weighted Vest",
     category: "gym",
     priority: "essential",
-    estimatedPrice: "$50 – $150",
+    estimatedPrice: "$50 - $150",
     description:
       "Turns bodyweight movements like pull-ups, push-ups, and stair climbing into serious testosterone-stimulating resistance training. Adds progressive overload without equipment.",
     amazonUrl:
@@ -216,7 +216,7 @@ export const EQUIPMENT: EquipmentItem[] = [
     name: "Fabric Measuring Tape",
     category: "gym",
     priority: "essential",
-    estimatedPrice: "$5 – $10",
+    estimatedPrice: "$5 - $10",
     description:
       "For tracking waist circumference, the single most important body measurement for hormonal health. Visceral fat directly suppresses testosterone through aromatization.",
     amazonUrl:
@@ -229,7 +229,7 @@ export const EQUIPMENT: EquipmentItem[] = [
     name: "Resistance Bands Set with Handles",
     category: "gym",
     priority: "recommended",
-    estimatedPrice: "$25 – $50",
+    estimatedPrice: "$25 - $50",
     description:
       "Excellent for warm-up, mobility work, and supplementing dumbbell training. Also useful for travel so the protocol does not get interrupted.",
     amazonUrl:
@@ -240,7 +240,7 @@ export const EQUIPMENT: EquipmentItem[] = [
     name: "Adjustable Weight Bench",
     category: "gym",
     priority: "recommended",
-    estimatedPrice: "$80 – $200",
+    estimatedPrice: "$80 - $200",
     description:
       "Opens up chest press, incline, and seated movements with dumbbells. Significantly expands the range of testosterone-building exercises possible at home.",
     amazonUrl:
@@ -251,7 +251,7 @@ export const EQUIPMENT: EquipmentItem[] = [
     name: "Foam Roller",
     category: "gym",
     priority: "recommended",
-    estimatedPrice: "$20 – $40",
+    estimatedPrice: "$20 - $40",
     description:
       "For recovery and myofascial release between training sessions. Reduces muscle soreness and cortisol, both of which impact testosterone levels.",
     amazonUrl:
@@ -262,7 +262,7 @@ export const EQUIPMENT: EquipmentItem[] = [
     name: "Jump Rope",
     category: "gym",
     priority: "recommended",
-    estimatedPrice: "$15 – $30",
+    estimatedPrice: "$15 - $30",
     description:
       "High-intensity cardio that spikes testosterone and burns visceral fat. 10 minutes of jump rope equals 30 minutes of jogging for cardiovascular benefit.",
     amazonUrl:
@@ -275,7 +275,7 @@ export const EQUIPMENT: EquipmentItem[] = [
     name: "Kettlebell Set",
     category: "gym",
     priority: "optional",
-    estimatedPrice: "$60 – $200",
+    estimatedPrice: "$60 - $200",
     description:
       "Kettlebell swings are one of the most effective full-body testosterone-stimulating movements. Pairs well with the dumbbell protocol for variety.",
     amazonUrl:
@@ -286,7 +286,7 @@ export const EQUIPMENT: EquipmentItem[] = [
     name: "Pull-Up and Dip Station",
     category: "gym",
     priority: "optional",
-    estimatedPrice: "$100 – $300",
+    estimatedPrice: "$100 - $300",
     description:
       "Freestanding unit for pull-ups, dips, and hanging leg raises. Dips are one of the highest-output upper body testosterone movements.",
     amazonUrl:
