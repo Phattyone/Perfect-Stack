@@ -13,9 +13,27 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://getperfectstack.com"),
   title: "Perfect Stack  -  Men's Performance System",
   description:
     "A complete system for men who want more testosterone, better performance, sharper energy, and a protocol that actually works.",
+  alternates: {
+    canonical: "https://getperfectstack.com",
+  },
+  openGraph: {
+    url: "https://getperfectstack.com",
+    siteName: "Perfect Stack",
+    title: "Perfect Stack  -  Men's Performance System",
+    description:
+      "A complete system for men who want more testosterone, better performance, sharper energy, and a protocol that actually works.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Perfect Stack  -  Men's Performance System",
+    description:
+      "A complete system for men who want more testosterone, better performance, sharper energy, and a protocol that actually works.",
+  },
 };
 
 export default function RootLayout({
