@@ -4,9 +4,8 @@ import { useState, useMemo, useCallback } from "react";
 import Link from "next/link";
 import { RECIPES, type Recipe, type RecipeCategory } from "@/lib/data/recipes";
 import { isFree } from "@/lib/subscription";
-
-/** Recipe IDs that belong to Days 4–7 of the meal plan (locked for free users) */
-const LOCKED_RECIPE_IDS = [26, 25, 24, 7, 12, 3, 13, 16, 20, 6, 8, 17, 22, 19, 4, 9, 31];
+import { LOCKED_RECIPE_IDS } from "@/lib/data/locked-recipes";
+import { useRecipeModal } from "@/components/recipe-modal/recipe-modal-context";
 
 const CATEGORIES: { key: RecipeCategory | "all"; label: string }[] = [
   { key: "all", label: "All" },
@@ -36,14 +35,16 @@ function PhotoPlaceholder({ recipe }: { recipe: Recipe }) {
   );
 }
 
-function RecipeCard({ recipe, locked, userIsFree, isFirst }: { recipe: Recipe; locked?: boolean; userIsFree?: boolean; isFirst?: boolean }) {
-  const [open, setOpen] = useState(false);
+function RecipeCard({ recipe, locked }: { recipe: Recipe; locked?: boolean }) {
+  const { openRecipe } = useRecipeModal();
   const [imgError, setImgError] = useState(false);
-
   const handleImgError = useCallback(() => setImgError(true), []);
 
   const card = (
-    <div className="overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900 transition hover:border-yellow-600/40">
+    <div
+      className={`overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900 transition hover:border-yellow-600/40${!locked ? " cursor-pointer" : ""}`}
+      onClick={!locked ? () => openRecipe(recipe.id) : undefined}
+    >
       {/* Photo header */}
       {recipe.photoUrl && !imgError ? (
         <div className="relative h-[200px] w-full">
@@ -61,104 +62,43 @@ function RecipeCard({ recipe, locked, userIsFree, isFirst }: { recipe: Recipe; l
       )}
 
       <div className="p-4">
-      {/* Header */}
-      <div className="flex items-start justify-between gap-2">
-        <h3 className="text-sm font-bold text-white">{recipe.name}</h3>
-        <span className={`shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-medium ${CATEGORY_BADGE[recipe.category]}`}>
-          {recipe.category}
-        </span>
-      </div>
-
-      {/* Tags */}
-      <div className="mt-2 flex flex-wrap gap-1">
-        {recipe.tags.map((tag) => (
-          <span key={tag} className="rounded bg-zinc-800 px-1.5 py-0.5 text-[10px] text-zinc-400">
-            {tag}
+        {/* Header */}
+        <div className="flex items-start justify-between gap-2">
+          <h3 className="text-sm font-bold text-white">{recipe.name}</h3>
+          <span className={`shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-medium ${CATEGORY_BADGE[recipe.category]}`}>
+            {recipe.category}
           </span>
-        ))}
-      </div>
-
-      {/* Meta */}
-      <div className="mt-2 flex gap-3 text-xs text-zinc-500">
-        <span>{recipe.prepTime} min</span>
-        <span>{recipe.servings} serving{recipe.servings > 1 ? "s" : ""}</span>
-      </div>
-
-      {/* Benefits */}
-      <p className="mt-2 text-xs italic text-yellow-500/80">{recipe.performanceBenefits}</p>
-      <p className="mt-1 text-xs text-zinc-500">{recipe.bestTiming}</p>
-
-      {/* Expand — hidden on locked cards; teaser/disabled logic for free users */}
-      {!locked && (
-        <>
-          {!userIsFree || isFirst ? (
-            <button
-              type="button"
-              onClick={() => setOpen(!open)}
-              className="mt-3 text-xs font-medium text-yellow-600 hover:text-yellow-500"
-            >
-              {open ? "Hide details" : "View recipe"}
-            </button>
-          ) : (
-            <div className="mt-3 flex items-center gap-2">
-              <button
-                type="button"
-                disabled
-                className="cursor-not-allowed text-xs font-medium text-yellow-600 opacity-50"
-              >
-                View recipe
-              </button>
-              <span className="text-xs text-yellow-400/70">Available in Foundation plan</span>
-            </div>
-          )}
-        </>
-      )}
-
-      {open && (
-        <div className="mt-3 space-y-3 border-t border-zinc-800 pt-3">
-          {/* Ingredients */}
-          <div>
-            <h4 className="mb-1 text-xs font-semibold uppercase text-zinc-500">Ingredients</h4>
-            <ul className="space-y-0.5">
-              {recipe.ingredients.map((ing, i) => (
-                <li key={i} className="text-xs text-zinc-300">
-                  {ing.amount} {ing.unit} {ing.item}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Instructions */}
-          <div>
-            <h4 className="mb-1 text-xs font-semibold uppercase text-zinc-500">Instructions</h4>
-            <ol className="list-inside list-decimal space-y-1">
-              {recipe.instructions.map((step, i) => (
-                <li key={i} className="text-xs text-zinc-300">{step}</li>
-              ))}
-            </ol>
-          </div>
-
-          {/* Amazon ingredients */}
-          {recipe.amazonIngredients && recipe.amazonIngredients.length > 0 && (
-            <div>
-              <h4 className="mb-1 text-xs font-semibold uppercase text-zinc-500">Shop Ingredients on Amazon</h4>
-              <div className="flex flex-wrap gap-2">
-                {recipe.amazonIngredients.map((ai) => (
-                  <a
-                    key={ai.item}
-                    href={ai.searchUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded border border-zinc-700 px-2 py-1 text-[10px] text-yellow-600 transition hover:border-yellow-600"
-                  >
-                    {ai.item} →
-                  </a>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
-      )}
+
+        {/* Tags */}
+        <div className="mt-2 flex flex-wrap gap-1">
+          {recipe.tags.map((tag) => (
+            <span key={tag} className="rounded bg-zinc-800 px-1.5 py-0.5 text-[10px] text-zinc-400">
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        {/* Meta */}
+        <div className="mt-2 flex gap-3 text-xs text-zinc-500">
+          <span>{recipe.prepTime} min</span>
+          <span>{recipe.servings} serving{recipe.servings > 1 ? "s" : ""}</span>
+        </div>
+
+        {/* Benefits */}
+        <p className="mt-2 text-xs italic text-yellow-500/80">{recipe.performanceBenefits}</p>
+        <p className="mt-1 text-xs text-zinc-500">{recipe.bestTiming}</p>
+
+        {/* View recipe — only shown on unlocked cards */}
+        {!locked && (
+          <button
+            type="button"
+            onClick={(e) => { e.stopPropagation(); openRecipe(recipe.id); }}
+            className="mt-3 text-xs font-medium text-yellow-600 hover:text-yellow-500"
+          >
+            View recipe
+          </button>
+        )}
       </div>
     </div>
   );
@@ -189,7 +129,6 @@ export default function RecipesTab({ subscriptionStatus }: { subscriptionStatus:
   const userIsFree = isFree(subscriptionStatus);
   const [category, setCategory] = useState<RecipeCategory | "all">("all");
   const [search, setSearch] = useState("");
-
 
   const filtered = useMemo(() => {
     let list = RECIPES;
@@ -236,13 +175,11 @@ export default function RecipesTab({ subscriptionStatus }: { subscriptionStatus:
 
       {/* Recipe grid */}
       <div className="grid gap-4 sm:grid-cols-2">
-        {filtered.map((recipe, index) => (
+        {filtered.map((recipe) => (
           <RecipeCard
             key={recipe.id}
             recipe={recipe}
             locked={userIsFree && LOCKED_RECIPE_IDS.includes(recipe.id)}
-            userIsFree={userIsFree}
-            isFirst={index === 0}
           />
         ))}
         {filtered.length === 0 && (

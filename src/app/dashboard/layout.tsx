@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import ChatBubble from "@/components/ai-chat/chat-bubble";
+import { RecipeModalProvider } from "@/components/recipe-modal/recipe-modal-context";
+import RecipeModal from "@/components/recipe-modal/recipe-modal";
 
 export default async function DashboardLayout({
   children,
@@ -41,7 +43,7 @@ export default async function DashboardLayout({
   }
 
   return (
-    <>
+    <RecipeModalProvider subscriptionStatus={subscriptionStatus}>
       {children}
       <footer className="border-t border-zinc-800 py-6 print:hidden">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6">
@@ -59,6 +61,7 @@ export default async function DashboardLayout({
         subscriptionStatus={subscriptionStatus}
         userProfile={userProfile}
       />
-    </>
+      <RecipeModal />
+    </RecipeModalProvider>
   );
 }

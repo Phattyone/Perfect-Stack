@@ -3,39 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { MEAL_PLAN } from "@/lib/data/meal-plan";
-import { RECIPES } from "@/lib/data/recipes";
 import { isFree, FREE_MEAL_PLAN_DAYS } from "@/lib/subscription";
-
-function InlineRecipe({ recipeId }: { recipeId: number | null }) {
-  const [open, setOpen] = useState(false);
-  if (!recipeId) return null;
-  const recipe = RECIPES.find((r) => r.id === recipeId);
-  if (!recipe) return null;
-
-  return (
-    <div>
-      <button type="button" onClick={() => setOpen(!open)} className="text-[10px] text-yellow-600 hover:text-yellow-500">
-        {open ? "Hide recipe" : "View recipe"}
-      </button>
-      {open && (
-        <div className="mt-2 rounded-lg bg-zinc-800 p-4">
-          <h5 className="mb-2 text-xs font-semibold text-zinc-300">Ingredients</h5>
-          <ul className="mb-3 space-y-0.5">
-            {recipe.ingredients.map((ing, i) => (
-              <li key={i} className="text-xs text-zinc-400">{ing.amount} {ing.unit} {ing.item}</li>
-            ))}
-          </ul>
-          <h5 className="mb-2 text-xs font-semibold text-zinc-300">Instructions</h5>
-          <ol className="list-inside list-decimal space-y-1">
-            {recipe.instructions.map((step, i) => (
-              <li key={i} className="text-xs text-zinc-400">{step}</li>
-            ))}
-          </ol>
-        </div>
-      )}
-    </div>
-  );
-}
+import { useRecipeModal } from "@/components/recipe-modal/recipe-modal-context";
 
 function MealRow({
   label,
@@ -52,11 +21,22 @@ function MealRow({
   subscriptionStatus: string;
   isFirst?: boolean;
 }) {
+  const { openRecipe } = useRecipeModal();
   const userIsFree = isFree(subscriptionStatus);
 
-  function RecipeToggle() {
+  function RecipeButton() {
     if (!recipeId) return null;
-    if (!userIsFree || isFirst) return <InlineRecipe recipeId={recipeId} />;
+    if (!userIsFree || isFirst) {
+      return (
+        <button
+          type="button"
+          onClick={() => openRecipe(recipeId)}
+          className="mt-1 text-[10px] text-yellow-600 hover:text-yellow-500"
+        >
+          View recipe
+        </button>
+      );
+    }
     return (
       <div className="mt-1 flex items-center gap-2">
         <button
@@ -77,7 +57,7 @@ function MealRow({
         <span className="w-20 shrink-0 text-xs font-medium text-zinc-500">{label}</span>
         <div>
           <span className="text-sm text-zinc-300">{name}</span>
-          {!locked && <RecipeToggle />}
+          {!locked && <RecipeButton />}
         </div>
       </div>
     </div>
@@ -87,7 +67,7 @@ function MealRow({
 
   return (
     <div className="relative">
-      {/* Blurred recipe card */}
+      {/* Blurred recipe row */}
       <div className="pointer-events-none select-none" style={{ filter: "blur(4px)" }}>
         {inner}
       </div>
@@ -124,7 +104,7 @@ export default function MealPlanTab({ subscriptionStatus }: MealPlanTabProps) {
         const isLocked = userIsFree && day.dayNumber > FREE_MEAL_PLAN_DAYS;
         return (
           <div key={day.dayNumber} className="rounded-lg border border-zinc-800">
-            {/* Day header — locked days expand to show blurred content */}
+            {/* Day header */}
             <button
               type="button"
               onClick={() => setOpenDay(isOpen ? null : day.dayNumber)}
