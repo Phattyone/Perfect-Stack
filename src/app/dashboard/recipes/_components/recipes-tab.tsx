@@ -6,7 +6,7 @@ import { RECIPES, type Recipe, type RecipeCategory } from "@/lib/data/recipes";
 import { isFree } from "@/lib/subscription";
 
 /** Recipe IDs that belong to Days 4–7 of the meal plan (locked for free users) */
-const LOCKED_RECIPE_IDS = [26, 25, 24, 7, 12, 3, 13, 16, 20, 6, 8, 17, 22, 19, 4, 9];
+const LOCKED_RECIPE_IDS = [26, 25, 24, 7, 12, 3, 13, 16, 20, 6, 8, 17, 22, 19, 4, 9, 31];
 
 const CATEGORIES: { key: RecipeCategory | "all"; label: string }[] = [
   { key: "all", label: "All" },
