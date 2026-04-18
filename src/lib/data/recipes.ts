@@ -802,7 +802,7 @@ export const RECIPES: Recipe[] = [
     category: "meal",
     tags: ["nitric-oxide", "omega-3", "vascular"],
     theme: "vascular",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/grilled%20salmon%20salad%20beets%20walnuts.png",
     prepTime: 25,
     servings: 1,
     ingredients: [
@@ -829,7 +829,7 @@ export const RECIPES: Recipe[] = [
     category: "meal",
     tags: ["testosterone", "anti-inflammatory"],
     theme: "anti-inflammatory",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/oatmeal%20flaxseed%20banana%20honey.png",
     prepTime: 10,
     servings: 1,
     ingredients: [
@@ -857,7 +857,7 @@ export const RECIPES: Recipe[] = [
     category: "shot",
     tags: ["energy", "anti-inflammatory"],
     theme: "energize",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/energy%20surge.png",
     prepTime: 5,
     servings: 1,
     ingredients: [
@@ -879,7 +879,7 @@ export const RECIPES: Recipe[] = [
     category: "shot",
     tags: ["recovery", "anti-inflammatory"],
     theme: "anti-inflammatory",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/cleaner.png",
     prepTime: 5,
     servings: 1,
     ingredients: [
@@ -901,7 +901,7 @@ export const RECIPES: Recipe[] = [
     category: "shot",
     tags: ["testosterone", "recovery"],
     theme: "strengthen",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/warrior.png",
     prepTime: 5,
     servings: 1,
     ingredients: [
@@ -925,7 +925,7 @@ export const RECIPES: Recipe[] = [
     category: "drink",
     tags: ["testosterone", "recovery"],
     theme: "strengthen",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/ashwagandha%20tea.png",
     prepTime: 5,
     servings: 1,
     ingredients: [
@@ -950,7 +950,7 @@ export const RECIPES: Recipe[] = [
     category: "drink",
     tags: ["testosterone", "vascular", "libido"],
     theme: "testosterone",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/pomergranate%20perfromance.png",
     prepTime: 1,
     servings: 1,
     ingredients: [
@@ -969,7 +969,7 @@ export const RECIPES: Recipe[] = [
     category: "smoothie",
     tags: ["testosterone", "anti-inflammatory"],
     theme: "anti-inflammatory",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/citris%20sunrise.png",
     prepTime: 5,
     servings: 1,
     ingredients: [
@@ -993,7 +993,7 @@ export const RECIPES: Recipe[] = [
     category: "smoothie",
     tags: ["nitric-oxide", "vascular"],
     theme: "vascular",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/green%20machine.png",
     prepTime: 5,
     servings: 1,
     ingredients: [
@@ -1018,7 +1018,7 @@ export const RECIPES: Recipe[] = [
     category: "smoothie",
     tags: ["nitric-oxide", "libido", "vascular"],
     theme: "vascular",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/watermelon%20maca%20smoothie.png",
     prepTime: 5,
     servings: 1,
     ingredients: [
@@ -1043,7 +1043,7 @@ export const RECIPES: Recipe[] = [
     category: "smoothie",
     tags: ["testosterone", "nitric-oxide"],
     theme: "strengthen",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/banana%20spinach%20power%20smoothie.png",
     prepTime: 5,
     servings: 1,
     ingredients: [
@@ -1068,7 +1068,7 @@ export const RECIPES: Recipe[] = [
     category: "drink",
     tags: ["nitric-oxide", "hydration"],
     theme: "vascular",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/testosterone%20water.png",
     prepTime: 10,
     servings: 8,
     ingredients: [
@@ -1091,7 +1091,7 @@ export const RECIPES: Recipe[] = [
     category: "drink",
     tags: ["anti-inflammatory", "hydration"],
     theme: "anti-inflammatory",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/anit-inflam%20infusion.png",
     prepTime: 10,
     servings: 8,
     ingredients: [
@@ -1114,7 +1114,7 @@ export const RECIPES: Recipe[] = [
     category: "drink",
     tags: ["nitric-oxide", "vascular", "hydration"],
     theme: "vascular",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/bloodflow%20boost.png",
     prepTime: 10,
     servings: 8,
     ingredients: [
@@ -1137,7 +1137,7 @@ export const RECIPES: Recipe[] = [
     category: "drink",
     tags: ["recovery", "hydration"],
     theme: "recovery",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/detox%20blend.png",
     prepTime: 10,
     servings: 8,
     ingredients: [
@@ -1160,7 +1160,7 @@ export const RECIPES: Recipe[] = [
     category: "drink",
     tags: ["antioxidant", "hydration"],
     theme: "longevity",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/berry%20antiox%20infusion.png",
     prepTime: 10,
     servings: 8,
     ingredients: [
@@ -1183,7 +1183,7 @@ export const RECIPES: Recipe[] = [
     category: "drink",
     tags: ["antioxidant", "hydration"],
     theme: "energize",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/citirs%20zing.png",
     prepTime: 10,
     servings: 8,
     ingredients: [
@@ -1209,7 +1209,7 @@ export const RECIPES: Recipe[] = [
     category: "meal",
     tags: ["testosterone", "vascular", "nitric-oxide"],
     theme: "testosterone",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/greek%20yogurt%20pom%20walnuts.png",
     prepTime: 5,
     servings: 1,
     ingredients: [
@@ -1232,7 +1232,7 @@ export const RECIPES: Recipe[] = [
     category: "meal",
     tags: ["testosterone", "strengthen"],
     theme: "strengthen",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/testosterone%20power%20breakfast%20burrito.png",
     prepTime: 15,
     servings: 1,
     ingredients: [
@@ -1261,7 +1261,7 @@ export const RECIPES: Recipe[] = [
     category: "meal",
     tags: ["testosterone", "omega-3", "vascular"],
     theme: "vascular",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/avocado%20smoked%20salmon%20toast.png",
     prepTime: 10,
     servings: 1,
     ingredients: [
@@ -1289,7 +1289,7 @@ export const RECIPES: Recipe[] = [
     category: "meal",
     tags: ["testosterone", "nitric-oxide"],
     theme: "testosterone",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/black%20bean%20egg%20breakfast%20skillet.png",
     prepTime: 15,
     servings: 1,
     ingredients: [
@@ -1320,7 +1320,7 @@ export const RECIPES: Recipe[] = [
     category: "meal",
     tags: ["vascular", "anti-inflammatory", "testosterone"],
     theme: "longevity",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/dark%20chocolate%20almond%20overnight%20oats.png",
     prepTime: 5,
     servings: 1,
     ingredients: [
@@ -1349,7 +1349,7 @@ export const RECIPES: Recipe[] = [
     category: "meal",
     tags: ["testosterone", "vascular"],
     theme: "testosterone",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/avocado%20tomato%20whole%20grain%20toast.png",
     prepTime: 10,
     servings: 1,
     ingredients: [
@@ -1375,7 +1375,7 @@ export const RECIPES: Recipe[] = [
     category: "meal",
     tags: ["nitric-oxide", "testosterone", "vascular"],
     theme: "vascular",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/kale%20quinoa%20salad%20lemon%20tahini%20dressing.png",
     prepTime: 20,
     servings: 1,
     ingredients: [
@@ -1403,7 +1403,7 @@ export const RECIPES: Recipe[] = [
     category: "meal",
     tags: ["omega-3", "vascular", "testosterone"],
     theme: "vascular",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/mediterranean%20tuna%20salad.png",
     prepTime: 10,
     servings: 1,
     ingredients: [
@@ -1432,7 +1432,7 @@ export const RECIPES: Recipe[] = [
     category: "meal",
     tags: ["nitric-oxide", "vascular", "testosterone"],
     theme: "vascular",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/spiinach%20strawberry%20salad%20grilled%20chicken.png",
     prepTime: 20,
     servings: 1,
     ingredients: [
@@ -1459,7 +1459,7 @@ export const RECIPES: Recipe[] = [
     category: "meal",
     tags: ["testosterone", "nitric-oxide", "vascular"],
     theme: "testosterone",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/mixed%20greens%20walnuts%20pomegranate%20goat%20cheese.png",
     prepTime: 10,
     servings: 1,
     ingredients: [
@@ -1485,7 +1485,7 @@ export const RECIPES: Recipe[] = [
     category: "meal",
     tags: ["testosterone", "nitric-oxide", "strengthen"],
     theme: "strengthen",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/herb-roasted%20chicken%20sweet%20potatoes%20greens.png",
     prepTime: 40,
     servings: 2,
     ingredients: [
@@ -1517,7 +1517,7 @@ export const RECIPES: Recipe[] = [
     category: "meal",
     tags: ["zinc", "nitric-oxide", "vascular"],
     theme: "vascular",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/garlis%20shrip%20quinoa%20bowl.png",
     prepTime: 25,
     servings: 1,
     ingredients: [
@@ -1546,7 +1546,7 @@ export const RECIPES: Recipe[] = [
     category: "meal",
     tags: ["zinc", "nitric-oxide", "vascular"],
     theme: "vascular",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/garlic%20chili%20shrimp%20brown%20rice.png",
     prepTime: 20,
     servings: 1,
     ingredients: [
@@ -1572,7 +1572,7 @@ export const RECIPES: Recipe[] = [
     category: "meal",
     tags: ["zinc", "testosterone", "strengthen"],
     theme: "strengthen",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/beef%20pumpkin%20seed%20chili.png",
     prepTime: 35,
     servings: 2,
     ingredients: [
@@ -1600,7 +1600,7 @@ export const RECIPES: Recipe[] = [
     category: "meal",
     tags: ["zinc", "testosterone", "strengthen"],
     theme: "strengthen",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/beef%20brocolli%20stirfry.png",
     prepTime: 20,
     servings: 2,
     ingredients: [
@@ -1629,7 +1629,7 @@ export const RECIPES: Recipe[] = [
     category: "meal",
     tags: ["anti-inflammatory", "nitric-oxide", "vascular"],
     theme: "anti-inflammatory",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/lentil%20spinach%20stew%20tumeric.png",
     prepTime: 25,
     servings: 2,
     ingredients: [
@@ -1658,7 +1658,7 @@ export const RECIPES: Recipe[] = [
     category: "meal",
     tags: ["zinc", "nitric-oxide", "testosterone"],
     theme: "testosterone",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/pumpkin%20seed%20spinach%20pasta.png",
     prepTime: 20,
     servings: 2,
     ingredients: [
@@ -1688,7 +1688,7 @@ export const RECIPES: Recipe[] = [
     category: "meal",
     tags: ["zinc", "testosterone", "vascular"],
     theme: "testosterone",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/oyster%20po%20boy%20avocado%20slaw.png",
     prepTime: 25,
     servings: 2,
     ingredients: [
@@ -1721,7 +1721,7 @@ export const RECIPES: Recipe[] = [
     category: "meal",
     tags: ["omega-3", "testosterone", "vascular"],
     theme: "vascular",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/wild%20salmon%20teriyaki%20bowl.png",
     prepTime: 25,
     servings: 1,
     ingredients: [
@@ -1749,7 +1749,7 @@ export const RECIPES: Recipe[] = [
     category: "meal",
     tags: ["testosterone", "anti-inflammatory", "strengthen"],
     theme: "strengthen",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/garlic%20herb%20roasted%20chicken%20brocolli.png",
     prepTime: 35,
     servings: 2,
     ingredients: [
@@ -1776,7 +1776,7 @@ export const RECIPES: Recipe[] = [
     category: "meal",
     tags: ["zinc", "testosterone", "omega-3"],
     theme: "testosterone",
-    photoUrl: "",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/grilled%20lambchops%20roasted%20asparagus.png",
     prepTime: 30,
     servings: 2,
     ingredients: [
