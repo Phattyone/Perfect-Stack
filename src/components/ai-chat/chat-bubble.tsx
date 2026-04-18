@@ -1,12 +1,21 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { isUltimate } from "@/lib/subscription";
 
 interface ChatMessage {
   role: "user" | "assistant";
   content: string;
   timestamp: Date;
+  isLimitMessage?: boolean;
+}
+
+interface UsageData {
+  used: number;
+  limit: number;
+  plan: string;
+  remaining: number;
 }
 
 interface ChatBubbleProps {
@@ -35,12 +44,33 @@ export default function ChatBubble({ subscriptionStatus, userProfile }: ChatBubb
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [usage, setUsage] = useState<UsageData | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const isPaid = ["foundation", "complete", "ultimate", "active"].includes(subscriptionStatus); // mirrors isFoundation()
+  const isPaid = ["foundation", "complete", "ultimate", "active"].includes(subscriptionStatus);
+  const userIsUltimate = isUltimate(subscriptionStatus);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  const fetchUsage = useCallback(async () => {
+    if (!isPaid) return;
+    try {
+      const res = await fetch("/api/chat-usage");
+      if (res.ok) {
+        const data: UsageData = await res.json();
+        setUsage(data);
+      }
+    } catch {
+      // silently ignore — counter is best-effort
+    }
+  }, [isPaid]);
+
+  useEffect(() => {
+    if (open && isPaid) {
+      fetchUsage();
+    }
+  }, [open, isPaid, fetchUsage]);
 
   function handleOpen() {
     setOpen(true);
@@ -49,8 +79,10 @@ export default function ChatBubble({ subscriptionStatus, userProfile }: ChatBubb
     }
   }
 
+  const atLimit = usage !== null && usage.remaining === 0;
+
   async function sendMessage(text: string) {
-    if (!text.trim() || loading) return;
+    if (!text.trim() || loading || atLimit) return;
     const userMsg: ChatMessage = { role: "user", content: text.trim(), timestamp: new Date() };
     setMessages((prev) => [...prev, userMsg]);
     setInput("");
@@ -67,13 +99,31 @@ export default function ChatBubble({ subscriptionStatus, userProfile }: ChatBubb
         }),
       });
       const data = await res.json();
-      const reply = res.ok
-        ? data.response ?? "Something went wrong."
-        : data.error ?? "Something went wrong. Please try again.";
-      setMessages((prev) => [
-        ...prev,
-        { role: "assistant", content: reply, timestamp: new Date() },
-      ]);
+
+      if (!res.ok && res.status === 429 && data.limit !== undefined) {
+        // Our daily limit was reached
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            content: `You've used all ${data.limit} messages for today. Your limit resets at midnight.`,
+            timestamp: new Date(),
+            isLimitMessage: true,
+          },
+        ]);
+        // Refresh usage so the counter reflects the hit limit
+        await fetchUsage();
+      } else {
+        const reply = res.ok
+          ? data.response ?? "Something went wrong."
+          : data.error ?? "Something went wrong. Please try again.";
+        setMessages((prev) => [
+          ...prev,
+          { role: "assistant", content: reply, timestamp: new Date() },
+        ]);
+        // Refresh usage counter after every successful message
+        if (res.ok) await fetchUsage();
+      }
     } catch {
       setMessages((prev) => [
         ...prev,
@@ -85,6 +135,40 @@ export default function ChatBubble({ subscriptionStatus, userProfile }: ChatBubb
 
   function formatTime(d: Date) {
     return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  }
+
+  function UsageCounter() {
+    if (!usage) return null;
+    const { remaining, limit } = usage;
+
+    if (userIsUltimate) {
+      return (
+        <p className="mb-2 text-right text-[10px] text-zinc-600">
+          {usage.used} of {limit} messages today
+        </p>
+      );
+    }
+
+    // Foundation: show warnings based on remaining
+    if (remaining === 0) {
+      return (
+        <p className="mb-2 text-right text-[10px] font-medium text-red-400">
+          Daily limit reached — resets at midnight
+        </p>
+      );
+    }
+    if (remaining <= 3) {
+      return (
+        <p className="mb-2 text-right text-[10px] font-medium text-yellow-500">
+          {remaining} message{remaining === 1 ? "" : "s"} remaining today
+        </p>
+      );
+    }
+    return (
+      <p className="mb-2 text-right text-[10px] text-zinc-600">
+        {remaining} of {limit} messages remaining today
+      </p>
+    );
   }
 
   return (
@@ -137,13 +221,26 @@ export default function ChatBubble({ subscriptionStatus, userProfile }: ChatBubb
                 {messages.map((msg, i) => (
                   <div key={i} className={msg.role === "user" ? "flex justify-end" : "flex justify-start"}>
                     <div>
-                      <div className={
-                        msg.role === "user"
-                          ? "rounded-2xl rounded-br-sm bg-yellow-600 px-4 py-2 text-sm text-zinc-950 max-w-xs ml-auto"
-                          : "rounded-2xl rounded-bl-sm bg-zinc-800 px-4 py-2 text-sm text-zinc-100 max-w-xs"
-                      }>
-                        {msg.content}
-                      </div>
+                      {msg.isLimitMessage ? (
+                        /* Daily limit reached — special styled bubble */
+                        <div className="max-w-xs rounded-2xl rounded-bl-sm border border-yellow-600/30 bg-zinc-800 px-4 py-3">
+                          <p className="text-sm text-zinc-100">{msg.content}</p>
+                          <Link
+                            href="/pricing"
+                            className="mt-2 inline-block rounded-md bg-yellow-600 px-3 py-1.5 text-xs font-semibold text-black transition hover:bg-yellow-500"
+                          >
+                            Upgrade for more messages →
+                          </Link>
+                        </div>
+                      ) : (
+                        <div className={
+                          msg.role === "user"
+                            ? "rounded-2xl rounded-br-sm bg-yellow-600 px-4 py-2 text-sm text-zinc-950 max-w-xs ml-auto"
+                            : "rounded-2xl rounded-bl-sm bg-zinc-800 px-4 py-2 text-sm text-zinc-100 max-w-xs"
+                        }>
+                          {msg.content}
+                        </div>
+                      )}
                       <span className={`mt-0.5 block text-[10px] text-zinc-600 ${msg.role === "user" ? "text-right" : ""}`}>
                         {formatTime(msg.timestamp)}
                       </span>
@@ -180,8 +277,9 @@ export default function ChatBubble({ subscriptionStatus, userProfile }: ChatBubb
                 )}
               </div>
 
-              {/* Input */}
+              {/* Input area */}
               <div className="border-t border-zinc-700 p-3">
+                <UsageCounter />
                 <form
                   onSubmit={(e) => { e.preventDefault(); sendMessage(input); }}
                   className="flex gap-2"
@@ -190,12 +288,13 @@ export default function ChatBubble({ subscriptionStatus, userProfile }: ChatBubb
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    placeholder="Ask about your protocol..."
-                    className="flex-1 rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-white placeholder-zinc-500 focus:border-yellow-600 focus:outline-none"
+                    placeholder={atLimit ? "Daily limit reached" : "Ask about your protocol..."}
+                    disabled={atLimit}
+                    className="flex-1 rounded-lg border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-white placeholder-zinc-500 focus:border-yellow-600 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                   />
                   <button
                     type="submit"
-                    disabled={!input.trim() || loading}
+                    disabled={!input.trim() || loading || atLimit}
                     className="rounded-lg bg-yellow-600 px-3 py-2 text-sm font-semibold text-black transition hover:bg-yellow-500 disabled:opacity-50"
                   >
                     <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

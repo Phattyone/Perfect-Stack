@@ -1,11 +1,41 @@
+/*
+ * ─────────────────────────────────────────────────────────────────────────────
+ * SUPABASE MIGRATION — run in Supabase SQL editor before using rate limiting
+ * ─────────────────────────────────────────────────────────────────────────────
+ *
+ * CREATE TABLE IF NOT EXISTS public.chat_usage (
+ *   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+ *   user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL,
+ *   message_date DATE NOT NULL DEFAULT CURRENT_DATE,
+ *   message_count INTEGER NOT NULL DEFAULT 0,
+ *   UNIQUE(user_id, message_date)
+ * );
+ *
+ * ALTER TABLE public.chat_usage ENABLE ROW LEVEL SECURITY;
+ *
+ * CREATE POLICY "Users can read their own chat usage"
+ * ON public.chat_usage FOR SELECT
+ * USING (auth.uid() = user_id);
+ *
+ * CREATE POLICY "Service role can manage chat usage"
+ * ON public.chat_usage FOR ALL
+ * USING (true);
+ *
+ * ─────────────────────────────────────────────────────────────────────────────
+ */
+
 import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { createClient } from "@/lib/supabase/server";
-import { isFoundation } from "@/lib/subscription";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { isFoundation, isUltimate } from "@/lib/subscription";
+
+export const FOUNDATION_DAILY_LIMIT = 7;
+export const ULTIMATE_DAILY_LIMIT = 50;
 
 export async function POST(request: Request) {
   try {
-    // Auth + subscription check
+    // ── Auth + subscription check ──────────────────────────────────────────
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
@@ -21,11 +51,41 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Subscription required" }, { status: 403 });
     }
 
+    // ── Parse and validate request body ───────────────────────────────────
     const { message, userProfile, conversationHistory } = await request.json();
-
     if (!message) {
       return NextResponse.json({ error: "Message required" }, { status: 400 });
     }
+
+    // ── Daily rate limiting (server-side, uses service role) ───────────────
+    const limit = isUltimate(status) ? ULTIMATE_DAILY_LIMIT : FOUNDATION_DAILY_LIMIT;
+    const today = new Date().toISOString().split("T")[0]; // UTC date YYYY-MM-DD
+
+    const admin = createAdminClient();
+    const { data: usageRow } = await admin
+      .from("chat_usage")
+      .select("message_count")
+      .eq("user_id", user.id)
+      .eq("message_date", today)
+      .maybeSingle();
+
+    const currentCount = usageRow?.message_count ?? 0;
+
+    if (currentCount >= limit) {
+      return NextResponse.json(
+        { error: "Daily message limit reached", limit, resetAt: "midnight tonight" },
+        { status: 429 }
+      );
+    }
+
+    // Increment usage count before calling the AI (best-effort; failure doesn't block)
+    await admin
+      .from("chat_usage")
+      .upsert(
+        { user_id: user.id, message_date: today, message_count: currentCount + 1 },
+        { onConflict: "user_id,message_date" }
+      );
+    // ── End rate limiting ──────────────────────────────────────────────────
 
     if (!process.env.GEMINI_API_KEY) {
       console.error("GEMINI_API_KEY is not set");
