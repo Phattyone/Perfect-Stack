@@ -426,7 +426,7 @@ export const RECIPES: Recipe[] = [
     name: "Testosterone Power Bowl",
     category: "meal",
     tags: ["testosterone", "zinc", "protein"],
-    photoUrl: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/testosterone%20power%20bowl.png",
     theme: "strengthen",
     prepTime: 20,
     servings: 1,
@@ -1749,7 +1749,7 @@ export const RECIPES: Recipe[] = [
     category: "meal",
     tags: ["testosterone", "anti-inflammatory", "strengthen"],
     theme: "strengthen",
-    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/garlic%20herb%20roasted%20chicken%20brocolli.png",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/garlic%20herb%20roasted%20chicken%20brocolli.jpeg",
     prepTime: 35,
     servings: 2,
     ingredients: [
@@ -1776,7 +1776,7 @@ export const RECIPES: Recipe[] = [
     category: "meal",
     tags: ["zinc", "testosterone", "omega-3"],
     theme: "testosterone",
-    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/grilled%20lambchops%20roasted%20asparagus.png",
+    photoUrl: "https://ujrvcwtgqriebyqqbjuo.supabase.co/storage/v1/object/public/recipe-photos/grilled%20lambchops%20roasted%20asparagus.jpeg",
     prepTime: 30,
     servings: 2,
     ingredients: [
