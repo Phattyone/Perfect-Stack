@@ -68,7 +68,7 @@ export default async function RecipesPage() {
         </p>
 
         <div className="mt-6">
-          <RecipesView subscriptionStatus={subscriptionStatus ?? "free"} />
+          <RecipesView subscriptionStatus={subscriptionStatus ?? "free"} userId={user.id} />
         </div>
       </main>
     </div>
