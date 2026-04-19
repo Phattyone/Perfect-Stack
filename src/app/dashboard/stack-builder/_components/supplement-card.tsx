@@ -122,12 +122,11 @@ export default function SupplementCard({
           "☀️🌤️🌙": "Anytime",
           "🌤️": "Afternoon",
         };
+        // Detect whether a dose adjustment (multivitamin or medication) is active
+        const isAdjusted = s.alertLevel === "dose-reduced" || s.alertLevel === "not-recommended";
         if (pd) {
-          // Use pd.dailyTotal when no dose adjustment occurred; otherwise use the adjusted calculatedDose.
-          // Comparing calculatedDose to baseDose detects factor-based reductions (e.g. Ashwagandha)
-          // as well as multivitamin and medication adjustments — all without relying on alertLevel.
-          const isDoseAdjusted = s.calculatedDose !== s.baseDose;
-          const displayDailyTotal = isDoseAdjusted
+          // When an adjustment is active, derive daily total from the already-adjusted calculatedDose
+          const displayDailyTotal = isAdjusted
             ? s.calculatedDose * s.dailyServings
             : pd.dailyTotal;
           return (
@@ -146,8 +145,10 @@ export default function SupplementCard({
         }
         const icon = s.timingIcon ?? "";
         const label = TIMING_LABELS[icon] ?? "";
-        // Always use calculatedDose — it is the correct current dose regardless of what caused any reduction
-        const dailyTotal = s.calculatedDose * s.dailyServings;
+        // When an adjustment is active, use calculatedDose; otherwise baseDose
+        const dailyTotal = isAdjusted
+          ? s.calculatedDose * s.dailyServings
+          : s.baseDose * s.dailyServings;
         return (
           <div className="mt-2 space-y-0.5">
             {icon && (

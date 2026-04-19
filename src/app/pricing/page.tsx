@@ -34,7 +34,7 @@ export default async function PricingPage() {
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <Link
             href={user ? "/dashboard" : "/"}
-            className="text-xl font-bold text-yellow-600 no-underline hover:no-underline transition hover:text-yellow-500"
+            className="text-lg font-bold text-yellow-600 transition hover:text-yellow-500"
           >
             Perfect Stack
           </Link>

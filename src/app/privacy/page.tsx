@@ -5,7 +5,7 @@ export default function PrivacyPage() {
     <div className="min-h-screen bg-[#0a0a0a]">
       <nav className="sticky top-0 z-50 border-b border-zinc-800 bg-zinc-950/95 backdrop-blur">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
-          <Link href="/" className="text-xl font-bold text-yellow-600 no-underline hover:no-underline">Perfect Stack</Link>
+          <Link href="/" className="text-lg font-bold text-yellow-600">Perfect Stack</Link>
           <Link href="/login" className="text-sm text-zinc-400 hover:text-white">Sign In</Link>
         </div>
       </nav>
