@@ -80,6 +80,24 @@ export const SUPPLEMENTS: Supplement[] = [
       { name: "Thorne D3+K2 Liquid", price: 24, servings: 576, url: amz("B0038NF8MG") },
       { name: "NOW D-3+K-2", price: 16, servings: 120, url: amzSearch("NOW D-3 K-2 5000IU") },
     ],
+    // Safety adjustment based on NIH Tolerable Upper Intake Level (UL) analysis
+    multivitaminAdjustment: {
+      "Thorne Men's Multi 50+": {
+        adjustedDose: 2000,
+        alertLevel: "dose-reduced",
+        alertMessage: "Dose reduced to 2,000 IU — Thorne Men's Multi 50+ contributes ~1,000 IU D3. Combined total kept under the 4,000 IU NIH Tolerable Upper Intake Level.",
+      },
+      "Micro Ingredients Methylated Multi": {
+        adjustedDose: 2000,
+        alertLevel: "dose-reduced",
+        alertMessage: "Dose reduced to 2,000 IU — Micro Ingredients Multi contributes vitamin D3. Combined total kept under the 4,000 IU NIH Tolerable Upper Intake Level.",
+      },
+      "Life Extension Two-Per-Day": {
+        adjustedDose: 1000,
+        alertLevel: "dose-reduced",
+        alertMessage: "Dose reduced to 1,000 IU — Life Extension Two-Per-Day contributes 2,000 IU D3. Combined total of 3,000 IU stays safely under the 4,000 IU NIH Tolerable Upper Intake Level.",
+      },
+    },
   },
   {
     id: 3,
@@ -99,6 +117,14 @@ export const SUPPLEMENTS: Supplement[] = [
       { name: "Doctor's Best High Absorption Mg", price: 20, servings: 120, url: amz("B000BD0RT0") },
       { name: "NOW Magnesium Glycinate", price: 18, servings: 180, url: amzSearch("NOW Magnesium Glycinate") },
     ],
+    // Safety adjustment based on NIH Tolerable Upper Intake Level (UL) analysis
+    multivitaminAdjustment: {
+      "Thorne Men's Multi 50+": {
+        adjustedDose: 150,
+        alertLevel: "dose-reduced",
+        alertMessage: "Dose reduced to 150 mg — Thorne Men's Multi 50+ contains ~60 mg magnesium. Adjusted to keep total supplemental magnesium within safe limits.",
+      },
+    },
   },
   {
     id: 4,
@@ -137,6 +163,24 @@ export const SUPPLEMENTS: Supplement[] = [
       { name: "NOW Zinc Picolinate 50mg", price: 12, servings: 120, url: amzSearch("NOW Zinc Picolinate 50mg") },
       { name: "Jarrow Zinc Balance", price: 10, servings: 100, url: amzSearch("Jarrow Formulas Zinc Balance 15mg") },
     ],
+    // Safety adjustment based on NIH Tolerable Upper Intake Level (UL) analysis
+    multivitaminAdjustment: {
+      "Thorne Men's Multi 50+": {
+        adjustedDose: 0,
+        alertLevel: "not-recommended",
+        alertMessage: "Not recommended — Thorne Men's Multi 50+ provides ~30 mg zinc, already at the NIH Tolerable Upper Intake Level. Adding standalone zinc raises copper deficiency risk.",
+      },
+      "Micro Ingredients Methylated Multi": {
+        adjustedDose: 10,
+        alertLevel: "dose-reduced",
+        alertMessage: "Dose reduced to 10 mg — Micro Ingredients Multi contributes ~15 mg zinc. Combined 25 mg stays within the 40 mg NIH Tolerable Upper Intake Level.",
+      },
+      "Life Extension Two-Per-Day": {
+        adjustedDose: 5,
+        alertLevel: "dose-reduced",
+        alertMessage: "Dose reduced to 5 mg — Life Extension Two-Per-Day contributes ~15–17 mg zinc. Combined total stays within the 40 mg NIH Tolerable Upper Intake Level.",
+      },
+    },
   },
   {
     id: 6,
@@ -156,13 +200,21 @@ export const SUPPLEMENTS: Supplement[] = [
       { name: "Thorne B-Complex with Metafolin", price: 28, servings: 60, url: amzSearch("Thorne B-Complex Metafolin") },
       { name: "Seeking Health Optimal B-Complex", price: 32, servings: 100, url: amzSearch("Seeking Health Optimal B-Complex") },
     ],
+    // Safety adjustment based on NIH Tolerable Upper Intake Level (UL) analysis
+    multivitaminAdjustment: {
+      "Life Extension Two-Per-Day": {
+        adjustedDose: 0,
+        alertLevel: "not-recommended",
+        alertMessage: "Not recommended — Life Extension Two-Per-Day provides high-dose B6. Adding a B-Complex significantly exceeds the 100 mg NIH Tolerable Upper Intake Level for B6, raising peripheral neuropathy risk.",
+      },
+    },
   },
   {
     id: 7,
     name: "Boron as Calcium Fructoborate",
     stack: "A",
     category: "Foundation",
-    baseDose: 6,
+    baseDose: 3,
     unit: "mg",
     dailyServings: 1,
     bestTiming: "With a meal",
@@ -194,6 +246,24 @@ export const SUPPLEMENTS: Supplement[] = [
       { name: "Thorne Selenomethionine", price: 18, servings: 60, url: amzSearch("Thorne Selenomethionine") },
       { name: "NOW Selenium 200mcg", price: 10, servings: 180, url: amzSearch("NOW Selenium 200mcg") },
     ],
+    // Safety adjustment based on NIH Tolerable Upper Intake Level (UL) analysis
+    multivitaminAdjustment: {
+      "Thorne Men's Multi 50+": {
+        adjustedDose: 0,
+        alertLevel: "not-recommended",
+        alertMessage: "Not recommended — your multivitamin already provides ~200 mcg selenium, at or near the NIH Tolerable Upper Intake Level (400 mcg). Adding standalone selenium risks toxicity.",
+      },
+      "Micro Ingredients Methylated Multi": {
+        adjustedDose: 0,
+        alertLevel: "not-recommended",
+        alertMessage: "Not recommended — your multivitamin already provides ~200 mcg selenium, at or near the NIH Tolerable Upper Intake Level (400 mcg). Adding standalone selenium risks toxicity.",
+      },
+      "Life Extension Two-Per-Day": {
+        adjustedDose: 0,
+        alertLevel: "not-recommended",
+        alertMessage: "Not recommended — your multivitamin already provides ~200 mcg selenium, at or near the NIH Tolerable Upper Intake Level (400 mcg). Adding standalone selenium risks toxicity.",
+      },
+    },
   },
 
   // ─── STACK B  -  Testosterone Support ────────────────────────────────
@@ -337,7 +407,7 @@ export const SUPPLEMENTS: Supplement[] = [
     name: "CoQ10 Ubiquinol",
     stack: "C",
     category: "Nitric Performance",
-    baseDose: 200,
+    baseDose: 100,
     unit: "mg",
     dailyServings: 1,
     bestTiming: "With fat-containing meal",
@@ -388,6 +458,14 @@ export const SUPPLEMENTS: Supplement[] = [
       { name: "Thorne Ascorbic Acid", price: 18, servings: 250, url: amzSearch("Thorne Ascorbic Acid") },
       { name: "Life Extension Vitamin C", price: 20, servings: 250, url: amzSearch("Life Extension Vitamin C") },
     ],
+    // Safety adjustment based on NIH Tolerable Upper Intake Level (UL) analysis
+    multivitaminAdjustment: {
+      "Life Extension Two-Per-Day": {
+        adjustedDose: 500,
+        alertLevel: "dose-reduced",
+        alertMessage: "Dose reduced to 500 mg — Life Extension Two-Per-Day already provides 1,000 mg vitamin C. Combined 1,500 mg remains within safe limits and avoids approaching the 2,000 mg NIH Tolerable Upper Intake Level.",
+      },
+    },
   },
   {
     id: 19,

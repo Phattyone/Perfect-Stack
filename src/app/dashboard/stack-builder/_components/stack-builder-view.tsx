@@ -50,15 +50,43 @@ export default function StackBuilderView({
     setSelectedProducts((prev) => ({ ...prev, [supplementId]: productIndex }));
   }
 
-  // Supplements with current product selection applied
-  const supplements = useMemo(
-    () =>
-      result.supplements.map((s) => ({
+  // Supplements with current product selection and multivitamin adjustments applied
+  const supplements = useMemo(() => {
+    // Determine which multivitamin product the user has selected (supplement id=1)
+    const multiSupp = result.supplements.find((s) => s.id === 1);
+    const multiIdx = selectedProducts[1] ?? 0;
+    const selectedMultivitaminName = multiSupp?.products[multiIdx]?.name ?? null;
+
+    return result.supplements.map((s) => {
+      const withProduct = {
         ...s,
         selectedProductIndex: selectedProducts[s.id] ?? 0,
-      })),
-    [result.supplements, selectedProducts]
-  );
+      };
+
+      // Apply multivitamin-based dose adjustment if:
+      // - a multivitamin is selected
+      // - this supplement has an adjustment entry for that multivitamin
+      // - the supplement is not already excluded by a medication interaction
+      if (
+        selectedMultivitaminName &&
+        withProduct.multivitaminAdjustment?.[selectedMultivitaminName] &&
+        withProduct.calculatedDose !== 0
+      ) {
+        const adj = withProduct.multivitaminAdjustment[selectedMultivitaminName];
+        // Only apply if the adjustment is more restrictive (lower dose or zero)
+        if (adj.adjustedDose < withProduct.calculatedDose) {
+          return {
+            ...withProduct,
+            calculatedDose: adj.adjustedDose,
+            alertLevel: adj.alertLevel,
+            alertMessage: adj.alertMessage,
+          };
+        }
+      }
+
+      return withProduct;
+    });
+  }, [result.supplements, selectedProducts]);
 
   // Group by stack
   const groupedByStack = useMemo(() => {

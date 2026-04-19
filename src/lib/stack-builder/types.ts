@@ -32,6 +32,7 @@ export interface Supplement {
   timingIcon: string;
   products: Product[];
   productDosing?: { [productName: string]: ProductDosing };
+  multivitaminAdjustment?: { [multivitaminProductName: string]: MultivitaminAdjustmentEntry };
 }
 
 export type AlertLevel =
@@ -40,6 +41,12 @@ export type AlertLevel =
   | "caution"
   | "dose-reduced"
   | "not-recommended";
+
+export interface MultivitaminAdjustmentEntry {
+  adjustedDose: number;
+  alertLevel: AlertLevel;
+  alertMessage: string;
+}
 
 export interface CalculatedSupplement extends Supplement {
   calculatedDose: number;
