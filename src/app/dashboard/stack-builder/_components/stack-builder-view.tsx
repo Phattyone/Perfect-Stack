@@ -9,6 +9,7 @@ import FactorScoresDisplay from "./factor-scores";
 import StackSection from "./stack-section";
 import LockedStackSection from "./locked-stack-section";
 import { isFree, FREE_STACK_A_LOCKED_SUPPLEMENTS } from "@/lib/subscription";
+import StackSafetyCheck from "./stack-safety-check";
 
 interface StackBuilderViewProps {
   profile: ProfileFormData;
@@ -203,6 +204,13 @@ export default function StackBuilderView({
             />
           );
         })}
+
+        {/* Stack Safety Check */}
+        <StackSafetyCheck
+          activeSupplementIds={supplements
+            .filter((s) => s.included && s.calculatedDose > 0 && activeStacks.has(s.stack))
+            .map((s) => s.id)}
+        />
 
         {/* Nitrate-blocked Stack C (selected but contraindicated) */}
         {isNitrateBlockedC && (groupedByStack["C"] ?? []).length > 0 && (

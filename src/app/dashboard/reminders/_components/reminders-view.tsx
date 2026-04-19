@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { saveReminderPreferences } from "../actions";
+import CyclingReminders from "./cycling-reminders";
+import type { CyclingSettings } from "../cycling-actions";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -189,9 +191,14 @@ function buildPrefs(saved: Record<string, unknown> | null): Prefs {
 interface RemindersViewProps {
   userId: string;
   initialPrefs: Record<string, unknown> | null;
+  initialCyclingSettings: CyclingSettings | null;
 }
 
-export default function RemindersView({ userId, initialPrefs }: RemindersViewProps) {
+export default function RemindersView({
+  userId,
+  initialPrefs,
+  initialCyclingSettings,
+}: RemindersViewProps) {
   const [prefs, setPrefs] = useState<Prefs>(() => buildPrefs(initialPrefs));
   const [saving, setSaving] = useState(false);
   const [saved,  setSaved]  = useState(false);
@@ -410,6 +417,9 @@ export default function RemindersView({ userId, initialPrefs }: RemindersViewPro
           </p>
         </div>
       </div>
+
+      {/* Supplement Cycling Reminders */}
+      <CyclingReminders userId={userId} initialSettings={initialCyclingSettings} />
 
       {/* Save / Reset buttons + feedback */}
       <div className="space-y-3 pb-4">

@@ -30,6 +30,7 @@ import { signout } from "@/app/(auth)/actions";
 import RemindersView from "./_components/reminders-view";
 import { isFree } from "@/lib/subscription";
 import LockedFeature from "@/components/locked-feature";
+import { getCyclingSettings } from "./cycling-actions";
 
 export default async function RemindersPage() {
   const supabase = await createClient();
@@ -64,6 +65,9 @@ export default async function RemindersPage() {
   } catch {
     // Table may not exist yet — silently fall back to defaults
   }
+
+  // Fetch cycling settings — silently null if table doesn't exist yet
+  const initialCyclingSettings = await getCyclingSettings(user.id);
 
   return (
     <div className="min-h-screen bg-zinc-950">
@@ -136,7 +140,11 @@ export default async function RemindersPage() {
           />
         ) : (
           <div className="mt-6">
-            <RemindersView userId={user.id} initialPrefs={initialPrefs} />
+            <RemindersView
+              userId={user.id}
+              initialPrefs={initialPrefs}
+              initialCyclingSettings={initialCyclingSettings}
+            />
           </div>
         )}
       </main>
