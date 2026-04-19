@@ -59,9 +59,18 @@ export default function StackSafetyCheck({
     (i) => i.severity === "note"
   ).length;
 
-  const n = activeSupplementIds.length;
-  const totalPairs = (n * (n - 1)) / 2;
-  const safeCount = Math.max(0, totalPairs - matchingInteractions.length);
+  // Build the set of supplement IDs involved in any detected interaction
+  const flaggedIds = useMemo(() => {
+    const ids = new Set<number>();
+    for (const i of matchingInteractions) {
+      ids.add(i.supplementIds[0]);
+      ids.add(i.supplementIds[1]);
+    }
+    return ids;
+  }, [matchingInteractions]);
+
+  // Safe count = active supplements with no flagged interaction
+  const safeCount = activeSupplementIds.length - flaggedIds.size;
 
   const hasInteractions = matchingInteractions.length > 0;
 
