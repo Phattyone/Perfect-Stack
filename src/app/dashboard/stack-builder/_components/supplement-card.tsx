@@ -38,11 +38,17 @@ const ALERT_STYLES: Record<
   },
 };
 
-// Inline dot next to supplement name
+// Inline dot next to supplement name — color + pulse class per severity
 const INLINE_DOT_COLOR: Record<"conflict" | "caution" | "note", string> = {
   conflict: "bg-red-500",
   caution: "bg-yellow-500",
   note: "bg-blue-500",
+};
+
+const INLINE_DOT_PULSE: Record<"conflict" | "caution" | "note", string> = {
+  conflict: "dot-pulse-red",
+  caution: "dot-pulse-yellow",
+  note: "dot-pulse-blue",
 };
 
 // Full-card tint based on interaction severity
@@ -75,11 +81,6 @@ export default function SupplementCard({
   // Card border color changes with alert level
   const borderClass = alert ? alert.border : "border-zinc-800";
 
-  // Inline dot color: green when safe, colored when flagged
-  const inlineDotColor = interactionSeverity
-    ? INLINE_DOT_COLOR[interactionSeverity]
-    : "bg-green-500";
-
   // Full-card tint (additive to bg-zinc-900; very low opacity)
   const cardTint = interactionSeverity ? CARD_TINT[interactionSeverity] : "";
 
@@ -95,9 +96,22 @@ export default function SupplementCard({
           {/* Name + inline interaction dot */}
           <div className="flex items-center gap-2">
             <h4 className="text-sm font-semibold text-white">{s.name}</h4>
-            <span
-              className={`h-2 w-2 shrink-0 rounded-full ${inlineDotColor}`}
-            />
+            {interactionSeverity ? (
+              /* Flagged: clickable pulsing button that scrolls to safety check */
+              <button
+                type="button"
+                title="View interaction details below"
+                onClick={() =>
+                  document
+                    .getElementById("stack-safety-check")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+                className={`h-2 w-2 shrink-0 cursor-pointer rounded-full ${INLINE_DOT_COLOR[interactionSeverity]} ${INLINE_DOT_PULSE[interactionSeverity]}`}
+              />
+            ) : (
+              /* Safe: plain non-interactive green dot */
+              <span className="h-2 w-2 shrink-0 rounded-full bg-green-500" />
+            )}
           </div>
           <p className="mt-0.5 text-xs text-zinc-100">{s.whatItSupports}</p>
         </div>

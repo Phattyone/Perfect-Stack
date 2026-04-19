@@ -72,23 +72,25 @@ export default function StackSafetyCheck({
         Stack Safety Check
       </h3>
 
-      {/* Summary badges — conflict, cautions, notes only when > 0; safe always */}
+      {/* Summary badges — conflict always shown; cautions/notes only when > 0; safe always shown */}
       <div className="mt-2 flex flex-wrap gap-2">
-        {conflictCount > 0 && (
-          <span className="rounded-full border border-red-700/50 bg-red-900/30 px-3 py-1 text-xs font-medium text-red-400">
-            {conflictCount} conflict{conflictCount !== 1 ? "s" : ""}
-          </span>
-        )}
+        {/* Red conflict badge — always rendered */}
+        <span className="rounded-full border border-red-700/50 bg-red-900/30 px-3 py-1 text-xs font-medium text-red-400">
+          {conflictCount} conflict{conflictCount !== 1 ? "s" : ""}
+        </span>
+        {/* Yellow caution badge — only when > 0 */}
         {cautionCount > 0 && (
           <span className="rounded-full border border-yellow-700/50 bg-yellow-900/30 px-3 py-1 text-xs font-medium text-yellow-400">
             {cautionCount} caution{cautionCount !== 1 ? "s" : ""}
           </span>
         )}
+        {/* Blue note badge — only when > 0 */}
         {noteCount > 0 && (
           <span className="rounded-full border border-blue-700/50 bg-blue-900/30 px-3 py-1 text-xs font-medium text-blue-400">
             {noteCount} note{noteCount !== 1 ? "s" : ""}
           </span>
         )}
+        {/* Green safe badge — always rendered */}
         <span className="rounded-full border border-green-700/50 bg-green-900/30 px-3 py-1 text-xs font-medium text-green-400">
           {safeCount} safe
         </span>

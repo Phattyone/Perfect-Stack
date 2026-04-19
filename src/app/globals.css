@@ -35,6 +35,33 @@ body {
   }
 }
 
+/* ─── Supplement card dot pulse animations ─────────────────────────────── */
+@keyframes dot-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 currentColor;
+  }
+  50% {
+    opacity: 0.8;
+    box-shadow: 0 0 6px 3px currentColor;
+  }
+}
+
+.dot-pulse-red {
+  animation: dot-pulse 2s ease-in-out infinite;
+  color: rgb(239, 68, 68);
+}
+
+.dot-pulse-yellow {
+  animation: dot-pulse 2s ease-in-out infinite;
+  color: rgb(234, 179, 8);
+}
+
+.dot-pulse-blue {
+  animation: dot-pulse 2.5s ease-in-out infinite;
+  color: rgb(59, 130, 246);
+}
+
 /* ─── Gold glow hover effects ──────────────────────────────────────────── */
 a:not([aria-disabled="true"]) {
   transition: color 0.2s ease, text-shadow 0.2s ease;
