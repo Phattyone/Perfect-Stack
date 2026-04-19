@@ -38,7 +38,7 @@ export const PLANS = {
       "Multivitamin safety adjustments — NIH upper limit protection",
       "Supplement cycling tracker with phase reminders",
       "All 5 stacks unlocked (Stacks A through E)",
-      "68 recipes with photos — meals, smoothies, shots, and drinks",
+      "Performance recipe library — meals, smoothies, shots, and drinks",
       "7-day starter meal plan with shopping list",
       "Meal Maker — personalized daily meals for weeks 2 through 8 (7 days)",
       "Exercise and training program",
@@ -76,7 +76,7 @@ export const PLANS = {
       "Meal Maker — full 8-week meal generator (days 8 through 56)",
       "Perfect Chat — 50 messages per day",
       "Digital Guide add-on available for purchase",
-      "Early access to new features",
+      "Early access to new features and advanced content",
     ],
     limits: {
       stackAccess: [
