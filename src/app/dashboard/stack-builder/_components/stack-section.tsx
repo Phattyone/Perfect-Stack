@@ -20,6 +20,8 @@ interface StackSectionProps {
   onProductSelect: (supplementId: number, productIndex: number) => void;
   /** Number of trailing supplements to blur for free users (0 = none) */
   freeBlurCount?: number;
+  /** Per-supplement interaction severity for dot indicators */
+  interactionSeverities?: Record<number, "conflict" | "caution" | "note">;
 }
 
 export default function StackSection({
@@ -28,6 +30,7 @@ export default function StackSection({
   isNitrateBlocked,
   onProductSelect,
   freeBlurCount = 0,
+  interactionSeverities,
 }: StackSectionProps) {
   const blurStartIndex = freeBlurCount > 0
     ? Math.max(0, supplements.length - freeBlurCount)
@@ -77,6 +80,7 @@ export default function StackSection({
               key={supp.id}
               supplement={supp}
               onProductSelect={onProductSelect}
+              interactionSeverity={interactionSeverities?.[supp.id] ?? null}
             />
           ))}
           {/* Blurred (locked) supplements for free users */}

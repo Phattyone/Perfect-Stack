@@ -10,6 +10,7 @@ import StackSection from "./stack-section";
 import LockedStackSection from "./locked-stack-section";
 import { isFree, FREE_STACK_A_LOCKED_SUPPLEMENTS } from "@/lib/subscription";
 import StackSafetyCheck from "./stack-safety-check";
+import { SUPPLEMENT_INTERACTIONS, type InteractionSeverity } from "@/lib/data/supplement-interactions";
 
 interface StackBuilderViewProps {
   profile: ProfileFormData;
@@ -139,6 +140,32 @@ export default function StackBuilderView({
     }, 0);
   }, [supplements]);
 
+  // Per-supplement highest-severity interaction map (for dot indicators on cards)
+  const interactionSeverityMap = useMemo(() => {
+    const PRIORITY: Record<InteractionSeverity, number> = {
+      conflict: 3,
+      caution: 2,
+      note: 1,
+    };
+    const activeIds = new Set(
+      supplements
+        .filter((s) => s.included && s.calculatedDose > 0 && activeStacks.has(s.stack))
+        .map((s) => s.id)
+    );
+    const map: Record<number, InteractionSeverity> = {};
+    for (const interaction of SUPPLEMENT_INTERACTIONS) {
+      const [a, b] = interaction.supplementIds;
+      if (activeIds.has(a) && activeIds.has(b)) {
+        for (const id of [a, b] as const) {
+          if (!map[id] || PRIORITY[interaction.severity] > PRIORITY[map[id]]) {
+            map[id] = interaction.severity;
+          }
+        }
+      }
+    }
+    return map;
+  }, [supplements, activeStacks]);
+
   return (
     <div className="pb-24">
       {/* Free-tier controls gate banner */}
@@ -201,6 +228,7 @@ export default function StackBuilderView({
               isNitrateBlocked={false}
               onProductSelect={handleProductSelect}
               freeBlurCount={userIsFree && stack === "A" ? FREE_STACK_A_LOCKED_SUPPLEMENTS : 0}
+              interactionSeverities={interactionSeverityMap}
             />
           );
         })}
@@ -219,6 +247,7 @@ export default function StackBuilderView({
             supplements={groupedByStack["C"]}
             isNitrateBlocked={true}
             onProductSelect={handleProductSelect}
+            interactionSeverities={interactionSeverityMap}
           />
         )}
 

@@ -5,6 +5,7 @@ import type { CalculatedSupplement } from "@/lib/stack-builder/types";
 interface SupplementCardProps {
   supplement: CalculatedSupplement;
   onProductSelect: (supplementId: number, productIndex: number) => void;
+  interactionSeverity?: "conflict" | "caution" | "note" | null;
 }
 
 const ALERT_STYLES: Record<
@@ -37,9 +38,16 @@ const ALERT_STYLES: Record<
   },
 };
 
+const INTERACTION_DOT: Record<"conflict" | "caution" | "note", string> = {
+  conflict: "bg-red-500",
+  caution: "bg-amber-500",
+  note: "bg-blue-500",
+};
+
 export default function SupplementCard({
   supplement: s,
   onProductSelect,
+  interactionSeverity = null,
 }: SupplementCardProps) {
   const alert = s.alertLevel !== "none" ? ALERT_STYLES[s.alertLevel] : null;
   const isExcluded = s.alertLevel === "not-recommended";
@@ -71,13 +79,27 @@ export default function SupplementCard({
           <h4 className="text-sm font-semibold text-white">{s.name}</h4>
           <p className="mt-0.5 text-xs text-zinc-100">{s.whatItSupports}</p>
         </div>
-        {alert && (
-          <span
-            className={`shrink-0 rounded border px-2 py-0.5 text-[10px] font-bold uppercase ${alert.badge}`}
-          >
-            {alert.label}
-          </span>
-        )}
+        <div className="flex shrink-0 items-center gap-2">
+          {alert && (
+            <span
+              className={`rounded border px-2 py-0.5 text-[10px] font-bold uppercase ${alert.badge}`}
+            >
+              {alert.label}
+            </span>
+          )}
+          {interactionSeverity && (
+            <button
+              type="button"
+              title="View interaction warning below"
+              onClick={() =>
+                document
+                  .getElementById("stack-safety-check")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
+              className={`h-2 w-2 cursor-pointer rounded-full ${INTERACTION_DOT[interactionSeverity]} transition-opacity hover:opacity-75`}
+            />
+          )}
+        </div>
       </div>
 
       {/* Alert message */}

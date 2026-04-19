@@ -23,7 +23,7 @@ export const SUPPLEMENT_INTERACTIONS: SupplementInteraction[] = [
     severity: "caution",
     title: "Tongkat Ali + Fadogia Agrestis",
     message:
-      "Both potently stimulate LH and free testosterone production. Combined use amplifies androgenic signaling — monitor for elevated heart rate, aggression, or acne. Cycle both together.",
+      "Both potently stimulate LH and free testosterone production. Combined use amplifies androgenic signaling. Monitor for elevated heart rate, aggression, or acne. Cycle both together.",
   },
   {
     id: "tongkat-dhea",
@@ -34,12 +34,36 @@ export const SUPPLEMENT_INTERACTIONS: SupplementInteraction[] = [
       "Tongkat Ali raises endogenous androgens while DHEA adds exogenous precursor substrate. Combined use may push DHT levels high. A blood panel (total T, DHT, LH) is recommended if stacking both.",
   },
   {
+    id: "ashwagandha-tongkat",
+    supplementIds: [9, 10],
+    severity: "caution",
+    title: "Ashwagandha + Tongkat Ali",
+    message:
+      "Ashwagandha lowers cortisol and supports stress resilience while Tongkat Ali raises androgens via LH stimulation. Together they create a potent hormonal optimization stack. Monitor for excessive stimulation, sleep disruption, or elevated heart rate.",
+  },
+  {
+    id: "ashwagandha-fadogia",
+    supplementIds: [9, 11],
+    severity: "caution",
+    title: "Ashwagandha + Fadogia Agrestis",
+    message:
+      "Ashwagandha modulates the HPA axis while Fadogia stimulates the HPG axis via LH. Both influence hormonal signaling pathways. Combined use is generally well tolerated, but monitor for hormonal imbalance and cycle both on the same schedule.",
+  },
+  {
+    id: "ashwagandha-dhea",
+    supplementIds: [9, 13],
+    severity: "caution",
+    title: "Ashwagandha + DHEA",
+    message:
+      "Both influence cortisol and adrenal function. Ashwagandha lowers cortisol while DHEA supports adrenal output. Combining them is generally safe but monitor for fatigue or hormonal imbalance. Take Ashwagandha in the evening and DHEA in the morning.",
+  },
+  {
     id: "citrulline-beet",
     supplementIds: [14, 15],
     severity: "note",
     title: "L-Citrulline + Beet Root",
     message:
-      "Excellent complementary NO pairing — L-Citrulline (arginine pathway) and Beet Root (dietary nitrates) generate nitric oxide via distinct mechanisms. Additive BP-lowering effect; use caution if you have low baseline blood pressure.",
+      "Excellent complementary NO pairing. L-Citrulline (arginine pathway) and Beet Root (dietary nitrates) generate nitric oxide via distinct mechanisms. Additive BP-lowering effect, use caution if you have low baseline blood pressure.",
   },
   {
     id: "quercetin-omega3",
@@ -55,7 +79,7 @@ export const SUPPLEMENT_INTERACTIONS: SupplementInteraction[] = [
     severity: "note",
     title: "Berberine + Quercetin",
     message:
-      "Both activate AMPK and modulate blood glucose pathways. Combined use may potentiate glucose-lowering effects — monitor blood sugar if you are prediabetic or on diabetes medications.",
+      "Both activate AMPK and modulate blood glucose pathways. Combined use may potentiate glucose-lowering effects. Monitor blood sugar if you are prediabetic or on diabetes medications.",
   },
   {
     id: "resveratrol-quercetin",
@@ -63,7 +87,7 @@ export const SUPPLEMENT_INTERACTIONS: SupplementInteraction[] = [
     severity: "caution",
     title: "Resveratrol + Quercetin",
     message:
-      "Both inhibit platelet aggregation and share CYP enzyme metabolism. Additive anticoagulant effect — avoid if on blood thinners. Take with food to reduce GI sensitivity.",
+      "Both inhibit platelet aggregation and share CYP enzyme metabolism. Additive anticoagulant effect. Avoid if on blood thinners. Take with food to reduce GI sensitivity.",
   },
   {
     id: "nmn-resveratrol",
@@ -90,19 +114,11 @@ export const SUPPLEMENT_INTERACTIONS: SupplementInteraction[] = [
       "At high doses, zinc competes with magnesium for absorption. Take zinc in the morning and magnesium in the evening to maximize absorption of both minerals.",
   },
   {
-    id: "ashwagandha-dhea",
-    supplementIds: [9, 13],
-    severity: "caution",
-    title: "Ashwagandha + DHEA",
-    message:
-      "Ashwagandha naturally elevates DHEA-S via adrenal support. Supplemental DHEA on top may push adrenal hormone levels above optimal. A DHEA-S serum test is recommended before combining.",
-  },
-  {
     id: "fenugreek-tongkat",
     supplementIds: [12, 10],
     severity: "note",
     title: "Fenugreek + Tongkat Ali",
     message:
-      "Fenugreek inhibits 5-alpha reductase (reducing DHT conversion) while Tongkat Ali raises free testosterone. Together they may shift the testosterone-to-DHT ratio favorably — useful if DHT-related side effects are a concern.",
+      "Fenugreek inhibits 5-alpha reductase (reducing DHT conversion) while Tongkat Ali raises free testosterone. Together they may shift the testosterone-to-DHT ratio favorably, useful if DHT-related side effects are a concern.",
   },
 ];

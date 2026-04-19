@@ -10,45 +10,22 @@ interface StackSafetyCheckProps {
   activeSupplementIds: number[];
 }
 
-const SEVERITY_CONFIG: Record<
-  InteractionSeverity,
-  {
-    label: string;
-    icon: string;
-    borderCls: string;
-    bgCls: string;
-    labelCls: string;
-    textCls: string;
-    badgeCls: string;
-  }
-> = {
-  conflict: {
-    label: "Conflict",
-    icon: "🚫",
-    borderCls: "border-red-600",
-    bgCls: "bg-red-950/60",
-    labelCls: "text-red-400",
-    textCls: "text-red-300/80",
-    badgeCls: "border-red-600 text-red-400",
-  },
-  caution: {
-    label: "Caution",
-    icon: "⚠️",
-    borderCls: "border-orange-500",
-    bgCls: "bg-orange-950/40",
-    labelCls: "text-orange-400",
-    textCls: "text-orange-300/80",
-    badgeCls: "border-orange-500 text-orange-400",
-  },
-  note: {
-    label: "Note",
-    icon: "ℹ️",
-    borderCls: "border-blue-600/50",
-    bgCls: "bg-blue-950/30",
-    labelCls: "text-blue-400",
-    textCls: "text-zinc-400",
-    badgeCls: "border-blue-600/50 text-blue-400",
-  },
+const SEVERITY_PRIORITY: Record<InteractionSeverity, number> = {
+  conflict: 0,
+  caution: 1,
+  note: 2,
+};
+
+const DOT_COLOR: Record<InteractionSeverity, string> = {
+  conflict: "bg-red-500",
+  caution: "bg-amber-500",
+  note: "bg-blue-500",
+};
+
+const BORDER_COLOR: Record<InteractionSeverity, string> = {
+  conflict: "border-l-red-500",
+  caution: "border-l-yellow-500",
+  note: "border-l-blue-500",
 };
 
 export default function StackSafetyCheck({
@@ -64,64 +41,109 @@ export default function StackSafetyCheck({
       SUPPLEMENT_INTERACTIONS.filter(
         (i) =>
           activeSet.has(i.supplementIds[0]) && activeSet.has(i.supplementIds[1])
+      ).sort(
+        (a, b) =>
+          SEVERITY_PRIORITY[a.severity] - SEVERITY_PRIORITY[b.severity]
       ),
     [activeSet]
   );
 
-  if (matchingInteractions.length === 0) {
-    return (
-      <div className="rounded-lg border border-green-700/50 bg-green-950/20 p-4">
-        <div className="flex items-center gap-2">
-          <span className="shrink-0 text-base">✅</span>
-          <div>
-            <p className="text-sm font-semibold text-green-400">
-              Stack Safety Check Passed
-            </p>
-            <p className="text-xs text-zinc-500">
-              No known interactions detected between your active supplements.
-            </p>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  const conflictCount = matchingInteractions.filter(
+    (i) => i.severity === "conflict"
+  ).length;
+  const cautionCount = matchingInteractions.filter(
+    (i) => i.severity === "caution"
+  ).length;
+
+  const n = activeSupplementIds.length;
+  const totalPairs = (n * (n - 1)) / 2;
+  const safeCount = Math.max(0, totalPairs - matchingInteractions.length);
+
+  const hasInteractions = matchingInteractions.length > 0;
 
   return (
-    <div className="space-y-3">
-      <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
-        Stack Safety Check —{" "}
-        {matchingInteractions.length} interaction
-        {matchingInteractions.length !== 1 ? "s" : ""} detected
+    <div id="stack-safety-check" className="rounded-lg bg-zinc-900 p-4">
+      {/* Header */}
+      <h3 className="text-lg font-semibold text-yellow-500">
+        Stack Safety Check
       </h3>
 
-      {matchingInteractions.map((interaction) => {
-        const cfg = SEVERITY_CONFIG[interaction.severity];
-        return (
-          <div
-            key={interaction.id}
-            className={`rounded-lg border ${cfg.borderCls} ${cfg.bgCls} p-3`}
-          >
-            <div className="flex items-start gap-2">
-              <span className="mt-0.5 shrink-0 text-sm">{cfg.icon}</span>
-              <div className="min-w-0">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className={`text-sm font-semibold ${cfg.labelCls}`}>
-                    {interaction.title}
-                  </span>
-                  <span
-                    className={`rounded-full border px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide ${cfg.badgeCls}`}
-                  >
-                    {cfg.label}
-                  </span>
-                </div>
-                <p className={`mt-1 text-xs leading-relaxed ${cfg.textCls}`}>
-                  {interaction.message}
+      {/* Summary badges */}
+      <div className="mt-2 flex flex-wrap gap-2">
+        {conflictCount > 0 && (
+          <span className="rounded-full border border-red-700/50 bg-red-900/30 px-3 py-1 text-xs font-medium text-red-400">
+            {conflictCount} conflict{conflictCount !== 1 ? "s" : ""}
+          </span>
+        )}
+        {cautionCount > 0 && (
+          <span className="rounded-full border border-yellow-700/50 bg-yellow-900/30 px-3 py-1 text-xs font-medium text-yellow-400">
+            {cautionCount} caution{cautionCount !== 1 ? "s" : ""}
+          </span>
+        )}
+        <span className="rounded-full border border-green-700/50 bg-green-900/30 px-3 py-1 text-xs font-medium text-green-400">
+          {safeCount} safe
+        </span>
+      </div>
+
+      {/* Interaction cards */}
+      <div className="mt-4 space-y-2">
+        {!hasInteractions && (
+          /* All-clear state */
+          <div className="rounded-lg border-l-4 border-l-green-500 bg-zinc-800/50 px-4 py-3">
+            <div className="flex items-start gap-3">
+              <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-green-500" />
+              <div>
+                <p className="text-sm font-medium text-zinc-300">
+                  All supplement combinations are safe
+                </p>
+                <p className="mt-1 text-xs text-zinc-500">
+                  No interactions detected across your current stack selection.
                 </p>
               </div>
             </div>
           </div>
-        );
-      })}
+        )}
+
+        {hasInteractions &&
+          matchingInteractions.map((interaction) => (
+            <div
+              key={interaction.id}
+              className={`rounded-lg border-l-4 ${BORDER_COLOR[interaction.severity]} bg-zinc-800/50 px-4 py-3`}
+            >
+              <div className="flex items-start gap-3">
+                <span
+                  className={`mt-1 h-2 w-2 shrink-0 rounded-full ${DOT_COLOR[interaction.severity]}`}
+                />
+                <div>
+                  <p className="text-sm font-medium text-white">
+                    {interaction.title}
+                  </p>
+                  <p className="mt-1 text-xs leading-relaxed text-zinc-400">
+                    {interaction.message}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+
+        {/* Partial clear: green card after flagged interactions */}
+        {hasInteractions && (
+          <div className="rounded-lg border-l-4 border-l-green-500 bg-zinc-800/50 px-4 py-3">
+            <div className="flex items-start gap-3">
+              <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-green-500" />
+              <div>
+                <p className="text-sm font-medium text-zinc-300">
+                  All other supplement combinations are safe
+                </p>
+                <p className="mt-1 text-xs text-zinc-500">
+                  No additional interactions detected across your current stack
+                  selection.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
