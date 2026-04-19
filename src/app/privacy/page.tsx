@@ -62,7 +62,7 @@ export default function PrivacyPage() {
               <li><span className="text-zinc-300">Supabase</span> - database, authentication, and file storage</li>
               <li><span className="text-zinc-300">Stripe</span> - payment processing</li>
               <li><span className="text-zinc-300">Amazon</span> - affiliate product links. We earn a commission on qualifying purchases at no additional cost to you</li>
-              <li><span className="text-zinc-300">Google Gemini AI</span> - powers the chat assistant. Messages you send to the AI assistant are processed by Google</li>
+              <li><span className="text-zinc-300">Anthropic Claude AI</span> - powers the Perfect Chat assistant. Messages you send are processed by Anthropic</li>
               <li><span className="text-zinc-300">Vercel</span> - application hosting</li>
             </ul>
           </section>

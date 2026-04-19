@@ -33,12 +33,6 @@ const cards: {
     lockTier: null, // partial access for free users
   },
   {
-    title: "My Journal",
-    description: "Weekly 8-week progress journal with performance scores, protocol notes, and progress photos.",
-    href: "/dashboard/journal",
-    lockTier: "ultimate",
-  },
-  {
     title: "Recipes & Meal Plan",
     description: "Performance recipes, 7-day starter plan, shopping list, and daily drinks protocol.",
     href: "/dashboard/recipes",
@@ -51,9 +45,9 @@ const cards: {
     lockTier: "foundation",
   },
   {
-    title: "Pelvic Floor & Kegels",
-    description: "A guided pelvic floor training program with progressive sets, reps, and a structured 8-week plan.",
-    href: "/dashboard/pelvic-floor",
+    title: "My Journal",
+    description: "Weekly 8-week progress journal with performance scores, protocol notes, and progress photos.",
+    href: "/dashboard/journal",
     lockTier: "ultimate",
   },
   {
@@ -61,6 +55,12 @@ const cards: {
     description: "Sleep optimization, recovery protocols, and stress management for testosterone and peak performance.",
     href: "/dashboard/sleep-recovery",
     lockTier: "foundation",
+  },
+  {
+    title: "Pelvic Floor & Kegels",
+    description: "A guided pelvic floor training program with progressive sets, reps, and a structured 8-week plan.",
+    href: "/dashboard/pelvic-floor",
+    lockTier: "ultimate",
   },
   {
     title: "Reminders & Notifications",
@@ -79,6 +79,12 @@ const cards: {
     description: "Connect with physicians and labs for blood work, hormone panels, and TRT consultation.",
     href: "/dashboard/medical-team",
     lockTier: "ultimate",
+  },
+  {
+    title: "Digital Guide",
+    description: "Access your Perfect Stack digital guide. Available as an add-on for Foundation and Ultimate subscribers.",
+    href: "/dashboard/guide",
+    lockTier: null,
   },
 ];
 
@@ -148,7 +154,7 @@ export default async function DashboardPage() {
         ) : !userIsUltimate ? (
           <div className="mt-6 flex flex-col gap-3 rounded-lg border border-zinc-700 bg-zinc-900 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-sm text-zinc-300">
-              Limited AI Chat, Journal, Pelvic Floor training, and your Medical Team - upgrade to Ultimate.
+              Limited Perfect Chat, Journal, Pelvic Floor training, and your Medical Team - upgrade to Ultimate.
             </p>
             <Link
               href="/pricing"

@@ -16,7 +16,7 @@ function CheckIcon({ className }: { className?: string }) {
 
 const PERFECT_STACK_FEATURES = [
   "Personalized supplement stack builder",
-  "AI chat buddy and progress tracking",
+  "Perfect Chat AI and progress tracking",
   "Recipes, meal plans, and performance drinks",
   "8-week journal and milestone system",
 ];

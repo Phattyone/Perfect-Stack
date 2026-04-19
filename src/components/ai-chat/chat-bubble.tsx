@@ -37,7 +37,7 @@ const SUGGESTIONS = [
   "How long until I see results?",
 ];
 
-const GREETING = "Hey! I'm your Perfect Stack AI assistant. I can help you understand your supplement protocol, explain how the optimization scores work, answer questions about ingredients and timing, and guide you through the 8-week plan. What would you like to know?";
+const GREETING = "Hey! I'm Perfect Chat, your personal Perfect Stack AI assistant. I can help you understand your supplement protocol, explain how the optimization scores work, answer questions about ingredients and timing, and guide you through the 8-week plan. What would you like to know?";
 
 export default function ChatBubble({ subscriptionStatus, userProfile }: ChatBubbleProps) {
   const [open, setOpen] = useState(false);
@@ -178,7 +178,7 @@ export default function ChatBubble({ subscriptionStatus, userProfile }: ChatBubb
         <button
           type="button"
           onClick={handleOpen}
-          className="fixed bottom-16 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-yellow-600 shadow-lg ring-2 ring-white ring-offset-1 ring-offset-zinc-950 transition hover:bg-yellow-500 sm:bottom-14 sm:right-6 md:bottom-6 md:right-6"
+          className="fixed bottom-16 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-yellow-600 shadow-lg ring-2 ring-white ring-offset-1 ring-offset-zinc-950 transition hover:bg-yellow-500 sm:bottom-14 sm:right-6 md:bottom-16 md:right-6"
         >
           <svg className="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -188,11 +188,11 @@ export default function ChatBubble({ subscriptionStatus, userProfile }: ChatBubb
 
       {/* Chat panel */}
       {open && (
-        <div className="fixed bottom-16 right-4 z-50 flex h-[500px] w-80 flex-col overflow-hidden rounded-2xl border border-zinc-700 bg-zinc-900 shadow-2xl sm:bottom-14 sm:right-6 sm:w-96 md:bottom-6 md:right-6">
+        <div className="fixed bottom-16 right-4 z-50 flex h-[500px] w-80 flex-col overflow-hidden rounded-2xl border border-zinc-700 bg-zinc-900 shadow-2xl sm:bottom-14 sm:right-6 sm:w-96 md:bottom-16 md:right-6">
           {/* Header */}
           <div className="flex items-center justify-between border-b border-zinc-700 px-4 py-3">
             <div>
-              <span className="text-sm font-bold text-yellow-600">Perfect Stack AI</span>
+              <span className="text-sm font-bold text-yellow-600">Perfect Chat</span>
               <p className="text-[10px] text-zinc-400">Ask me anything about your protocol</p>
             </div>
             <button type="button" onClick={() => setOpen(false)} className="text-zinc-500 hover:text-zinc-300">
@@ -208,7 +208,7 @@ export default function ChatBubble({ subscriptionStatus, userProfile }: ChatBubb
               <svg className="mb-3 h-10 w-10 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
-              <p className="text-sm text-zinc-300">The Perfect Stack AI assistant is available on the Foundation Protocol ($14/month) and above.</p>
+              <p className="text-sm text-zinc-300">Perfect Chat is available on the Foundation Protocol ($14/month) and above.</p>
               <p className="mt-2 text-xs text-zinc-500">Upgrade to unlock personalized answers about your supplement protocol, timing, interactions, and the complete 8-week system.</p>
               <Link href="/pricing" className="mt-4 rounded-md bg-yellow-600 px-5 py-2 text-sm font-semibold text-black hover:bg-yellow-500">
                 View Plans
