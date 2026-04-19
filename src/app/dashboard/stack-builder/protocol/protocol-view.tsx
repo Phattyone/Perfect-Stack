@@ -86,7 +86,17 @@ function SupplementRow({ s }: { s: CalculatedSupplement }) {
             {pd?.timingIcon ?? s.timingIcon} {pd?.timing ?? TIMING_LABELS[s.timingIcon] ?? ""}
           </span>
           <span className="text-xs font-medium text-yellow-500 print:text-gray-700">
-            Daily total: {pd ? `${pd.dailyTotal.toLocaleString()} ${pd.unit}` : `${(s.baseDose * s.dailyServings).toLocaleString()} ${s.unit}`}
+            {(() => {
+              if (s.calculatedDose === 0) return "Not included";
+              const isAdjusted = s.alertLevel === "dose-reduced" || s.alertLevel === "not-recommended";
+              const total = isAdjusted
+                ? s.calculatedDose * s.dailyServings
+                : pd
+                ? pd.dailyTotal
+                : s.baseDose * s.dailyServings;
+              const unit = pd ? pd.unit : s.unit;
+              return `Daily total: ${total.toLocaleString()} ${unit}`;
+            })()}
           </span>
         </div>
       )}

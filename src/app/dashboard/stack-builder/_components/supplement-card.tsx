@@ -122,22 +122,33 @@ export default function SupplementCard({
           "☀️🌤️🌙": "Anytime",
           "🌤️": "Afternoon",
         };
+        // Detect whether a dose adjustment (multivitamin or medication) is active
+        const isAdjusted = s.alertLevel === "dose-reduced" || s.alertLevel === "not-recommended";
         if (pd) {
+          // When an adjustment is active, derive daily total from the already-adjusted calculatedDose
+          const displayDailyTotal = isAdjusted
+            ? s.calculatedDose * s.dailyServings
+            : pd.dailyTotal;
           return (
             <div className="mt-2 space-y-0.5">
               <p className="text-xs text-zinc-400">
                 {pd.timingIcon} {pd.timing}
                 {pd.withMeals ? " · Take with meals" : ""}
               </p>
-              <p className="text-xs font-medium text-yellow-500">
-                Daily total: {pd.dailyTotal} {pd.unit}
-              </p>
+              {s.calculatedDose > 0 && (
+                <p className="text-xs font-medium text-yellow-500">
+                  Daily total: {displayDailyTotal.toLocaleString()} {pd.unit}
+                </p>
+              )}
             </div>
           );
         }
         const icon = s.timingIcon ?? "";
         const label = TIMING_LABELS[icon] ?? "";
-        const dailyTotal = s.baseDose * s.dailyServings;
+        // When an adjustment is active, use calculatedDose; otherwise baseDose
+        const dailyTotal = isAdjusted
+          ? s.calculatedDose * s.dailyServings
+          : s.baseDose * s.dailyServings;
         return (
           <div className="mt-2 space-y-0.5">
             {icon && (
@@ -145,9 +156,11 @@ export default function SupplementCard({
                 {icon} {label}
               </p>
             )}
-            <p className="text-xs font-medium text-yellow-500">
-              Daily total: {dailyTotal.toLocaleString()} {s.unit}
-            </p>
+            {s.calculatedDose > 0 && (
+              <p className="text-xs font-medium text-yellow-500">
+                Daily total: {dailyTotal.toLocaleString()} {s.unit}
+              </p>
+            )}
           </div>
         );
       })()}
