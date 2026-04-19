@@ -62,7 +62,7 @@ function SupplementRow({ s }: { s: CalculatedSupplement }) {
           <span className="text-sm font-bold text-yellow-500 print:text-gray-900">
             {s.calculatedDose === 0
               ? "Excluded"
-              : pd
+              : pd && s.calculatedDose === s.baseDose
               ? `${pd.servingSize} ${pd.unit}`
               : `${s.calculatedDose} ${s.unit}`}
           </span>

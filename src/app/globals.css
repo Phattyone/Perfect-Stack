@@ -45,7 +45,7 @@ a:not([aria-disabled="true"]):hover {
   text-shadow: 0 0 8px rgba(234, 179, 8, 0.6);
 }
 
-nav a:not([aria-disabled="true"]):hover {
+nav a:not([aria-disabled="true"]):not(.no-underline):hover {
   text-decoration: underline;
   text-decoration-color: rgba(234, 179, 8, 0.4);
 }
