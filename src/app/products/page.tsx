@@ -34,7 +34,7 @@ export default function ProductsPage() {
       {/* ─── NAV ───────────────────────────────────────────────────────── */}
       <nav className="sticky top-0 z-50 border-b border-zinc-800 bg-zinc-950/95 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link href="/" className="text-lg font-bold text-yellow-600 transition hover:text-yellow-500">
+          <Link href="/" className="text-xl font-bold text-yellow-600 no-underline hover:no-underline transition hover:text-yellow-500">
             Perfect Stack<sup className="text-[8px]">&trade;</sup>
           </Link>
           <div className="flex items-center gap-4">

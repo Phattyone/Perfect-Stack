@@ -79,7 +79,7 @@ export default function LandingPage() {
       {/* ─── NAV ─────────────────────────────────────────────────────── */}
       <nav className="sticky top-0 z-50 border-b border-zinc-800 bg-zinc-950/95 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <span className="text-lg font-bold text-yellow-600">
+          <span className="text-xl font-bold text-yellow-600">
             Perfect Stack<sup className="text-[8px]">&trade;</sup>
           </span>
           <div className="flex items-center gap-4">

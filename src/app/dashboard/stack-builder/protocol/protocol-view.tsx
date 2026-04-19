@@ -88,12 +88,12 @@ function SupplementRow({ s }: { s: CalculatedSupplement }) {
           <span className="text-xs font-medium text-yellow-500 print:text-gray-700">
             {(() => {
               if (s.calculatedDose === 0) return "Not included";
-              const isAdjusted = s.alertLevel === "dose-reduced" || s.alertLevel === "not-recommended";
-              const total = isAdjusted
-                ? s.calculatedDose * s.dailyServings
-                : pd
+              // Use pd.dailyTotal only when the dose is unchanged from baseDose (no adjustment of any kind).
+              // Otherwise always use calculatedDose * dailyServings so factor-based reductions are reflected.
+              const isDoseAdjusted = s.calculatedDose !== s.baseDose;
+              const total = !isDoseAdjusted && pd
                 ? pd.dailyTotal
-                : s.baseDose * s.dailyServings;
+                : s.calculatedDose * s.dailyServings;
               const unit = pd ? pd.unit : s.unit;
               return `Daily total: ${total.toLocaleString()} ${unit}`;
             })()}

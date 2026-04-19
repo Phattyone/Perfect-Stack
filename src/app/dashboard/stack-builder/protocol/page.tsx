@@ -53,7 +53,7 @@ export default async function ProtocolPage() {
     <div className="min-h-screen bg-zinc-950 print:bg-white print:text-black">
       <nav className="border-b border-zinc-800 print:hidden">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <Link href="/" className="text-lg font-bold text-yellow-600 transition-all duration-200 hover:text-yellow-400 hover:drop-shadow-[0_0_6px_rgba(234,179,8,0.5)]">Perfect Stack</Link>
+          <Link href="/" className="text-xl font-bold text-yellow-600 no-underline hover:no-underline transition-all duration-200 hover:text-yellow-400 hover:drop-shadow-[0_0_6px_rgba(234,179,8,0.5)]">Perfect Stack</Link>
           <div className="flex items-center gap-4">
             <span className="hidden text-sm text-zinc-400 sm:inline">{user.email}</span>
             <form action={signout}><button type="submit" className="rounded-md border border-zinc-700 px-3 py-1.5 text-sm text-zinc-300 transition hover:border-yellow-600 hover:text-white">Sign Out</button></form>
