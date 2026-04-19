@@ -12,7 +12,7 @@ export default function PrivacyPage() {
 
       <main className="mx-auto max-w-3xl px-6 py-12">
         <h1 className="text-3xl font-bold text-white">Privacy Policy</h1>
-        <p className="mt-2 text-sm text-zinc-500">Last updated: April 2026</p>
+        <p className="mt-2 text-sm text-zinc-500">Last updated: April 18, 2026</p>
 
         <div className="mt-8 space-y-8 text-sm leading-relaxed text-zinc-300">
           <section>
@@ -61,9 +61,10 @@ export default function PrivacyPage() {
             <ul className="list-inside list-disc space-y-2 text-zinc-400">
               <li><span className="text-zinc-300">Supabase</span> - database, authentication, and file storage</li>
               <li><span className="text-zinc-300">Stripe</span> - payment processing</li>
-              <li><span className="text-zinc-300">Amazon</span> - affiliate product links. We earn a commission on qualifying purchases at no additional cost to you</li>
+              <li><span className="text-zinc-300">Amazon</span> - affiliate product links. We participate in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.com. When you click an Amazon affiliate link and make a purchase, we may earn a commission at no additional cost to you.</li>
               <li><span className="text-zinc-300">Anthropic Claude AI</span> - powers the Perfect Chat assistant. Messages you send are processed by Anthropic</li>
               <li><span className="text-zinc-300">Vercel</span> - application hosting</li>
+              <li><span className="text-zinc-300">Namecheap Private Email</span> - We use Namecheap Private Email to manage our business email communications at hello@getperfectstack.com.</li>
             </ul>
           </section>
 

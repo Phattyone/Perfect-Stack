@@ -12,7 +12,7 @@ export default function TermsPage() {
 
       <main className="mx-auto max-w-3xl px-6 py-12">
         <h1 className="text-3xl font-bold text-white">Terms of Service</h1>
-        <p className="mt-2 text-sm text-zinc-500">Last updated: April 2026</p>
+        <p className="mt-2 text-sm text-zinc-500">Last updated: April 18, 2026</p>
 
         <div className="mt-8 space-y-8 text-sm leading-relaxed text-zinc-300">
           <section>
@@ -29,7 +29,7 @@ export default function TermsPage() {
             <h2 className="mb-3 text-lg font-bold text-yellow-600">Medical Disclaimer</h2>
             <div className="rounded-lg border border-yellow-600/30 bg-yellow-600/5 p-4 text-zinc-300">
               <p>Perfect Stack provides general wellness and supplement information for educational purposes only. <strong className="text-white">This is not medical advice.</strong></p>
-              <p className="mt-2">Always consult a qualified physician before starting any supplement protocol, making changes to prescription medications, or if you have a medical condition. The supplement recommendations in this app are not intended to diagnose, treat, cure, or prevent any disease.</p>
+              <p className="mt-2">Always consult a qualified physician before starting any supplement protocol, making changes to prescription medications, or if you have a medical condition. The supplement recommendations in this app are not intended to diagnose, treat, cure, or prevent any disease. Always consult with a qualified healthcare provider before beginning any supplement protocol, especially if you have existing medical conditions or are taking prescription medications.</p>
             </div>
           </section>
 
@@ -47,7 +47,8 @@ export default function TermsPage() {
             <ul className="list-inside list-disc space-y-2 text-zinc-400">
               <li>Subscriptions are billed monthly or annually depending on the plan selected</li>
               <li>You may cancel your subscription at any time via the pricing page</li>
-              <li>No refunds are issued for partial subscription periods</li>
+                <li>No refunds are issued for partial subscription periods</li>
+              <li>The Perfect Stack Digital Guide is available as a separate add-on purchase for Foundation and Ultimate subscribers. Digital guide purchases are non-refundable once the content has been accessed.</li>
               <li>Prices are subject to change with 30 days advance notice</li>
               <li>All payments are processed securely through Stripe</li>
             </ul>
@@ -55,7 +56,12 @@ export default function TermsPage() {
 
           <section>
             <h2 className="mb-3 text-lg font-bold text-yellow-600">Affiliate Disclosure</h2>
-            <p>Perfect Stack participates in the Amazon Associates Program and other affiliate programs. When you click product links and make a purchase, we may earn a commission at no additional cost to you. Affiliate relationships do not influence our supplement recommendations, which are based on published research and clinical evidence.</p>
+            <p>This website contains affiliate links, primarily through the Amazon Services LLC Associates Program. We earn a small commission when you purchase products through our affiliate links at no additional cost to you. We only recommend products we genuinely believe support your health and performance goals. Affiliate commissions help support the operation and development of the Perfect Stack platform.</p>
+          </section>
+
+          <section>
+            <h2 className="mb-3 text-lg font-bold text-yellow-600">Affiliate Program</h2>
+            <p>If you are interested in becoming a Perfect Stack affiliate or brand partner, please contact us at <span className="text-yellow-600">hello@getperfectstack.com</span>. We offer referral programs for qualified health and wellness content creators and practitioners.</p>
           </section>
 
           <section>
