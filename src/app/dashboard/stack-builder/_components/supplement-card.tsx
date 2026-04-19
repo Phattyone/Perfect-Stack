@@ -146,9 +146,7 @@ export default function SupplementCard({
         const icon = s.timingIcon ?? "";
         const label = TIMING_LABELS[icon] ?? "";
         // When an adjustment is active, use calculatedDose; otherwise baseDose
-        const dailyTotal = isAdjusted
-          ? s.calculatedDose * s.dailyServings
-          : s.baseDose * s.dailyServings;
+        const dailyTotal = s.calculatedDose * s.dailyServings;
         return (
           <div className="mt-2 space-y-0.5">
             {icon && (
