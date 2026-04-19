@@ -38,10 +38,18 @@ const ALERT_STYLES: Record<
   },
 };
 
-const INTERACTION_DOT: Record<"conflict" | "caution" | "note", string> = {
+// Inline dot next to supplement name
+const INLINE_DOT_COLOR: Record<"conflict" | "caution" | "note", string> = {
   conflict: "bg-red-500",
-  caution: "bg-amber-500",
+  caution: "bg-yellow-500",
   note: "bg-blue-500",
+};
+
+// Full-card tint based on interaction severity
+const CARD_TINT: Record<"conflict" | "caution" | "note", string> = {
+  conflict: "bg-red-500/5",
+  caution: "bg-yellow-500/5",
+  note: "bg-blue-500/5",
 };
 
 export default function SupplementCard({
@@ -67,39 +75,39 @@ export default function SupplementCard({
   // Card border color changes with alert level
   const borderClass = alert ? alert.border : "border-zinc-800";
 
+  // Inline dot color: green when safe, colored when flagged
+  const inlineDotColor = interactionSeverity
+    ? INLINE_DOT_COLOR[interactionSeverity]
+    : "bg-green-500";
+
+  // Full-card tint (additive to bg-zinc-900; very low opacity)
+  const cardTint = interactionSeverity ? CARD_TINT[interactionSeverity] : "";
+
   return (
     <div
-      className={`rounded-lg border bg-zinc-900 p-4 ${borderClass} ${
+      className={`rounded-lg border bg-zinc-900 ${cardTint} p-4 ${borderClass} ${
         isExcluded ? "opacity-50" : ""
       }`}
     >
       {/* Header */}
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
-          <h4 className="text-sm font-semibold text-white">{s.name}</h4>
+          {/* Name + inline interaction dot */}
+          <div className="flex items-center gap-2">
+            <h4 className="text-sm font-semibold text-white">{s.name}</h4>
+            <span
+              className={`h-2 w-2 shrink-0 rounded-full ${inlineDotColor}`}
+            />
+          </div>
           <p className="mt-0.5 text-xs text-zinc-100">{s.whatItSupports}</p>
         </div>
-        <div className="flex shrink-0 items-center gap-2">
-          {alert && (
-            <span
-              className={`rounded border px-2 py-0.5 text-[10px] font-bold uppercase ${alert.badge}`}
-            >
-              {alert.label}
-            </span>
-          )}
-          {interactionSeverity && (
-            <button
-              type="button"
-              title="View interaction warning below"
-              onClick={() =>
-                document
-                  .getElementById("stack-safety-check")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
-              className={`h-2 w-2 cursor-pointer rounded-full ${INTERACTION_DOT[interactionSeverity]} transition-opacity hover:opacity-75`}
-            />
-          )}
-        </div>
+        {alert && (
+          <span
+            className={`shrink-0 rounded border px-2 py-0.5 text-[10px] font-bold uppercase ${alert.badge}`}
+          >
+            {alert.label}
+          </span>
+        )}
       </div>
 
       {/* Alert message */}
@@ -167,7 +175,6 @@ export default function SupplementCard({
         }
         const icon = s.timingIcon ?? "";
         const label = TIMING_LABELS[icon] ?? "";
-        // When an adjustment is active, use calculatedDose; otherwise baseDose
         const dailyTotal = s.calculatedDose * s.dailyServings;
         return (
           <div className="mt-2 space-y-0.5">

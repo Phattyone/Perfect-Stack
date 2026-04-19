@@ -22,10 +22,11 @@ const DOT_COLOR: Record<InteractionSeverity, string> = {
   note: "bg-blue-500",
 };
 
-const BORDER_COLOR: Record<InteractionSeverity, string> = {
-  conflict: "border-l-red-500",
-  caution: "border-l-yellow-500",
-  note: "border-l-blue-500",
+// Left border + colored background per severity
+const CARD_STYLE: Record<InteractionSeverity, string> = {
+  conflict: "border-l-4 border-l-red-500 bg-red-900/20",
+  caution: "border-l-4 border-l-yellow-500 bg-yellow-900/20",
+  note: "border-l-4 border-l-blue-500 bg-blue-900/20",
 };
 
 export default function StackSafetyCheck({
@@ -54,6 +55,9 @@ export default function StackSafetyCheck({
   const cautionCount = matchingInteractions.filter(
     (i) => i.severity === "caution"
   ).length;
+  const noteCount = matchingInteractions.filter(
+    (i) => i.severity === "note"
+  ).length;
 
   const n = activeSupplementIds.length;
   const totalPairs = (n * (n - 1)) / 2;
@@ -68,7 +72,7 @@ export default function StackSafetyCheck({
         Stack Safety Check
       </h3>
 
-      {/* Summary badges */}
+      {/* Summary badges — conflict, cautions, notes only when > 0; safe always */}
       <div className="mt-2 flex flex-wrap gap-2">
         {conflictCount > 0 && (
           <span className="rounded-full border border-red-700/50 bg-red-900/30 px-3 py-1 text-xs font-medium text-red-400">
@@ -80,6 +84,11 @@ export default function StackSafetyCheck({
             {cautionCount} caution{cautionCount !== 1 ? "s" : ""}
           </span>
         )}
+        {noteCount > 0 && (
+          <span className="rounded-full border border-blue-700/50 bg-blue-900/30 px-3 py-1 text-xs font-medium text-blue-400">
+            {noteCount} note{noteCount !== 1 ? "s" : ""}
+          </span>
+        )}
         <span className="rounded-full border border-green-700/50 bg-green-900/30 px-3 py-1 text-xs font-medium text-green-400">
           {safeCount} safe
         </span>
@@ -89,7 +98,7 @@ export default function StackSafetyCheck({
       <div className="mt-4 space-y-2">
         {!hasInteractions && (
           /* All-clear state */
-          <div className="rounded-lg border-l-4 border-l-green-500 bg-zinc-800/50 px-4 py-3">
+          <div className="rounded-lg border-l-4 border-l-green-500 bg-green-900/20 px-4 py-3">
             <div className="flex items-start gap-3">
               <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-green-500" />
               <div>
@@ -108,7 +117,7 @@ export default function StackSafetyCheck({
           matchingInteractions.map((interaction) => (
             <div
               key={interaction.id}
-              className={`rounded-lg border-l-4 ${BORDER_COLOR[interaction.severity]} bg-zinc-800/50 px-4 py-3`}
+              className={`rounded-lg px-4 py-3 ${CARD_STYLE[interaction.severity]}`}
             >
               <div className="flex items-start gap-3">
                 <span
@@ -128,7 +137,7 @@ export default function StackSafetyCheck({
 
         {/* Partial clear: green card after flagged interactions */}
         {hasInteractions && (
-          <div className="rounded-lg border-l-4 border-l-green-500 bg-zinc-800/50 px-4 py-3">
+          <div className="rounded-lg border-l-4 border-l-green-500 bg-green-900/20 px-4 py-3">
             <div className="flex items-start gap-3">
               <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-green-500" />
               <div>
