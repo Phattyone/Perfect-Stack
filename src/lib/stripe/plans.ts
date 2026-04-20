@@ -40,7 +40,7 @@ export const PLANS = {
       "All 5 stacks unlocked (Stacks A through E)",
       "Performance recipe library - meals, smoothies, shots, and drinks",
       "7-day starter meal plan with shopping list",
-      "Meal Maker preview - generate Day 8 as a free teaser",
+      "Meal Maker preview - generate Day 8 as a free preview",
       "Exercise and training program",
       "Sleep and recovery protocols",
       "Progress tracker with weekly check-ins and trend charts",
