@@ -198,24 +198,27 @@ function EntryCard({
               const value = (entry as unknown as Record<string, unknown>)[marker.key] as number;
               const status = getStatus(marker, value);
               return (
-                <div key={marker.key} className="flex items-center gap-2 border-b border-zinc-800/50 py-1.5 last:border-0">
-                  <span className={`h-2 w-2 shrink-0 rounded-full ${STATUS_DOT[status]}`} />
-                  <span className="min-w-0 flex-1 truncate text-xs text-zinc-400">{marker.label}</span>
-                  <span className="shrink-0 text-xs font-medium text-zinc-200">
-                    {value} {marker.unit}
-                  </span>
+                <div key={marker.key} className="flex items-center justify-between border-b border-zinc-800/50 py-1.5 last:border-0">
+                  <span className="text-xs text-zinc-400">{marker.label}</span>
+                  <div className="flex items-center gap-2">
+                    <span className={`h-2 w-2 shrink-0 rounded-full ${STATUS_DOT[status]}`} />
+                    <span className="text-xs font-medium text-zinc-200">
+                      {value} {marker.unit}
+                    </span>
+                  </div>
                 </div>
               );
             })}
             {booleanMarkers.map((marker) => {
               const value = (entry as unknown as Record<string, unknown>)[marker.key] as boolean;
               return (
-                <div key={marker.key} className="flex items-center gap-2 border-b border-zinc-800/50 py-1.5 last:border-0">
-                  <span className={`h-2 w-2 shrink-0 rounded-full ${value ? "bg-green-500" : "bg-red-500"}`} />
-                  <span className="min-w-0 flex-1 truncate text-xs text-zinc-400">{marker.label}</span>
-                  <span className={`shrink-0 text-xs font-medium ${value ? "text-green-400" : "text-red-400"}`}>
-                    {value ? "Normal" : "Abnormal"}
-                  </span>
+                <div key={marker.key} className="flex items-center justify-between border-b border-zinc-800/50 py-1.5 last:border-0">
+                  <span className="text-xs text-zinc-400">{marker.label}</span>
+                  {value ? (
+                    <span className="text-xs font-medium text-green-400">✓ Normal</span>
+                  ) : (
+                    <span className="text-xs font-medium text-red-400">✗ Abnormal</span>
+                  )}
                 </div>
               );
             })}
