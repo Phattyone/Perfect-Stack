@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { signout } from "@/app/(auth)/actions";
 import { getProgressData } from "./actions";
+import { getBloodWorkEntries } from "./blood-work-actions";
 import ProgressTracker from "./_components/progress-tracker";
 
 export default async function ProgressPage() {
@@ -23,6 +24,7 @@ export default async function ProgressPage() {
   const subscriptionStatus = subData?.subscription_status ?? null;
 
   const progressData = await getProgressData(user.id);
+  const initialBloodWork = await getBloodWorkEntries(user.id);
 
   return (
     <div className="min-h-screen bg-zinc-950">
@@ -75,6 +77,7 @@ export default async function ProgressPage() {
             initialData={progressData}
             userId={user.id}
             subscriptionStatus={subscriptionStatus ?? "free"}
+            initialBloodWork={initialBloodWork}
           />
         </div>
       </main>

@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+// This file has no local state — BloodWorkLog is imported as a standalone client component.
 import type { BaselineData, WeeklyEntryData } from "@/lib/types/progress";
 import { SCORE_MARKERS, MARKER_COLORS } from "@/lib/types/progress";
 import { isUltimate } from "@/lib/subscription";
+import BloodWorkLog from "./blood-work-log";
+import type { BloodWorkEntry } from "../blood-work-actions";
 
 function formatDate(dateStr: string) {
   const d = new Date(dateStr);
@@ -14,6 +16,8 @@ interface ProgressOverviewProps {
   baseline: BaselineData | null;
   entries: WeeklyEntryData[];
   subscriptionStatus: string;
+  userId: string;
+  initialBloodWork: BloodWorkEntry[];
 }
 
 function getScore(data: BaselineData | WeeklyEntryData, key: string): number | null {
@@ -130,78 +134,6 @@ function Milestone({ name, desc, unlocked }: { name: string; desc: string; unloc
   );
 }
 
-// ─── Blood work log ───────────────────────────────────────────────
-interface LabResult { date: string; test: string; result: string; units: string; reference: string; notes: string; }
-const LAB_TESTS = ["Total Testosterone", "Free Testosterone", "SHBG", "Estradiol", "Vitamin D", "Fasting Glucose", "PSA (if 45+)"];
-
-function BloodWorkLog() {
-  const [results, setResults] = useState<LabResult[]>([]);
-  const [adding, setAdding] = useState(false);
-  const [form, setForm] = useState<LabResult>({ date: new Date().toISOString().split("T")[0], test: LAB_TESTS[0], result: "", units: "", reference: "", notes: "" });
-
-  function addResult() {
-    if (!form.result) return;
-    setResults((prev) => [...prev, form]);
-    setForm({ date: new Date().toISOString().split("T")[0], test: LAB_TESTS[0], result: "", units: "", reference: "", notes: "" });
-    setAdding(false);
-  }
-
-  const inputCls = "w-full rounded border border-zinc-700 bg-zinc-800 px-2 py-1.5 text-xs text-white focus:border-yellow-600 focus:outline-none";
-
-  return (
-    <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-4">
-      <div className="flex items-center justify-between">
-        <h3 className="text-xs font-semibold uppercase tracking-wider text-zinc-500">Blood Work Log</h3>
-        <button type="button" onClick={() => setAdding(!adding)}
-          className="text-xs font-medium text-yellow-600 hover:text-yellow-500">{adding ? "Cancel" : "Add Lab Result"}</button>
-      </div>
-
-      {adding && (
-        <div className="mt-3 grid grid-cols-2 gap-2 rounded border border-zinc-700 bg-zinc-800/50 p-3 sm:grid-cols-3">
-          <div><label className="mb-0.5 block text-[10px] text-zinc-500">Date</label><input type="date" value={form.date} onChange={(e) => setForm((f) => ({ ...f, date: e.target.value }))} className={inputCls} /></div>
-          <div><label className="mb-0.5 block text-[10px] text-zinc-500">Test</label>
-            <select value={form.test} onChange={(e) => setForm((f) => ({ ...f, test: e.target.value }))} className={inputCls}>
-              {LAB_TESTS.map((t) => <option key={t} value={t}>{t}</option>)}
-            </select>
-          </div>
-          <div><label className="mb-0.5 block text-[10px] text-zinc-500">Result</label><input value={form.result} onChange={(e) => setForm((f) => ({ ...f, result: e.target.value }))} className={inputCls} /></div>
-          <div><label className="mb-0.5 block text-[10px] text-zinc-500">Units</label><input value={form.units} onChange={(e) => setForm((f) => ({ ...f, units: e.target.value }))} className={inputCls} placeholder="ng/dL" /></div>
-          <div><label className="mb-0.5 block text-[10px] text-zinc-500">Ref. Range</label><input value={form.reference} onChange={(e) => setForm((f) => ({ ...f, reference: e.target.value }))} className={inputCls} placeholder="300-1000" /></div>
-          <div><label className="mb-0.5 block text-[10px] text-zinc-500">Notes</label><input value={form.notes} onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))} className={inputCls} /></div>
-          <div className="col-span-2 sm:col-span-3">
-            <button type="button" onClick={addResult} className="w-full rounded bg-yellow-600 px-3 py-1.5 text-xs font-semibold text-black hover:bg-yellow-500">Save Result</button>
-          </div>
-        </div>
-      )}
-
-      {results.length > 0 ? (
-        <div className="mt-3 overflow-x-auto">
-          <table className="w-full text-xs">
-            <thead><tr className="border-b border-zinc-800">
-              <th className="px-2 py-1 text-left text-zinc-500">Date</th>
-              <th className="px-2 py-1 text-left text-zinc-500">Test</th>
-              <th className="px-2 py-1 text-right text-zinc-500">Result</th>
-              <th className="px-2 py-1 text-right text-zinc-500">Ref.</th>
-              <th className="px-2 py-1 text-left text-zinc-500">Notes</th>
-            </tr></thead>
-            <tbody>{results.map((r, i) => (
-              <tr key={i} className="border-b border-zinc-800/50">
-                <td className="px-2 py-1 text-zinc-400">{r.date}</td>
-                <td className="px-2 py-1 text-zinc-300">{r.test}</td>
-                <td className="px-2 py-1 text-right font-semibold text-yellow-500">{r.result} {r.units}</td>
-                <td className="px-2 py-1 text-right text-zinc-500">{r.reference}</td>
-                <td className="px-2 py-1 text-zinc-500">{r.notes}</td>
-              </tr>
-            ))}</tbody>
-          </table>
-        </div>
-      ) : (
-        <p className="mt-3 text-xs text-zinc-600">No lab results logged yet. Get your baseline blood panel before starting the protocol.</p>
-      )}
-    </div>
-  );
-}
-
 // ─── Locked section card ──────────────────────────────────────────
 function LockedSection({ title, description }: { title: string; description: string }) {
   return (
@@ -221,7 +153,7 @@ function LockedSection({ title, description }: { title: string; description: str
 }
 
 // ─── Main component ───────────────────────────────────────────────
-export default function ProgressOverview({ baseline, entries, subscriptionStatus }: ProgressOverviewProps) {
+export default function ProgressOverview({ baseline, entries, subscriptionStatus, userId, initialBloodWork }: ProgressOverviewProps) {
   if (!baseline && entries.length === 0) {
     return (
       <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-8 text-center">
@@ -384,7 +316,7 @@ export default function ProgressOverview({ baseline, entries, subscriptionStatus
 
       {/* Blood work log */}
       {userIsUltimate ? (
-        <BloodWorkLog />
+        <BloodWorkLog userId={userId} initialEntries={initialBloodWork} />
       ) : (
         <LockedSection
           title="Blood Work Log"

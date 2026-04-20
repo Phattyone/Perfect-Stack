@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import type { BaselineData, WeeklyEntryData, ProgressData } from "@/lib/types/progress";
+import type { BloodWorkEntry } from "../blood-work-actions";
 import BaselineForm from "./baseline-form";
 import BaselineSummary from "./baseline-summary";
 import WeeklyForm from "./weekly-form";
@@ -41,9 +42,10 @@ interface ProgressTrackerProps {
   initialData: ProgressData;
   userId: string;
   subscriptionStatus: string;
+  initialBloodWork: BloodWorkEntry[];
 }
 
-export default function ProgressTracker({ initialData, userId, subscriptionStatus }: ProgressTrackerProps) {
+export default function ProgressTracker({ initialData, userId, subscriptionStatus, initialBloodWork }: ProgressTrackerProps) {
   const userIsFree = isFree(subscriptionStatus);
   const [activeTab, setActiveTab] = useState<Tab>("baseline");
   const [baseline, setBaseline] = useState<BaselineData | null>(initialData.baseline);
@@ -112,7 +114,7 @@ export default function ProgressTracker({ initialData, userId, subscriptionStatu
         {activeTab === "progress" && (
           userIsFree
             ? <LockedTabContent featureName="My Progress" />
-            : <ProgressOverview baseline={baseline} entries={entries} subscriptionStatus={subscriptionStatus} />
+            : <ProgressOverview baseline={baseline} entries={entries} subscriptionStatus={subscriptionStatus} userId={userId} initialBloodWork={initialBloodWork} />
         )}
       </div>
     </div>
