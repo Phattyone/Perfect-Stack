@@ -238,6 +238,7 @@ export default function StackBuilderView({
           activeSupplementIds={supplements
             .filter((s) => s.included && s.calculatedDose > 0 && activeStacks.has(s.stack))
             .map((s) => s.id)}
+          subscriptionStatus={subscriptionStatus}
         />
 
         {/* Nitrate-blocked Stack C (selected but contraindicated) */}

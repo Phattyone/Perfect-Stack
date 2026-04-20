@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { BaselineData, WeeklyEntryData } from "@/lib/types/progress";
 import { SCORE_MARKERS, MARKER_COLORS } from "@/lib/types/progress";
+import { isUltimate } from "@/lib/subscription";
 
 function formatDate(dateStr: string) {
   const d = new Date(dateStr);
@@ -12,6 +13,7 @@ function formatDate(dateStr: string) {
 interface ProgressOverviewProps {
   baseline: BaselineData | null;
   entries: WeeklyEntryData[];
+  subscriptionStatus: string;
 }
 
 function getScore(data: BaselineData | WeeklyEntryData, key: string): number | null {
@@ -200,8 +202,26 @@ function BloodWorkLog() {
   );
 }
 
+// ─── Locked section card ──────────────────────────────────────────
+function LockedSection({ title, description }: { title: string; description: string }) {
+  return (
+    <div className="rounded-lg border border-zinc-700 bg-zinc-800 p-6 text-center">
+      <p className="text-2xl">🔒</p>
+      <p className="mt-2 text-sm font-semibold text-white">{title}</p>
+      <p className="mt-1 text-xs text-zinc-400">{description}</p>
+      <a
+        href="/pricing"
+        className="mt-4 inline-block rounded-md bg-yellow-600 px-5 py-2 text-sm font-semibold text-black transition hover:bg-yellow-500"
+      >
+        Upgrade to Ultimate
+      </a>
+      <p className="mt-3 text-xs text-zinc-500">Available in the Ultimate Protocol</p>
+    </div>
+  );
+}
+
 // ─── Main component ───────────────────────────────────────────────
-export default function ProgressOverview({ baseline, entries }: ProgressOverviewProps) {
+export default function ProgressOverview({ baseline, entries, subscriptionStatus }: ProgressOverviewProps) {
   if (!baseline && entries.length === 0) {
     return (
       <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-8 text-center">
@@ -224,6 +244,7 @@ export default function ProgressOverview({ baseline, entries }: ProgressOverview
 
   const overallScores = allPoints.map((p) => avgScore(p.data));
   const overallLabels = allPoints.map((p) => p.label);
+  const userIsUltimate = isUltimate(subscriptionStatus);
 
   // Milestones
   const weekNums = new Set(entries.map((e) => e.week_number));
@@ -269,49 +290,70 @@ export default function ProgressOverview({ baseline, entries }: ProgressOverview
       </div>
 
       {/* Overall trend chart */}
-      <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-4">
-        <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-zinc-500">Overall Score Trend</h3>
-        <TrendChart points={overallScores} labels={overallLabels} />
-      </div>
+      {userIsUltimate ? (
+        <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-4">
+          <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-zinc-500">Overall Score Trend</h3>
+          <TrendChart points={overallScores} labels={overallLabels} />
+        </div>
+      ) : (
+        <LockedSection
+          title="Overall Score Trend"
+          description="Track your performance score over time with a visual trend chart. Upgrade to Ultimate to unlock."
+        />
+      )}
 
       {/* Six marker sparklines */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {SCORE_MARKERS.map((m) => {
-          const values = allPoints.map((p) => getScore(p.data, m.key) ?? 0);
-          const baseVal = baseline ? getScore(baseline, m.key) ?? 0 : 0;
-          const currentVal = latest ? getScore(latest, m.key) ?? 0 : baseVal;
-          const delta = currentVal - baseVal;
-          const mc = MARKER_COLORS[m.key];
+      {userIsUltimate ? (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {SCORE_MARKERS.map((m) => {
+            const values = allPoints.map((p) => getScore(p.data, m.key) ?? 0);
+            const baseVal = baseline ? getScore(baseline, m.key) ?? 0 : 0;
+            const currentVal = latest ? getScore(latest, m.key) ?? 0 : baseVal;
+            const delta = currentVal - baseVal;
+            const mc = MARKER_COLORS[m.key];
 
-          return (
-            <div key={m.key} className={`rounded-lg border-l-4 border-zinc-800 bg-zinc-900 p-4`} style={{ borderLeftColor: mc?.hex }}>
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-white">{m.label}</span>
-                <span className="text-xl font-bold" style={{ color: mc?.hex }}>{currentVal}</span>
+            return (
+              <div key={m.key} className={`rounded-lg border-l-4 border-zinc-800 bg-zinc-900 p-4`} style={{ borderLeftColor: mc?.hex }}>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-white">{m.label}</span>
+                  <span className="text-xl font-bold" style={{ color: mc?.hex }}>{currentVal}</span>
+                </div>
+                <div className="mt-1 flex items-center gap-2">
+                  {delta > 0 && <span className="text-xs" style={{ color: mc?.hex }}>+{delta} pts</span>}
+                  {delta < 0 && <span className="text-xs text-red-400">{delta} pts</span>}
+                  {delta === 0 && <span className="text-xs text-zinc-500">no change</span>}
+                  <span className="text-xs text-zinc-500">Started at {baseVal}</span>
+                </div>
+                <div className="mt-3">
+                  <Sparkline values={values} color={mc?.hex} />
+                </div>
               </div>
-              <div className="mt-1 flex items-center gap-2">
-                {delta > 0 && <span className="text-xs" style={{ color: mc?.hex }}>+{delta} pts</span>}
-                {delta < 0 && <span className="text-xs text-red-400">{delta} pts</span>}
-                {delta === 0 && <span className="text-xs text-zinc-500">no change</span>}
-                <span className="text-xs text-zinc-500">Started at {baseVal}</span>
-              </div>
-              <div className="mt-3">
-                <Sparkline values={values} color={mc?.hex} />
-              </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      ) : (
+        <LockedSection
+          title="Marker Trend Charts"
+          description="See sparkline charts for energy, libido, sleep, mood, and strength across every check-in. Upgrade to Ultimate to unlock."
+        />
+      )}
 
       {/* Milestones */}
-      <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-4">
-        <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-500">Milestones</h3>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-          {milestones.map((m) => (
-            <Milestone key={m.name} name={m.name} desc={m.desc} unlocked={m.unlocked} />
-          ))}
+      {userIsUltimate ? (
+        <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-4">
+          <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-500">Milestones</h3>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {milestones.map((m) => (
+              <Milestone key={m.name} name={m.name} desc={m.desc} unlocked={m.unlocked} />
+            ))}
+          </div>
         </div>
-      </div>
+      ) : (
+        <LockedSection
+          title="Milestone Tracking"
+          description="Unlock achievement badges as you complete check-ins, hit score targets, and finish the 8-week protocol. Upgrade to Ultimate."
+        />
+      )}
 
       {/* Week-by-week table */}
       {entries.length > 0 && (
@@ -341,7 +383,14 @@ export default function ProgressOverview({ baseline, entries }: ProgressOverview
       )}
 
       {/* Blood work log */}
-      <BloodWorkLog />
+      {userIsUltimate ? (
+        <BloodWorkLog />
+      ) : (
+        <LockedSection
+          title="Blood Work Log"
+          description="Log your testosterone, SHBG, Vitamin D, and other lab results to track how the protocol affects your biomarkers. Upgrade to Ultimate."
+        />
+      )}
     </div>
   );
 }

@@ -144,6 +144,7 @@ export default async function RemindersPage() {
               userId={user.id}
               initialPrefs={initialPrefs}
               initialCyclingSettings={initialCyclingSettings}
+              subscriptionStatus={subscriptionStatus ?? "free"}
             />
           </div>
         )}

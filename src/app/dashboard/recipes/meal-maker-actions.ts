@@ -105,8 +105,8 @@ export async function generateDay(
   if (!isFoundation(subscriptionStatus)) {
     return { data: null, error: "Meal Maker requires a Foundation plan or higher." };
   }
-  if (!isUltimate(subscriptionStatus) && dayNumber > 14) {
-    return { data: null, error: "Foundation plan includes Days 8-14. Upgrade to Ultimate for the full program." };
+  if (!isUltimate(subscriptionStatus) && dayNumber !== 8) {
+    return { data: null, error: "Foundation plan preview includes Day 8 only. Upgrade to Ultimate for the full 7-week program." };
   }
   if (dayNumber < 8 || dayNumber > 56) {
     return { data: null, error: "Invalid day number." };

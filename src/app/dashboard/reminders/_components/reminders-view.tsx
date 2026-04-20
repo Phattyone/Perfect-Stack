@@ -192,12 +192,14 @@ interface RemindersViewProps {
   userId: string;
   initialPrefs: Record<string, unknown> | null;
   initialCyclingSettings: CyclingSettings | null;
+  subscriptionStatus: string;
 }
 
 export default function RemindersView({
   userId,
   initialPrefs,
   initialCyclingSettings,
+  subscriptionStatus,
 }: RemindersViewProps) {
   const [prefs, setPrefs] = useState<Prefs>(() => buildPrefs(initialPrefs));
   const [saving, setSaving] = useState(false);
@@ -419,7 +421,7 @@ export default function RemindersView({
       </div>
 
       {/* Supplement Cycling Reminders */}
-      <CyclingReminders userId={userId} initialSettings={initialCyclingSettings} />
+      <CyclingReminders userId={userId} initialSettings={initialCyclingSettings} subscriptionStatus={subscriptionStatus} />
 
       {/* Save / Reset buttons + feedback */}
       <div className="space-y-3 pb-4">

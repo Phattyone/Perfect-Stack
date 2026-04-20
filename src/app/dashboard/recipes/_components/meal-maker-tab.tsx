@@ -248,13 +248,13 @@ export default function MealMakerTab({
   const [expandedDay, setExpandedDay] = useState<number | null>(null);
 
   const userIsUltimate = isUltimate(subscriptionStatus);
-  const dayLimit = userIsUltimate ? 56 : 14;
+  const dayLimit = userIsUltimate ? 56 : 8;
 
   const nextDay = log.length > 0
     ? Math.max(...log.map((r) => r.day_number)) + 1
     : 8;
 
-  const showUpgrade   = !userIsUltimate && nextDay > 14;
+  const showUpgrade   = !userIsUltimate && nextDay > 8;
   const showCompleted = userIsUltimate && nextDay > 56;
   const canGenerate   = nextDay <= dayLimit;
 
@@ -314,17 +314,6 @@ export default function MealMakerTab({
         </p>
       </div>
 
-      {/* Foundation plan banner */}
-      {!userIsUltimate && (
-        <div className="rounded-lg border border-yellow-600/30 bg-yellow-600/10 px-4 py-3">
-          <p className="text-sm text-yellow-400">
-            <span className="font-semibold">Foundation plan</span> includes 7 generated days (Days 8-14).{" "}
-            <a href="/pricing" className="underline hover:text-yellow-300">Upgrade to Ultimate</a>{" "}
-            for the full 8-week meal generator.
-          </p>
-        </div>
-      )}
-
       {/* Next-day generator card */}
       {!showCompleted && (
         <div className="rounded-lg border border-yellow-600/30 bg-zinc-900 p-5">
@@ -340,27 +329,37 @@ export default function MealMakerTab({
           </div>
           <div className="mt-4">
             {showUpgrade ? (
-              <div className="rounded-lg border border-zinc-700 bg-zinc-800 px-4 py-4 text-center">
-                <p className="text-sm text-zinc-300">
-                  You have used all 7 Foundation days (Days 8-14).
+              <div className="rounded-lg border border-zinc-700 bg-zinc-800 p-6 text-center">
+                <p className="text-2xl">🔒</p>
+                <p className="mt-2 text-sm font-semibold text-white">Unlock the Full 7-Week Meal Maker</p>
+                <p className="mt-1 text-xs text-zinc-400">
+                  You have generated your Foundation preview day. Upgrade to Ultimate to continue generating Days 9 through 56.
                 </p>
                 <a
                   href="/pricing"
-                  className="mt-3 inline-block rounded-md bg-yellow-600 px-5 py-2 text-sm font-semibold text-black transition hover:bg-yellow-500"
+                  className="mt-4 inline-block rounded-md bg-yellow-600 px-5 py-2 text-sm font-semibold text-black transition hover:bg-yellow-500"
                 >
-                  Upgrade to Ultimate to continue
+                  Upgrade to Ultimate
                 </a>
+                <p className="mt-3 text-xs text-zinc-500">Available in the Ultimate Protocol</p>
               </div>
             ) : (
-              <button
-                type="button"
-                onClick={handleGenerate}
-                disabled={generating || !canGenerate}
-                className="flex items-center gap-2 rounded-lg bg-yellow-600 px-5 py-2.5 text-sm font-semibold text-black transition hover:bg-yellow-500 disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {generating && <Spinner className="h-4 w-4" />}
-                Generate Day {nextDay}
-              </button>
+              <>
+                {!userIsUltimate && (
+                  <p className="mb-3 text-xs text-zinc-500">
+                    Foundation preview: generate your personalized Day 8 meal plan. Upgrade to Ultimate for all remaining days.
+                  </p>
+                )}
+                <button
+                  type="button"
+                  onClick={handleGenerate}
+                  disabled={generating || !canGenerate}
+                  className="flex items-center gap-2 rounded-lg bg-yellow-600 px-5 py-2.5 text-sm font-semibold text-black transition hover:bg-yellow-500 disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                  {generating && <Spinner className="h-4 w-4" />}
+                  Generate Day {nextDay}
+                </button>
+              </>
             )}
           </div>
         </div>
@@ -371,7 +370,7 @@ export default function MealMakerTab({
         <div className="rounded-lg border border-yellow-600/30 bg-yellow-600/10 px-5 py-6 text-center">
           <p className="text-2xl">🏆</p>
           <h3 className="mt-2 text-lg font-bold text-yellow-500">
-            You have completed the full 8-week program!
+            You have completed the full 7-week program!
           </h3>
           <p className="mt-1 text-sm text-zinc-400">
             Congratulations. You have generated all 56 days of your Perfect Stack meal plan. The protocols are now part of your daily habits.

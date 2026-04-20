@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { CYCLING_PROTOCOLS } from "@/lib/data/supplement-cycling";
+import { isUltimate } from "@/lib/subscription";
 import {
   saveCyclingSettings,
   type CyclingSettings,
@@ -10,6 +11,7 @@ import {
 interface CyclingRemindersProps {
   userId: string;
   initialSettings: CyclingSettings | null;
+  subscriptionStatus: string;
 }
 
 interface CyclePosition {
@@ -61,6 +63,7 @@ function getCyclePosition(
 export default function CyclingReminders({
   userId,
   initialSettings,
+  subscriptionStatus,
 }: CyclingRemindersProps) {
   const [settings, setSettings] = useState<CyclingSettings>(
     initialSettings ?? {}
@@ -90,6 +93,38 @@ export default function CyclingReminders({
   }
 
   const today = new Date().toISOString().split("T")[0];
+
+  if (!isUltimate(subscriptionStatus)) {
+    return (
+      <div className="overflow-hidden rounded-lg bg-zinc-800">
+        <div className="border-b border-zinc-700 px-5 py-3">
+          <h3 className="text-sm font-semibold text-zinc-200">
+            🔄&nbsp;&nbsp;Supplement Cycling Reminders
+          </h3>
+          <p className="mt-0.5 text-xs text-zinc-500">
+            Track on/off cycles for supplements that require periodic breaks to
+            maintain effectiveness.
+          </p>
+        </div>
+        <div className="px-5 py-8 text-center">
+          <p className="text-2xl">🔒</p>
+          <p className="mt-2 text-sm font-semibold text-white">
+            Supplement Cycling Tracker
+          </p>
+          <p className="mt-1 text-xs text-zinc-400">
+            Automated on/off cycle tracking with phase reminders for Ashwagandha, Tongkat Ali, Fadogia, and more.
+          </p>
+          <a
+            href="/pricing"
+            className="mt-4 inline-block rounded-md bg-yellow-600 px-5 py-2 text-sm font-semibold text-black transition hover:bg-yellow-500"
+          >
+            Upgrade to Ultimate
+          </a>
+          <p className="mt-3 text-xs text-zinc-500">Available in the Ultimate Protocol</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="overflow-hidden rounded-lg bg-zinc-800">

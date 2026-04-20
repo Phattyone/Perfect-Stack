@@ -112,7 +112,7 @@ export default function ProgressTracker({ initialData, userId, subscriptionStatu
         {activeTab === "progress" && (
           userIsFree
             ? <LockedTabContent featureName="My Progress" />
-            : <ProgressOverview baseline={baseline} entries={entries} />
+            : <ProgressOverview baseline={baseline} entries={entries} subscriptionStatus={subscriptionStatus} />
         )}
       </div>
     </div>
