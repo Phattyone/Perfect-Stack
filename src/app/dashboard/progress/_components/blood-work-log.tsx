@@ -109,22 +109,12 @@ function TrashIcon() {
   );
 }
 
-function InfoBadge({
-  onClick,
-  title,
-}: {
-  onClick: () => void;
-  title?: string;
-}) {
+function InfoIcon() {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      title={title ?? "Why it matters"}
-      className="flex h-5 w-5 shrink-0 cursor-pointer items-center justify-center rounded-full bg-blue-600 text-white transition-colors hover:bg-blue-500"
-    >
-      <span className="font-serif text-xs font-bold italic leading-none">i</span>
-    </button>
+    <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round"
+        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
   );
 }
 
@@ -202,36 +192,39 @@ function EntryCard({
 
       {/* Marker results */}
       {hasAnyMarker ? (
-        <div className="px-2 pb-4">
-          <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+        <div className="px-4 pb-4">
+          <div className="grid grid-cols-1 gap-x-6 gap-y-1 sm:grid-cols-2">
             {numberMarkers.map((marker) => {
               const value = (entry as unknown as Record<string, unknown>)[marker.key] as number;
               const status = getStatus(marker, value);
               return (
-                <div key={marker.key} className="flex items-center gap-2">
-                  <span className={`h-2 w-2 shrink-0 rounded-full ${STATUS_DOT[status]}`} />
-                  <span className="truncate text-xs text-zinc-400">{marker.label}</span>
-                  <span className="ml-auto shrink-0 text-xs font-medium text-zinc-200">
-                    {value} {marker.unit}
-                  </span>
+                <div key={marker.key} className="flex items-center justify-between border-b border-zinc-800/50 py-1.5 last:border-0">
+                  <span className="text-xs text-zinc-400">{marker.label}</span>
+                  <div className="flex items-center gap-2">
+                    <span className={`h-2 w-2 shrink-0 rounded-full ${STATUS_DOT[status]}`} />
+                    <span className="text-xs font-medium text-zinc-200">
+                      {value} {marker.unit}
+                    </span>
+                  </div>
                 </div>
               );
             })}
             {booleanMarkers.map((marker) => {
               const value = (entry as unknown as Record<string, unknown>)[marker.key] as boolean;
               return (
-                <div key={marker.key} className="flex items-center gap-2">
-                  <span className={`h-2 w-2 shrink-0 rounded-full ${value ? "bg-green-500" : "bg-red-500"}`} />
-                  <span className="truncate text-xs text-zinc-400">{marker.label}</span>
-                  <span className={`ml-auto shrink-0 text-xs font-medium ${value ? "text-green-400" : "text-red-400"}`}>
-                    {value ? "Normal" : "Abnormal"}
-                  </span>
+                <div key={marker.key} className="flex items-center justify-between border-b border-zinc-800/50 py-1.5 last:border-0">
+                  <span className="text-xs text-zinc-400">{marker.label}</span>
+                  {value ? (
+                    <span className="text-xs font-medium text-green-400">✓ Normal</span>
+                  ) : (
+                    <span className="text-xs font-medium text-red-400">✗ Abnormal</span>
+                  )}
                 </div>
               );
             })}
           </div>
           {entry.notes && (
-            <p className="mt-2 px-2 text-xs italic text-zinc-500">{entry.notes}</p>
+            <p className="mt-2 text-xs italic text-zinc-500">{entry.notes}</p>
           )}
         </div>
       ) : (
@@ -485,7 +478,14 @@ export default function BloodWorkLog({ userId, initialEntries }: BloodWorkLogPro
                           {/* Label + info */}
                           <div className="flex min-w-0 items-center gap-1.5">
                             <span className="text-sm text-zinc-300">{marker.label}</span>
-                            <InfoBadge onClick={() => toggleInfo(marker.key)} />
+                            <button
+                              type="button"
+                              onClick={() => toggleInfo(marker.key)}
+                              className="shrink-0 text-zinc-600 transition hover:text-zinc-400"
+                              title="Why it matters"
+                            >
+                              <InfoIcon />
+                            </button>
                           </div>
                           {/* Boolean toggle */}
                           <div className="flex shrink-0 gap-2">
@@ -548,7 +548,14 @@ export default function BloodWorkLog({ userId, initialEntries }: BloodWorkLogPro
                           {marker.unit && (
                             <span className="shrink-0 text-xs text-zinc-600">{marker.unit}</span>
                           )}
-                          <InfoBadge onClick={() => toggleInfo(marker.key)} />
+                          <button
+                            type="button"
+                            onClick={() => toggleInfo(marker.key)}
+                            className="shrink-0 text-zinc-600 transition hover:text-zinc-400"
+                            title="Why it matters"
+                          >
+                            <InfoIcon />
+                          </button>
                         </div>
                         {/* Input + status pill */}
                         <div className="flex shrink-0 items-center gap-2">
@@ -568,7 +575,7 @@ export default function BloodWorkLog({ userId, initialEntries }: BloodWorkLogPro
                             }
                             step="any"
                             placeholder="—"
-                            className="w-28 rounded border border-zinc-700 bg-zinc-800 py-1.5 pl-2.5 pr-8 text-right text-sm text-white placeholder-zinc-700 focus:border-yellow-600 focus:outline-none"
+                            className="w-28 rounded border border-zinc-700 bg-zinc-800 px-2.5 py-1.5 text-right text-sm text-white placeholder-zinc-700 focus:border-yellow-600 focus:outline-none"
                           />
                         </div>
                       </div>
