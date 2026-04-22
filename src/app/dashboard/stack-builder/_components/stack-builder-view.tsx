@@ -52,13 +52,15 @@ export default function StackBuilderView({
     setSelectedProducts((prev) => ({ ...prev, [supplementId]: productIndex }));
   }
 
-  // Supplements with current product selection and multivitamin adjustments applied
-  const supplements = useMemo(() => {
-    // Determine which multivitamin product the user has selected (supplement id=1)
+  // Selected multivitamin product name — lifted out so it can be used in interactionSeverityMap and StackSafetyCheck prop
+  const selectedMultivitaminName = useMemo(() => {
     const multiSupp = result.supplements.find((s) => s.id === 1);
     const multiIdx = selectedProducts[1] ?? 0;
-    const selectedMultivitaminName = multiSupp?.products[multiIdx]?.name ?? null;
+    return multiSupp?.products[multiIdx]?.name ?? null;
+  }, [result.supplements, selectedProducts]);
 
+  // Supplements with current product selection and multivitamin adjustments applied
+  const supplements = useMemo(() => {
     return result.supplements.map((s) => {
       const withProduct = {
         ...s,
@@ -88,7 +90,7 @@ export default function StackBuilderView({
 
       return withProduct;
     });
-  }, [result.supplements, selectedProducts]);
+  }, [result.supplements, selectedProducts, selectedMultivitaminName]);
 
   // Group by stack
   const groupedByStack = useMemo(() => {
@@ -151,7 +153,11 @@ export default function StackBuilderView({
       supplements
         .filter((s) => s.included && activeStacks.has(s.stack) && (
           s.calculatedDose > 0 ||
-          (s.alertLevel === "not-recommended" && s.multivitaminAdjustment !== undefined)
+          (
+            s.multivitaminAdjustment !== undefined &&
+            selectedMultivitaminName !== null &&
+            s.multivitaminAdjustment[selectedMultivitaminName]?.adjustedDose === 0
+          )
         ))
         .map((s) => s.id)
     );
@@ -167,7 +173,7 @@ export default function StackBuilderView({
       }
     }
     return map;
-  }, [supplements, activeStacks]);
+  }, [supplements, activeStacks, selectedMultivitaminName]);
 
   return (
     <div className="pb-24">
@@ -241,7 +247,11 @@ export default function StackBuilderView({
           activeSupplementIds={supplements
             .filter((s) => s.included && activeStacks.has(s.stack) && (
               s.calculatedDose > 0 ||
-              (s.alertLevel === "not-recommended" && s.multivitaminAdjustment !== undefined)
+              (
+                s.multivitaminAdjustment !== undefined &&
+                selectedMultivitaminName !== null &&
+                s.multivitaminAdjustment[selectedMultivitaminName]?.adjustedDose === 0
+              )
             ))
             .map((s) => s.id)}
           subscriptionStatus={subscriptionStatus}

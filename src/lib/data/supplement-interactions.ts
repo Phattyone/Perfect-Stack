@@ -138,12 +138,20 @@ export const SUPPLEMENT_INTERACTIONS: SupplementInteraction[] = [
       "All three recommended multivitamins provide 200 mcg selenium — the exact daily upper intake level. Adding a standalone selenium supplement pushes you into toxicity territory. Selenosis symptoms (hair loss, brittle nails, garlic breath) appear above 400 mcg/day. Remove the standalone selenium supplement.",
   },
   {
-    id: "multi-vitd-conflict",
+    id: "multi-vitd-note",
     supplementIds: [1, 2],
-    severity: "conflict",
+    severity: "caution",
     title: "Multivitamin + Vitamin D3",
     message:
-      "Your multivitamin contributes 1,000 to 2,000 IU of Vitamin D. Stacking a separate D3 supplement without knowing your baseline 25(OH)D level risks pushing into hypervitaminosis D territory (>10,000 IU/day chronically). Get your D levels tested before adding standalone D3.",
+      "Your multivitamin contributes 1,000 to 2,000 IU of Vitamin D depending on the product selected. The Stack Builder automatically reduces your standalone D3 dose to keep the combined total safely under the 4,000 IU daily upper limit. Check your adjusted D3 dose in the Stack Builder.",
+  },
+  {
+    id: "multi-bcomplex-conflict",
+    supplementIds: [1, 6],
+    severity: "conflict",
+    title: "Multivitamin + B-Complex",
+    message:
+      "Life Extension Two-Per-Day contains 75mg of Vitamin B6. Adding a Methylated B-Complex pushes combined B6 above the 100mg daily upper limit associated with peripheral neuropathy risk — numbness and tingling in the hands and feet from chronic nerve damage. The B-Complex has been automatically removed from your stack when Life Extension is selected.",
   },
   {
     id: "fenugreek-dhea",
