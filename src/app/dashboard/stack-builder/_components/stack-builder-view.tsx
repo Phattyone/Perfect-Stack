@@ -164,7 +164,11 @@ export default function StackBuilderView({
     const map: Record<number, InteractionSeverity> = {};
     for (const interaction of SUPPLEMENT_INTERACTIONS) {
       const [a, b] = interaction.supplementIds;
-      if (activeIds.has(a) && activeIds.has(b)) {
+      if (
+        activeIds.has(a) &&
+        activeIds.has(b) &&
+        (!interaction.requiresMultivitamin || interaction.requiresMultivitamin === selectedMultivitaminName)
+      ) {
         for (const id of [a, b] as const) {
           if (!map[id] || PRIORITY[interaction.severity] > PRIORITY[map[id]]) {
             map[id] = interaction.severity;
