@@ -129,6 +129,7 @@ export const SUPPLEMENT_INTERACTIONS: SupplementInteraction[] = [
     title: "Multivitamin + Zinc",
     message:
       "Your multivitamin already provides significant zinc (typically 15–25 mg). Adding a standalone zinc supplement risks exceeding the 40 mg tolerable upper limit, which can suppress copper absorption and impair immune function over time. Remove standalone zinc unless your blood work confirms a deficiency.",
+    requiresMultivitamin: "Thorne Men's Multi 50+",
   },
   {
     id: "multi-selenium-conflict",
@@ -136,7 +137,7 @@ export const SUPPLEMENT_INTERACTIONS: SupplementInteraction[] = [
     severity: "conflict",
     title: "Multivitamin + Selenium",
     message:
-      "All three recommended multivitamins provide 200 mcg selenium — the exact daily upper intake level. Adding a standalone selenium supplement pushes you into toxicity territory. Selenosis symptoms (hair loss, brittle nails, garlic breath) appear above 400 mcg/day. Remove the standalone selenium supplement.",
+      "All three recommended multivitamins provide 200 mcg selenium, which is the exact daily upper intake level. Adding a standalone selenium supplement pushes you into toxicity territory. Selenosis symptoms (hair loss, brittle nails, garlic breath) appear above 400 mcg/day. Remove the standalone selenium supplement.",
   },
   {
     id: "multi-vitd-note",
@@ -152,7 +153,7 @@ export const SUPPLEMENT_INTERACTIONS: SupplementInteraction[] = [
     severity: "conflict",
     title: "Multivitamin + B-Complex",
     message:
-      "Life Extension Two-Per-Day contains 75mg of Vitamin B6. Adding a Methylated B-Complex pushes combined B6 above the 100mg daily upper limit associated with peripheral neuropathy risk — numbness and tingling in the hands and feet from chronic nerve damage. The B-Complex has been automatically removed from your stack when Life Extension is selected.",
+      "Life Extension Two-Per-Day contains 75mg of Vitamin B6. Adding a Methylated B-Complex pushes combined B6 above the 100mg daily upper limit associated with peripheral neuropathy risk (numbness and tingling in the hands and feet from chronic nerve damage). The B-Complex has been automatically removed from your stack when Life Extension is selected.",
     requiresMultivitamin: "Life Extension Two-Per-Day",
   },
   {
@@ -177,7 +178,7 @@ export const SUPPLEMENT_INTERACTIONS: SupplementInteraction[] = [
     severity: "caution",
     title: "Berberine + Fenugreek",
     message:
-      "Both have blood glucose lowering effects — berberine via AMPK activation and fenugreek via soluble fiber and 4-hydroxyisoleucine. Combined use may produce additive hypoglycemic effects. Monitor blood sugar carefully if diabetic or prediabetic.",
+      "Both have blood glucose lowering effects: berberine via AMPK activation and fenugreek via soluble fiber and 4-hydroxyisoleucine. Combined use may produce additive hypoglycemic effects. Monitor blood sugar carefully if diabetic or prediabetic.",
   },
   {
     id: "saw-palmetto-zinc",
@@ -193,7 +194,7 @@ export const SUPPLEMENT_INTERACTIONS: SupplementInteraction[] = [
     severity: "caution",
     title: "CoQ10 + Berberine",
     message:
-      "Berberine activates AMPK which may reduce cellular CoQ10 synthesis over time — the same mechanism by which statins deplete CoQ10. Supplementing CoQ10 alongside berberine is a reasonable precaution, but monitor for fatigue or muscle weakness that may indicate mitochondrial insufficiency.",
+      "Berberine activates AMPK which may reduce cellular CoQ10 synthesis over time, the same mechanism by which statins deplete CoQ10. Supplementing CoQ10 alongside berberine is a reasonable precaution, but monitor for fatigue or muscle weakness that may indicate mitochondrial insufficiency.",
   },
   {
     id: "collagen-vitc",
@@ -201,7 +202,7 @@ export const SUPPLEMENT_INTERACTIONS: SupplementInteraction[] = [
     severity: "note",
     title: "Collagen + Vitamin C",
     message:
-      "An excellent pairing. Vitamin C is required for collagen synthesis — it is the cofactor for prolyl and lysyl hydroxylase enzymes that stabilize the collagen triple helix. Taking Vitamin C alongside collagen peptides maximizes utilization. Aim for at least 250 mg Vitamin C within 30 minutes of your collagen dose.",
+      "An excellent pairing. Vitamin C is required for collagen synthesis. It is the cofactor for prolyl and lysyl hydroxylase enzymes that stabilize the collagen triple helix. Taking Vitamin C alongside collagen peptides maximizes utilization. Aim for at least 250 mg Vitamin C within 30 minutes of your collagen dose.",
   },
   {
     id: "lycopene-vitc",
@@ -225,6 +226,6 @@ export const SUPPLEMENT_INTERACTIONS: SupplementInteraction[] = [
     severity: "note",
     title: "NMN + Vitamin D3",
     message:
-      "Both support mitochondrial function and cellular energy production via complementary mechanisms — NMN replenishes NAD+ pools while Vitamin D3 regulates mitochondrial biogenesis genes. No interactions or concerns. Take both in the morning for aligned circadian signaling.",
+      "Both support mitochondrial function and cellular energy production via complementary mechanisms: NMN replenishes NAD+ pools while Vitamin D3 regulates mitochondrial biogenesis genes. No interactions or concerns. Take both in the morning for aligned circadian signaling.",
   },
 ];
