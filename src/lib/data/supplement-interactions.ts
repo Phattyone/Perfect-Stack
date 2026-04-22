@@ -121,4 +121,100 @@ export const SUPPLEMENT_INTERACTIONS: SupplementInteraction[] = [
     message:
       "Fenugreek inhibits 5-alpha reductase (reducing DHT conversion) while Tongkat Ali raises free testosterone. Together they may shift the testosterone-to-DHT ratio favorably, useful if DHT-related side effects are a concern.",
   },
+  {
+    id: "multi-zinc-conflict",
+    supplementIds: [1, 5],
+    severity: "conflict",
+    title: "Multivitamin + Zinc",
+    message:
+      "Your multivitamin already provides significant zinc (typically 15–25 mg). Adding a standalone zinc supplement risks exceeding the 40 mg tolerable upper limit, which can suppress copper absorption and impair immune function over time. Remove standalone zinc unless your blood work confirms a deficiency.",
+  },
+  {
+    id: "multi-selenium-conflict",
+    supplementIds: [1, 8],
+    severity: "conflict",
+    title: "Multivitamin + Selenium",
+    message:
+      "All three recommended multivitamins provide 200 mcg selenium — the exact daily upper intake level. Adding a standalone selenium supplement pushes you into toxicity territory. Selenosis symptoms (hair loss, brittle nails, garlic breath) appear above 400 mcg/day. Remove the standalone selenium supplement.",
+  },
+  {
+    id: "multi-vitd-conflict",
+    supplementIds: [1, 2],
+    severity: "conflict",
+    title: "Multivitamin + Vitamin D3",
+    message:
+      "Your multivitamin contributes 1,000 to 2,000 IU of Vitamin D. Stacking a separate D3 supplement without knowing your baseline 25(OH)D level risks pushing into hypervitaminosis D territory (>10,000 IU/day chronically). Get your D levels tested before adding standalone D3.",
+  },
+  {
+    id: "fenugreek-dhea",
+    supplementIds: [12, 13],
+    severity: "caution",
+    title: "Fenugreek + DHEA",
+    message:
+      "Both influence androgen pathways. Fenugreek inhibits 5-alpha reductase and may raise free testosterone, while DHEA provides exogenous androgen precursor. Combined use may push testosterone and DHT levels high. A blood panel is recommended if stacking both long-term.",
+  },
+  {
+    id: "ginseng-tongkat",
+    supplementIds: [22, 10],
+    severity: "caution",
+    title: "Panax Ginseng + Tongkat Ali",
+    message:
+      "Both stimulate LH production and support testosterone levels via complementary mechanisms. Combined use can produce significant androgenic stimulation. Monitor for sleep disruption, elevated heart rate, or irritability. Cycle both supplements together.",
+  },
+  {
+    id: "berberine-fenugreek",
+    supplementIds: [26, 12],
+    severity: "caution",
+    title: "Berberine + Fenugreek",
+    message:
+      "Both have blood glucose lowering effects — berberine via AMPK activation and fenugreek via soluble fiber and 4-hydroxyisoleucine. Combined use may produce additive hypoglycemic effects. Monitor blood sugar carefully if diabetic or prediabetic.",
+  },
+  {
+    id: "saw-palmetto-zinc",
+    supplementIds: [27, 5],
+    severity: "caution",
+    title: "Saw Palmetto + Zinc",
+    message:
+      "Both inhibit 5-alpha reductase, the enzyme that converts testosterone to DHT. Stacking them amplifies DHT suppression. This can be beneficial for prostate health but may interfere with DHT-dependent functions. Monitor if you are also using Fenugreek or Finasteride.",
+  },
+  {
+    id: "coq10-berberine",
+    supplementIds: [16, 26],
+    severity: "caution",
+    title: "CoQ10 + Berberine",
+    message:
+      "Berberine activates AMPK which may reduce cellular CoQ10 synthesis over time — the same mechanism by which statins deplete CoQ10. Supplementing CoQ10 alongside berberine is a reasonable precaution, but monitor for fatigue or muscle weakness that may indicate mitochondrial insufficiency.",
+  },
+  {
+    id: "collagen-vitc",
+    supplementIds: [31, 18],
+    severity: "note",
+    title: "Collagen + Vitamin C",
+    message:
+      "An excellent pairing. Vitamin C is required for collagen synthesis — it is the cofactor for prolyl and lysyl hydroxylase enzymes that stabilize the collagen triple helix. Taking Vitamin C alongside collagen peptides maximizes utilization. Aim for at least 250 mg Vitamin C within 30 minutes of your collagen dose.",
+  },
+  {
+    id: "lycopene-vitc",
+    supplementIds: [28, 18],
+    severity: "note",
+    title: "Lycopene + Vitamin C",
+    message:
+      "Vitamin C protects lycopene from oxidative degradation in the GI tract, improving its stability and bioavailability. Taking these together supports prostate health and antioxidant defense. Both are best absorbed with dietary fat.",
+  },
+  {
+    id: "quercetin-vitc",
+    supplementIds: [19, 18],
+    severity: "note",
+    title: "Quercetin + Vitamin C",
+    message:
+      "Vitamin C regenerates oxidized quercetin back to its active form, extending its antioxidant activity. This is a synergistic antioxidant pairing. Combined use enhances anti-inflammatory and immune benefits beyond either alone.",
+  },
+  {
+    id: "nmn-vitd",
+    supplementIds: [24, 2],
+    severity: "note",
+    title: "NMN + Vitamin D3",
+    message:
+      "Both support mitochondrial function and cellular energy production via complementary mechanisms — NMN replenishes NAD+ pools while Vitamin D3 regulates mitochondrial biogenesis genes. No interactions or concerns. Take both in the morning for aligned circadian signaling.",
+  },
 ];
