@@ -149,7 +149,10 @@ export default function StackBuilderView({
     };
     const activeIds = new Set(
       supplements
-        .filter((s) => s.included && s.calculatedDose > 0 && activeStacks.has(s.stack))
+        .filter((s) => s.included && activeStacks.has(s.stack) && (
+          s.calculatedDose > 0 ||
+          (s.alertLevel === "not-recommended" && s.alertMessage?.toLowerCase().includes("multivitamin"))
+        ))
         .map((s) => s.id)
     );
     const map: Record<number, InteractionSeverity> = {};
@@ -236,7 +239,10 @@ export default function StackBuilderView({
         {/* Stack Safety Check */}
         <StackSafetyCheck
           activeSupplementIds={supplements
-            .filter((s) => s.included && s.calculatedDose > 0 && activeStacks.has(s.stack))
+            .filter((s) => s.included && activeStacks.has(s.stack) && (
+              s.calculatedDose > 0 ||
+              (s.alertLevel === "not-recommended" && s.alertMessage?.toLowerCase().includes("multivitamin"))
+            ))
             .map((s) => s.id)}
           subscriptionStatus={subscriptionStatus}
         />
