@@ -6,6 +6,7 @@ export interface SupplementInteraction {
   severity: InteractionSeverity;
   title: string;
   message: string;
+  requiresMultivitamin?: string;
 }
 
 export const SUPPLEMENT_INTERACTIONS: SupplementInteraction[] = [
@@ -152,6 +153,7 @@ export const SUPPLEMENT_INTERACTIONS: SupplementInteraction[] = [
     title: "Multivitamin + B-Complex",
     message:
       "Life Extension Two-Per-Day contains 75mg of Vitamin B6. Adding a Methylated B-Complex pushes combined B6 above the 100mg daily upper limit associated with peripheral neuropathy risk — numbness and tingling in the hands and feet from chronic nerve damage. The B-Complex has been automatically removed from your stack when Life Extension is selected.",
+    requiresMultivitamin: "Life Extension Two-Per-Day",
   },
   {
     id: "fenugreek-dhea",

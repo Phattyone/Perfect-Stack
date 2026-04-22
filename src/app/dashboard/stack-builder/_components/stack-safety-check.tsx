@@ -10,6 +10,7 @@ import { isUltimate } from "@/lib/subscription";
 interface StackSafetyCheckProps {
   activeSupplementIds: number[];
   subscriptionStatus: string;
+  selectedMultivitaminName: string | null;
 }
 
 const SEVERITY_PRIORITY: Record<InteractionSeverity, number> = {
@@ -34,6 +35,7 @@ const CARD_STYLE: Record<InteractionSeverity, string> = {
 export default function StackSafetyCheck({
   activeSupplementIds,
   subscriptionStatus,
+  selectedMultivitaminName,
 }: StackSafetyCheckProps) {
   const activeSet = useMemo(
     () => new Set(activeSupplementIds),
@@ -44,12 +46,14 @@ export default function StackSafetyCheck({
     () =>
       SUPPLEMENT_INTERACTIONS.filter(
         (i) =>
-          activeSet.has(i.supplementIds[0]) && activeSet.has(i.supplementIds[1])
+          activeSet.has(i.supplementIds[0]) &&
+          activeSet.has(i.supplementIds[1]) &&
+          (!i.requiresMultivitamin || i.requiresMultivitamin === selectedMultivitaminName)
       ).sort(
         (a, b) =>
           SEVERITY_PRIORITY[a.severity] - SEVERITY_PRIORITY[b.severity]
       ),
-    [activeSet]
+    [activeSet, selectedMultivitaminName]
   );
 
   const conflictCount = matchingInteractions.filter(

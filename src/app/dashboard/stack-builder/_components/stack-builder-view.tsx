@@ -255,6 +255,7 @@ export default function StackBuilderView({
             ))
             .map((s) => s.id)}
           subscriptionStatus={subscriptionStatus}
+          selectedMultivitaminName={selectedMultivitaminName}
         />
 
         {/* Nitrate-blocked Stack C (selected but contraindicated) */}
