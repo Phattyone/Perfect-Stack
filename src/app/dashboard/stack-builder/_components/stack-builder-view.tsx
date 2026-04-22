@@ -151,7 +151,7 @@ export default function StackBuilderView({
       supplements
         .filter((s) => s.included && activeStacks.has(s.stack) && (
           s.calculatedDose > 0 ||
-          (s.alertLevel === "not-recommended" && s.alertMessage?.toLowerCase().includes("multivitamin"))
+          (s.alertLevel === "not-recommended" && s.multivitaminAdjustment !== undefined)
         ))
         .map((s) => s.id)
     );
