@@ -160,7 +160,7 @@ export const SUPPLEMENTS: Supplement[] = [
     timingIcon: "☀️",
     products: [
       { name: "Thorne Zinc Picolinate 15mg", price: 18, servings: 60, url: amz("B0797NSHQX") },
-      { name: "NOW Zinc Picolinate 50mg", price: 12, servings: 120, url: amzSearch("NOW Zinc Picolinate 50mg") },
+      { name: "Pure Encapsulations Zinc 15mg", price: 16, servings: 60, url: "https://www.amazon.com/s?k=Pure+Encapsulations+Zinc+15mg+Picolinate&tag=perfectstack-20" },
       { name: "Jarrow Zinc Balance", price: 10, servings: 100, url: amzSearch("Jarrow Formulas Zinc Balance 15mg") },
     ],
     // Safety adjustment based on NIH Tolerable Upper Intake Level (UL) analysis
@@ -313,10 +313,10 @@ export const SUPPLEMENTS: Supplement[] = [
     baseDose: 600,
     unit: "mg",
     dailyServings: 1,
-    bestTiming: "Morning or pre-workout",
+    bestTiming: "Morning or pre-workout. Begin with 1 capsule daily for week 1, increase to 2 capsules from week 2 if tolerated.",
     whatItSupports: "LH stimulation, testosterone production support",
     timeToNotice: "2-4 weeks",
-    keyCautions: "Limited human data. Cycle 5 on / 2 off. Limited benefit on TRT.",
+    keyCautions: "Limited human data. Cycle 5 on / 2 off. Limited benefit on TRT. Start with 300mg (1 capsule) for the first week to assess tolerance, then increase to 600mg (2 capsules) if well tolerated. Do not exceed 900mg per day. Limited long-term human safety data exists — cycle 8 weeks on, 4 weeks off.",
     timingIcon: "☀️",
     products: [
       { name: "Double Wood Fadogia Agrestis 600mg", price: 25, servings: 90, url: amzSearch("Double Wood Fadogia Agrestis 600mg") },
