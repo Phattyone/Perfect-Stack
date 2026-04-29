@@ -77,10 +77,10 @@ export const SUPPLEMENT_INTERACTIONS: SupplementInteraction[] = [
   {
     id: "berberine-quercetin",
     supplementIds: [26, 19],
-    severity: "note",
+    severity: "caution",
     title: "Berberine + Quercetin",
     message:
-      "Both activate AMPK and modulate blood glucose pathways. Combined use may potentiate glucose-lowering effects. Monitor blood sugar if you are prediabetic or on diabetes medications.",
+      "Both activate AMPK and modulate blood glucose pathways. Combined use may cause additive glucose-lowering effects that could cause hypoglycemia in diabetic or pre-diabetic men or those on glucose-lowering medications. Monitor blood sugar closely if combining both. Take at different times of day to reduce overlap.",
   },
   {
     id: "resveratrol-quercetin",
@@ -227,5 +227,29 @@ export const SUPPLEMENT_INTERACTIONS: SupplementInteraction[] = [
     title: "NMN + Vitamin D3",
     message:
       "Both support mitochondrial function and cellular energy production via complementary mechanisms: NMN replenishes NAD+ pools while Vitamin D3 regulates mitochondrial biogenesis genes. No interactions or concerns. Take both in the morning for aligned circadian signaling.",
+  },
+  {
+    id: "resveratrol-omega3",
+    supplementIds: [25, 4],
+    severity: "caution",
+    title: "Resveratrol + Omega-3",
+    message:
+      "Both have antiplatelet and blood-thinning properties. Combined use increases bleeding risk, particularly for men on anticoagulant medications or NSAIDs. Stay within recommended doses for both. Consult your healthcare provider if you are on blood thinners.",
+  },
+  {
+    id: "probiotic-berberine",
+    supplementIds: [29, 26],
+    severity: "note",
+    title: "Probiotic + Berberine",
+    message:
+      "Berberine has antimicrobial properties that can reduce the effectiveness of probiotic bacteria. Take your probiotic and berberine at least 2 hours apart. Morning probiotics and berberine with lunch and dinner is an effective separation strategy.",
+  },
+  {
+    id: "horny-goat-omega3",
+    supplementIds: [21, 4],
+    severity: "caution",
+    title: "Horny Goat Weed + Omega-3",
+    message:
+      "Icariin in Horny Goat Weed has antiplatelet properties similar to Omega-3 fatty acids. Combined use may increase bleeding risk. Stay within recommended doses. Consult your healthcare provider if you are on anticoagulant medications or blood thinners.",
   },
 ];

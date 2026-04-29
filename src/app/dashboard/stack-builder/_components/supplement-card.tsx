@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import type { CalculatedSupplement } from "@/lib/stack-builder/types";
 
 interface SupplementCardProps {
@@ -63,6 +64,7 @@ export default function SupplementCard({
   onProductSelect,
   interactionSeverity = null,
 }: SupplementCardProps) {
+  const [cautionsOpen, setCautionsOpen] = useState(false);
   const alert = s.alertLevel !== "none" ? ALERT_STYLES[s.alertLevel] : null;
   const isExcluded = s.alertLevel === "not-recommended";
   const isDoseReduced = s.alertLevel === "dose-reduced";
@@ -244,6 +246,26 @@ export default function SupplementCard({
             </a>
           </div>
         </>
+      )}
+
+      {/* Key Cautions — collapsible */}
+      {s.keyCautions && (
+        <div className="mt-3">
+          <button
+            type="button"
+            onClick={() => setCautionsOpen((o) => !o)}
+            className="flex items-center gap-1.5 text-xs font-medium text-amber-500 hover:text-amber-400 transition"
+          >
+            <span>⚠️</span>
+            <span>Key Cautions</span>
+            <span className="ml-0.5 text-zinc-500">{cautionsOpen ? "▲" : "▼"}</span>
+          </button>
+          {cautionsOpen && (
+            <div className="mt-1.5 border-l-2 border-amber-500 pl-3">
+              <p className="text-xs leading-relaxed text-zinc-400">{s.keyCautions}</p>
+            </div>
+          )}
+        </div>
       )}
     </div>
   );

@@ -101,6 +101,10 @@ function SupplementRow({ s }: { s: CalculatedSupplement }) {
         </div>
       )}
 
+      {s.keyCautions && (
+        <p className="mt-1.5 text-xs italic leading-relaxed text-zinc-500 print:text-gray-400">{s.keyCautions}</p>
+      )}
+
       {s.calculatedDose > 0 && (
         <div className="mt-2 flex items-center justify-between">
           <span className="text-xs text-zinc-500 print:text-gray-500">{product.name} - ${product.price}/{product.servings}ct</span>
