@@ -290,6 +290,24 @@ function applySpecialRules(
   return s;
 }
 
+// ─── Personal factor maximums ────────────────────────────────────────
+// Returns the highest score each factor can reach given the user's fixed
+// age and training style, assuming best possible health conditions (no penalties).
+
+function calcFactorMaximums(profile: ProfileFormData): { hormoneMax: number; noMax: number; stressMax: number } {
+  const ageHormone = AGE_HORMONE[profile.age_group] ?? 1.0;
+  const trainHormone = TRAIN_HORMONE[profile.training_style] ?? 1.0;
+  const ageNO = AGE_NO[profile.age_group] ?? 1.0;
+  const trainNO = TRAIN_NO[profile.training_style] ?? 1.0;
+  const goalStress = GOAL_STRESS[profile.primary_goal] ?? 1.0;
+
+  return {
+    hormoneMax: Math.round(ageHormone * trainHormone * 100),
+    noMax: Math.round(ageNO * trainNO * 100),
+    stressMax: Math.round(goalStress * 100),
+  };
+}
+
 // ─── Main calculator ─────────────────────────────────────────────────
 
 export function calculateStack(profile: ProfileFormData): StackResult {
@@ -298,11 +316,15 @@ export function calculateStack(profile: ProfileFormData): StackResult {
   const stressFactor = calcStressFactor(profile);
   const overall = (hormoneFactor + noFactor + stressFactor) / 3;
 
+  const maximums = calcFactorMaximums(profile);
   const factors: FactorScores = {
     hormone: Math.round(hormoneFactor * 100),
     noVascular: Math.round(noFactor * 100),
     stressSleep: Math.round(stressFactor * 100),
     overall: Math.round(overall * 100),
+    hormoneMax: maximums.hormoneMax,
+    noMax: maximums.noMax,
+    stressMax: maximums.stressMax,
   };
 
   const included = includedStacks(profile);

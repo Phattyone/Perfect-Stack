@@ -29,18 +29,20 @@ const SCORE_META: Record<string, { summary: string; detail: string }> = {
 function ScoreBar({
   label,
   value,
+  max = 130,
   infoKey,
   openKey,
   onToggle,
 }: {
   label: string;
   value: number;
+  max?: number;
   infoKey: string;
   openKey: string | null;
   onToggle: (key: string) => void;
 }) {
-  const capped = Math.min(value, 130);
-  const width = Math.round((capped / 130) * 100);
+  const capped = Math.min(value, max);
+  const width = Math.round((capped / max) * 100);
   const isOpen = openKey === infoKey;
   const meta = SCORE_META[infoKey];
 
@@ -62,7 +64,10 @@ function ScoreBar({
             i
           </button>
         </span>
-        <span className="text-sm font-semibold text-yellow-500">{value}%</span>
+        <span className="text-sm font-semibold text-yellow-500">
+          {value}%
+          <span className="ml-1 text-xs font-normal text-zinc-500">/ {max}%</span>
+        </span>
       </div>
       <div className="h-2.5 w-full overflow-hidden rounded-full bg-zinc-800">
         <div
@@ -95,11 +100,20 @@ export default function FactorScoresDisplay({ factors }: FactorScoresProps) {
         Optimization Scores
       </h3>
       <div className="space-y-4">
-        <ScoreBar label="Hormone Factor" value={factors.hormone} infoKey="hormone" openKey={openKey} onToggle={handleToggle} />
-        <ScoreBar label="NO / Vascular Factor" value={factors.noVascular} infoKey="noVascular" openKey={openKey} onToggle={handleToggle} />
-        <ScoreBar label="Stress / Sleep Factor" value={factors.stressSleep} infoKey="stressSleep" openKey={openKey} onToggle={handleToggle} />
+        <ScoreBar label="Hormone Factor" value={factors.hormone} max={factors.hormoneMax} infoKey="hormone" openKey={openKey} onToggle={handleToggle} />
+        <ScoreBar label="NO / Vascular Factor" value={factors.noVascular} max={factors.noMax} infoKey="noVascular" openKey={openKey} onToggle={handleToggle} />
+        <ScoreBar label="Stress / Sleep Factor" value={factors.stressSleep} max={factors.stressMax} infoKey="stressSleep" openKey={openKey} onToggle={handleToggle} />
         <div className="border-t border-zinc-800 pt-4">
-          <ScoreBar label="Overall Score" value={factors.overall} infoKey="overall" openKey={openKey} onToggle={handleToggle} />
+          <ScoreBar
+            label="Overall Score"
+            value={factors.overall}
+            max={factors.hormoneMax && factors.noMax && factors.stressMax
+              ? Math.round((factors.hormoneMax + factors.noMax + factors.stressMax) / 3)
+              : 130}
+            infoKey="overall"
+            openKey={openKey}
+            onToggle={handleToggle}
+          />
         </div>
       </div>
     </div>

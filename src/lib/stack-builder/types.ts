@@ -62,6 +62,9 @@ export interface FactorScores {
   noVascular: number;
   stressSleep: number;
   overall: number;
+  hormoneMax?: number;
+  noMax?: number;
+  stressMax?: number;
 }
 
 export interface StackResult {

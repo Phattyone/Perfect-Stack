@@ -32,7 +32,8 @@ const STACK_NAMES: Record<string, string> = {
   E: "Stack E - Full Performance",
 };
 
-function ScoreBar({ label, value }: { label: string; value: number }) {
+function ScoreBar({ label, value, max = 130 }: { label: string; value: number; max?: number }) {
+  const width = (Math.min(value, max) / max) * 100;
   return (
     <div>
       <div className="mb-1 flex items-center justify-between">
@@ -40,7 +41,7 @@ function ScoreBar({ label, value }: { label: string; value: number }) {
         <span className="text-sm font-semibold text-yellow-500 print:text-gray-900">{value}%</span>
       </div>
       <div className="h-2.5 w-full overflow-hidden rounded-full bg-zinc-800 print:bg-gray-200">
-        <div className="h-full rounded-full bg-yellow-600 print:bg-gray-700" style={{ width: `${Math.min(value, 130) / 1.3}%` }} />
+        <div className="h-full rounded-full bg-yellow-600 print:bg-gray-700" style={{ width: `${width}%` }} />
       </div>
     </div>
   );
@@ -193,11 +194,17 @@ export default function ProtocolView({ profile, result }: ProtocolViewProps) {
       <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-4 print:bg-white print:border-gray-200">
         <h3 className="mb-4 text-xs font-semibold uppercase tracking-wider text-zinc-500 print:text-gray-500">Optimization Scores</h3>
         <div className="space-y-3">
-          <ScoreBar label="Hormone Factor" value={result.factors.hormone} />
-          <ScoreBar label="NO / Vascular Factor" value={result.factors.noVascular} />
-          <ScoreBar label="Stress / Sleep Factor" value={result.factors.stressSleep} />
+          <ScoreBar label="Hormone Factor" value={result.factors.hormone} max={result.factors.hormoneMax} />
+          <ScoreBar label="NO / Vascular Factor" value={result.factors.noVascular} max={result.factors.noMax} />
+          <ScoreBar label="Stress / Sleep Factor" value={result.factors.stressSleep} max={result.factors.stressMax} />
           <div className="border-t border-zinc-800 pt-3 print:border-gray-200">
-            <ScoreBar label="Overall Score" value={result.factors.overall} />
+            <ScoreBar
+              label="Overall Score"
+              value={result.factors.overall}
+              max={result.factors.hormoneMax && result.factors.noMax && result.factors.stressMax
+                ? Math.round((result.factors.hormoneMax + result.factors.noMax + result.factors.stressMax) / 3)
+                : 130}
+            />
           </div>
         </div>
       </div>
