@@ -11,6 +11,7 @@ import LockedStackSection from "./locked-stack-section";
 import { isFree, FREE_STACK_A_LOCKED_SUPPLEMENTS } from "@/lib/subscription";
 import StackSafetyCheck from "./stack-safety-check";
 import { SUPPLEMENT_INTERACTIONS, type InteractionSeverity } from "@/lib/data/supplement-interactions";
+import { applyMultivitaminAdjustments } from "@/lib/stack-builder/multivitamin-adjustments";
 
 interface StackBuilderViewProps {
   profile: ProfileFormData;
@@ -61,35 +62,11 @@ export default function StackBuilderView({
 
   // Supplements with current product selection and multivitamin adjustments applied
   const supplements = useMemo(() => {
-    return result.supplements.map((s) => {
-      const withProduct = {
-        ...s,
-        selectedProductIndex: selectedProducts[s.id] ?? 0,
-      };
-
-      // Apply multivitamin-based dose adjustment if:
-      // - a multivitamin is selected
-      // - this supplement has an adjustment entry for that multivitamin
-      // - the supplement is not already excluded by a medication interaction
-      if (
-        selectedMultivitaminName &&
-        withProduct.multivitaminAdjustment?.[selectedMultivitaminName] &&
-        withProduct.calculatedDose !== 0
-      ) {
-        const adj = withProduct.multivitaminAdjustment[selectedMultivitaminName];
-        // Only apply if the adjustment is more restrictive (lower dose or zero)
-        if (adj.adjustedDose < withProduct.calculatedDose) {
-          return {
-            ...withProduct,
-            calculatedDose: adj.adjustedDose,
-            alertLevel: adj.alertLevel,
-            alertMessage: adj.alertMessage,
-          };
-        }
-      }
-
-      return withProduct;
-    });
+    const withProducts = result.supplements.map((s) => ({
+      ...s,
+      selectedProductIndex: selectedProducts[s.id] ?? 0,
+    }));
+    return applyMultivitaminAdjustments(withProducts, selectedMultivitaminName);
   }, [result.supplements, selectedProducts, selectedMultivitaminName]);
 
   // Group by stack

@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { signout } from "@/app/(auth)/actions";
 import { calculateStack } from "@/lib/stack-builder/calculator";
+import { applyMultivitaminAdjustments, getSelectedMultivitaminName } from "@/lib/stack-builder/multivitamin-adjustments";
 import { PROTOCOL_NAMES } from "@/lib/types/profile";
 import type { ProfileFormData } from "@/lib/types/profile";
 import ProtocolView from "./protocol-view";
@@ -47,6 +48,9 @@ export default async function ProtocolPage() {
 
   const subscriptionStatus = profile.subscription_status ?? null;
   const result = calculateStack(profileData);
+  const selectedMultivitaminName = getSelectedMultivitaminName(result.supplements, 0);
+  const adjustedSupplements = applyMultivitaminAdjustments(result.supplements, selectedMultivitaminName);
+  const adjustedResult = { ...result, supplements: adjustedSupplements };
   const protocolName = PROTOCOL_NAMES[profileData.stack_selection] ?? "Your Protocol";
 
   return (
@@ -76,7 +80,7 @@ export default async function ProtocolPage() {
             requiredPlan="foundation"
           />
         ) : (
-          <ProtocolView profile={profileData} result={result} />
+          <ProtocolView profile={profileData} result={adjustedResult} />
         )}
       </main>
     </div>

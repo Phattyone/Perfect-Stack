@@ -143,6 +143,10 @@ export default function ProtocolView({ profile, result }: ProtocolViewProps) {
 
   return (
     <div className="mt-6 space-y-6">
+      <p className="text-xs italic text-zinc-500 print:text-gray-400">
+        Doses shown reflect your default supplement selections. Visit the Stack Builder to customize product choices.
+      </p>
+
       {/* Profile summary */}
       <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-4 print:bg-white print:border-gray-200">
         <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-500 print:text-gray-500">Profile</h3>
