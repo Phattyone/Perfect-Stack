@@ -6,6 +6,7 @@ import { isFree, isUltimate } from "@/lib/subscription";
 
 type LockTier = "foundation" | "ultimate" | null;
 
+// Digital Guide tile is dynamic — rendered separately below the cards grid
 const cards: {
   title: string;
   description: string;
@@ -80,12 +81,6 @@ const cards: {
     href: "/dashboard/medical-team",
     lockTier: "ultimate",
   },
-  {
-    title: "Digital Guide",
-    description: "Access your Perfect Stack digital guide. Available as an add-on for Foundation and Ultimate subscribers.",
-    href: "/dashboard/guide",
-    lockTier: null,
-  },
 ];
 
 export default async function DashboardPage() {
@@ -96,11 +91,12 @@ export default async function DashboardPage() {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("subscription_status")
+    .select("subscription_status, has_digital_guide")
     .eq("id", user.id)
     .single();
 
   const subscriptionStatus = profile?.subscription_status ?? null;
+  const hasDigitalGuide = profile?.has_digital_guide ?? false;
   const userIsFree = isFree(subscriptionStatus);
   const userIsUltimate = isUltimate(subscriptionStatus);
 
@@ -196,6 +192,30 @@ export default async function DashboardPage() {
               </Link>
             );
           })}
+
+          {/* ─── Digital Guide tile (dynamic based on purchase status) ─── */}
+          <Link
+            href="/dashboard/guide"
+            className="relative rounded-lg border border-yellow-600/40 bg-zinc-900 p-6 transition-all duration-200 hover:border-yellow-500/50 hover:shadow-[0_0_12px_rgba(234,179,8,0.15)]"
+          >
+            {/* Badge: purchased = none, not purchased = "Add-on" */}
+            {!hasDigitalGuide && (
+              <span className="absolute right-3 top-3 rounded-full bg-yellow-600/20 px-2.5 py-0.5 text-[10px] font-bold uppercase text-yellow-500">
+                Add-on
+              </span>
+            )}
+            {hasDigitalGuide && (
+              <span className="absolute right-3 top-3 rounded-full bg-green-900/40 px-2.5 py-0.5 text-[10px] font-bold uppercase text-green-400">
+                Owned
+              </span>
+            )}
+            <h2 className="text-lg font-semibold text-yellow-600">Digital Guide</h2>
+            <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+              {hasDigitalGuide
+                ? "Your personalized Perfect Stack guide is ready to download."
+                : "The complete Perfect Stack protocol guide, personalized with your name. Available for $19."}
+            </p>
+          </Link>
         </div>
       </main>
     </div>

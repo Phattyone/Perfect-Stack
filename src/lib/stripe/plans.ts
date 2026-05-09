@@ -2,6 +2,17 @@
 // Find the user row and set subscription_status to 'foundation' or 'ultimate'
 // This bypasses Stripe payment for testing purposes
 
+// ─── Digital Guide one-time purchase ────────────────────────────────────────
+// Create this as a one-time payment product in the Stripe Dashboard ($19).
+// Add the price ID to Vercel env as NEXT_PUBLIC_STRIPE_DIGITAL_GUIDE_PRICE_ID.
+export const DIGITAL_GUIDE_PRODUCT = {
+  name: "Perfect Stack Digital Guide",
+  description:
+    "The complete Perfect Stack guide — personalized with your name and licensed to you. Download and read on any device.",
+  price: 19,
+  priceId: process.env.NEXT_PUBLIC_STRIPE_DIGITAL_GUIDE_PRICE_ID ?? "",
+};
+
 export const PLANS = {
   free: {
     name: "Free",
@@ -46,6 +57,7 @@ export const PLANS = {
       "Progress tracker with weekly check-ins and trend charts",
       "Equipment guide with Amazon links",
       "Perfect Chat - 7 messages per day",
+      "Digital Guide add-on available for purchase — $19 one-time",
     ],
     limits: {
       stackAccess: [
@@ -77,7 +89,7 @@ export const PLANS = {
       "Your Medical Team - specialist referrals and telehealth",
       "Meal Maker - full 7-week meal generator (days 8 through 56)",
       "Perfect Chat - 50 messages per day",
-      "Digital Guide add-on available for purchase",
+      "Digital Guide add-on available for purchase — $19 one-time",
       "Early access to new features and advanced content",
     ],
     limits: {

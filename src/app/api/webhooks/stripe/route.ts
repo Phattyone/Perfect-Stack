@@ -62,6 +62,23 @@ export async function POST(request: Request) {
           break;
         }
 
+        // ── Digital Guide one-time purchase ─────────────────────
+        if (session.metadata?.type === "digital_guide") {
+          const { error: guideError } = await supabase
+            .from("profiles")
+            .update({
+              has_digital_guide: true,
+              digital_guide_purchased_at: new Date().toISOString(),
+              // digital_guide_name is set later when the user personalizes
+            })
+            .eq("id", userId);
+
+          if (guideError) console.error("Failed to grant digital guide:", guideError.message);
+          else console.log(`Digital guide purchased: user ${userId}`);
+          break;
+        }
+
+        // ── Subscription checkout ────────────────────────────────
         const plan = getPlanFromPriceId(priceId);
         if (!plan) {
           console.error("Unknown price ID:", priceId);
