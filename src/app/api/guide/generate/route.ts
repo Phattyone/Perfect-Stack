@@ -10,7 +10,15 @@
 
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { createClient as createAdminClient } from "@supabase/supabase-js";
 import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
+
+// Service-role client used exclusively to fetch the master PDF from the
+// master/ folder, which is not accessible to individual user sessions via RLS.
+const supabaseAdmin = createAdminClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
 
 export async function POST() {
   const supabase = await createClient();
@@ -38,7 +46,7 @@ export async function POST() {
 
   try {
     // Fetch master PDF from private Supabase storage
-    const { data: masterPdf, error: fetchError } = await supabase.storage
+    const { data: masterPdf, error: fetchError } = await supabaseAdmin.storage
       .from("digital-guides")
       .download("master/The_Perfectly_Erect_Plan_v22.pdf");
 
