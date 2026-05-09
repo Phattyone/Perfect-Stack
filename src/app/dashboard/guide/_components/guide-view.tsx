@@ -62,7 +62,7 @@ function NotPurchasedView({
         </h2>
         <p className="mt-2 text-sm leading-relaxed text-zinc-400">
           The complete 200+ page Perfect Stack protocol guide, personalized with
-          your name and licensed to you. Download and read on any device —
+          your name and licensed to you. Download and read on any device:
           phone, tablet, or computer.
         </p>
 
@@ -73,7 +73,7 @@ function NotPurchasedView({
             "Download and read offline on any device",
             "Complete supplement protocols, meal plans, and 8-week program",
             "Includes all recipes, drinks, shots, and smoothies",
-            "Lifetime access — re-download anytime",
+            "Lifetime access - re-download anytime",
           ].map((feature) => (
             <li key={feature} className="flex items-start gap-2 text-sm text-zinc-300">
               <span className="mt-0.5 shrink-0 text-yellow-500">✓</span>
@@ -98,7 +98,7 @@ function NotPurchasedView({
           disabled={loading}
           className="mt-4 w-full rounded-md bg-yellow-600 px-6 py-3 text-sm font-semibold text-black transition hover:bg-yellow-500 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {loading ? "Redirecting to checkout…" : "Purchase Digital Guide — $19"}
+          {loading ? "Redirecting to checkout..." : "Purchase Digital Guide - $19"}
         </button>
 
         <p className="mt-3 text-center text-xs text-zinc-500">
@@ -186,7 +186,7 @@ function PersonalizeView({
             disabled={loading || !name.trim()}
             className="w-full rounded-md bg-yellow-600 px-6 py-3 text-sm font-semibold text-black transition hover:bg-yellow-500 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {loading ? "Generating your guide…" : "Personalize My Guide"}
+            {loading ? "Generating your guide..." : "Personalize My Guide"}
           </button>
         </form>
       </div>
@@ -280,7 +280,7 @@ function ReadyView({
           disabled={downloadLoading}
           className="mt-5 w-full rounded-md bg-yellow-600 px-6 py-3 text-sm font-semibold text-black transition hover:bg-yellow-500 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {downloadLoading ? "Generating your guide…" : "Download My Guide"}
+          {downloadLoading ? "Generating your guide..." : "Download My Guide"}
         </button>
 
         <p className="mt-3 text-center text-xs text-zinc-500">

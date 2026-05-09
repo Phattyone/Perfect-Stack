@@ -1,7 +1,15 @@
 import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe/server";
 import { createClient } from "@/lib/supabase/server";
+import { createClient as createAdminClient } from "@supabase/supabase-js";
 import type Stripe from "stripe";
+
+// Service-role client bypasses RLS — used for webhook profile updates where
+// there is no user session (Stripe calls have no auth cookies).
+const supabaseAdmin = createAdminClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
 
 // Price ID to plan mapping
 function getPlanFromPriceId(priceId: string): { status: string; period: string } | null {
@@ -63,8 +71,10 @@ export async function POST(request: Request) {
         }
 
         // ── Digital Guide one-time purchase ─────────────────────
+        // Uses supabaseAdmin (service role) because webhook requests have no
+        // user session — the regular client would be blocked by RLS.
         if (session.metadata?.type === "digital_guide") {
-          const { error: guideError } = await supabase
+          const { error: guideError } = await supabaseAdmin
             .from("profiles")
             .update({
               has_digital_guide: true,

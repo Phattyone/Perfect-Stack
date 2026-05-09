@@ -4,7 +4,46 @@ import { createClient } from "@/lib/supabase/server";
 import { signout } from "@/app/(auth)/actions";
 import GuideView from "./_components/guide-view";
 
-export default async function GuidePage() {
+// Retry the profile fetch up to `retries` times with `delayMs` between attempts.
+// Used when ?purchase=success is in the URL but has_digital_guide is still false,
+// which can happen when the Stripe webhook arrives slightly after the redirect.
+async function fetchGuideProfileWithRetry(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  userId: string,
+  purchaseSuccess: boolean,
+  retries = 3,
+  delayMs = 1000
+) {
+  const select =
+    "has_digital_guide, digital_guide_name, digital_guide_license_id, subscription_status";
+
+  const { data: initial } = await supabase
+    .from("profiles")
+    .select(select)
+    .eq("id", userId)
+    .single();
+
+  if (!purchaseSuccess || initial?.has_digital_guide) return initial;
+
+  // Webhook may still be in flight — retry with delay
+  for (let i = 0; i < retries; i++) {
+    await new Promise<void>((resolve) => setTimeout(resolve, delayMs));
+    const { data: retried } = await supabase
+      .from("profiles")
+      .select(select)
+      .eq("id", userId)
+      .single();
+    if (retried?.has_digital_guide) return retried;
+  }
+
+  return initial; // return what we have after exhausting retries
+}
+
+export default async function GuidePage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   const supabase = await createClient();
 
   const {
@@ -13,13 +52,14 @@ export default async function GuidePage() {
 
   if (!user) redirect("/login");
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select(
-      "has_digital_guide, digital_guide_name, digital_guide_license_id, subscription_status"
-    )
-    .eq("id", user.id)
-    .single();
+  const params = await searchParams;
+  const purchaseSuccess = params.purchase === "success";
+
+  const profile = await fetchGuideProfileWithRetry(
+    supabase,
+    user.id,
+    purchaseSuccess
+  );
 
   const guideData = {
     hasGuide: profile?.has_digital_guide ?? false,
