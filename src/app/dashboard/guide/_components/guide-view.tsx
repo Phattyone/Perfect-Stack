@@ -9,7 +9,7 @@ const PERSONALIZE_STEPS = [
   "Preparing your guide...",
   "Adding your personalization to every page...",
   "Finalizing your guide...",
-  "Almost done...",
+  "Almost done - your guide will load shortly...",
 ];
 
 interface GuideViewProps {
@@ -137,9 +137,17 @@ function PersonalizeView({
       return;
     }
     const interval = setInterval(() => {
-      setPersonalizeStep((prev) =>
-        prev < PERSONALIZE_STEPS.length - 1 ? prev + 1 : prev
-      );
+      setPersonalizeStep((prev) => {
+        if (prev < PERSONALIZE_STEPS.length - 1) {
+          return prev + 1;
+        } else {
+          // All steps complete but still personalizing — refresh to check if guide is ready
+          setTimeout(() => {
+            window.location.reload();
+          }, 3000);
+          return prev;
+        }
+      });
     }, 15000);
     return () => clearInterval(interval);
   }, [loading]);
