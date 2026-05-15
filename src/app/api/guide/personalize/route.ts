@@ -5,7 +5,16 @@
 
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { createClient as createAdminClient } from "@supabase/supabase-js";
 import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
+import Stripe from "stripe";
+
+const supabaseAdmin = createAdminClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export async function POST(request: Request) {
   const supabase = await createClient();
@@ -45,10 +54,43 @@ export async function POST(request: Request) {
     .single();
 
   if (!profile?.has_digital_guide) {
-    return NextResponse.json(
-      { error: "Digital guide not purchased" },
-      { status: 403 }
-    );
+    // Fallback: check Stripe for a recent digital guide payment
+    try {
+      const sessions = await stripe.checkout.sessions.list({
+        limit: 10,
+      });
+
+      const guidePurchase = sessions.data.find(
+        (s) =>
+          s.metadata?.userId === user.id &&
+          s.metadata?.type === "digital_guide" &&
+          s.payment_status === "paid"
+      );
+
+      if (guidePurchase) {
+        // Grant access since payment is confirmed in Stripe
+        await supabaseAdmin
+          .from("profiles")
+          .update({
+            has_digital_guide: true,
+            digital_guide_purchased_at: new Date().toISOString(),
+          })
+          .eq("id", user.id);
+
+        console.log("Guide access granted via Stripe fallback for user:", user.id);
+      } else {
+        return NextResponse.json(
+          { error: "Digital guide not purchased" },
+          { status: 403 }
+        );
+      }
+    } catch (stripeError) {
+      console.error("Stripe fallback check failed:", stripeError);
+      return NextResponse.json(
+        { error: "Digital guide not purchased" },
+        { status: 403 }
+      );
+    }
   }
 
   // Save the name
@@ -67,7 +109,7 @@ export async function POST(request: Request) {
 
   // Generate the personalized PDF
   try {
-    const { data: masterPdf, error: fetchError } = await supabase.storage
+    const { data: masterPdf, error: fetchError } = await supabaseAdmin.storage
       .from("digital-guides")
       .download("master/The_Perfectly_Erect_Plan_v22.pdf");
 
@@ -84,7 +126,7 @@ export async function POST(request: Request) {
     const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
     const pages = pdfDoc.getPages();
 
-    const licenseId = String(profile.digital_guide_license_id ?? "").slice(0, 8);
+    const licenseId = String(profile?.digital_guide_license_id ?? "").slice(0, 8);
     const footerText = `Licensed to: ${name} | ${user.email} | License ID: ${licenseId}... | getperfectstack.com | Not for redistribution`;
 
     for (const page of pages) {
