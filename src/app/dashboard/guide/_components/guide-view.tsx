@@ -280,20 +280,35 @@ function ReadyView({
           disabled={downloadLoading}
           className="mt-5 w-full rounded-md bg-yellow-600 px-6 py-3 text-sm font-semibold text-black transition hover:bg-yellow-500 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {downloadLoading ? "Generating your guide..." : "Download My Guide"}
+          {downloadLoading ? (
+            <>
+              <svg className="animate-spin h-4 w-4 mr-2 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+              </svg>
+              Generating your personalized guide...
+            </>
+          ) : "Download My Guide"}
         </button>
 
-        <p className="mt-3 text-center text-xs text-zinc-500">
-          Need a fresh copy?{" "}
-          <button
-            type="button"
-            onClick={handleDownload}
-            disabled={downloadLoading}
-            className="underline hover:text-zinc-300 disabled:cursor-not-allowed"
-          >
-            Regenerate your personalized guide
-          </button>
-        </p>
+        {downloadLoading && (
+          <p className="text-zinc-500 text-xs italic mt-2 text-center">
+            Please wait and do not refresh the page. This may take up to 30 seconds.
+          </p>
+        )}
+
+        {!downloadLoading && (
+          <p className="mt-3 text-center text-xs text-zinc-500">
+            Need a fresh copy?{" "}
+            <button
+              type="button"
+              onClick={handleDownload}
+              className="underline hover:text-zinc-300"
+            >
+              Regenerate your personalized guide
+            </button>
+          </p>
+        )}
       </div>
 
       {/* License notice */}

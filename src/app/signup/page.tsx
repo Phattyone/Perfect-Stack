@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { signup } from "@/app/(auth)/actions";
+import PasswordInput from "@/components/password-input";
 
 export default async function SignUpPage({
   searchParams,
@@ -49,13 +50,11 @@ export default async function SignUpPage({
             <label htmlFor="password" className="block text-sm font-medium text-zinc-300">
               Password
             </label>
-            <input
+            <PasswordInput
               id="password"
               name="password"
-              type="password"
               required
-              className="mt-1 block w-full rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2 text-white placeholder-zinc-500 focus:border-yellow-600 focus:outline-none focus:ring-1 focus:ring-yellow-600"
-              placeholder="••••••••"
+              autoComplete="new-password"
             />
           </div>
 
@@ -63,13 +62,11 @@ export default async function SignUpPage({
             <label htmlFor="confirmPassword" className="block text-sm font-medium text-zinc-300">
               Confirm Password
             </label>
-            <input
+            <PasswordInput
               id="confirmPassword"
               name="confirmPassword"
-              type="password"
               required
-              className="mt-1 block w-full rounded-md border border-zinc-700 bg-zinc-900 px-3 py-2 text-white placeholder-zinc-500 focus:border-yellow-600 focus:outline-none focus:ring-1 focus:ring-yellow-600"
-              placeholder="••••••••"
+              autoComplete="new-password"
             />
           </div>
 
