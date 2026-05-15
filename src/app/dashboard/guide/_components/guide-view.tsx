@@ -3,6 +3,15 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 
+// ─── Personalization progress steps ──────────────────────────────────────────
+const PERSONALIZE_STEPS = [
+  "Saving your details...",
+  "Preparing your guide...",
+  "Adding your personalization to every page...",
+  "Finalizing your guide...",
+  "Almost done...",
+];
+
 interface GuideViewProps {
   hasGuide: boolean;
   guideName: string | null;
@@ -119,6 +128,21 @@ function PersonalizeView({
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [personalizeStep, setPersonalizeStep] = useState(0);
+
+  // Advance the progress step indicator every 15 seconds while loading
+  useEffect(() => {
+    if (!loading) {
+      setPersonalizeStep(0);
+      return;
+    }
+    const interval = setInterval(() => {
+      setPersonalizeStep((prev) =>
+        prev < PERSONALIZE_STEPS.length - 1 ? prev + 1 : prev
+      );
+    }, 15000);
+    return () => clearInterval(interval);
+  }, [loading]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -141,6 +165,44 @@ function PersonalizeView({
     }
   }
 
+  // ── Progress UI shown while PDF is being generated ────────────────────────
+  if (loading) {
+    return (
+      <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-6">
+        <div className="flex flex-col items-center gap-6 py-8">
+          {/* Spinner */}
+          <svg className="animate-spin h-12 w-12 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+          </svg>
+
+          {/* Current step text */}
+          <p className="text-yellow-500 font-semibold text-lg text-center">
+            {PERSONALIZE_STEPS[personalizeStep]}
+          </p>
+
+          {/* Step dots */}
+          <div className="flex gap-2">
+            {PERSONALIZE_STEPS.map((_, i) => (
+              <div
+                key={i}
+                className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                  i <= personalizeStep ? "bg-yellow-500" : "bg-zinc-700"
+                }`}
+              />
+            ))}
+          </div>
+
+          {/* Warning */}
+          <p className="text-zinc-500 text-sm text-center max-w-sm">
+            Please do not close or refresh this page. Your personalized guide is being created and may take up to 90 seconds.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Form shown before submission ──────────────────────────────────────────
   return (
     <div className="space-y-4">
       <div className="rounded-lg border border-green-700/50 bg-green-900/20 px-4 py-3 text-sm text-green-400">
@@ -183,10 +245,10 @@ function PersonalizeView({
 
           <button
             type="submit"
-            disabled={loading || !name.trim()}
+            disabled={!name.trim()}
             className="w-full rounded-md bg-yellow-600 px-6 py-3 text-sm font-semibold text-black transition hover:bg-yellow-500 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {loading ? "Generating your guide..." : "Personalize My Guide"}
+            Personalize My Guide
           </button>
         </form>
       </div>
@@ -278,7 +340,7 @@ function ReadyView({
           type="button"
           onClick={handleDownload}
           disabled={downloadLoading}
-          className="mt-5 w-full rounded-md bg-yellow-600 px-6 py-3 text-sm font-semibold text-black transition hover:bg-yellow-500 disabled:cursor-not-allowed disabled:opacity-60"
+          className="mt-5 w-full rounded-md bg-yellow-600 px-6 py-3 text-sm font-semibold text-black transition hover:bg-yellow-500 disabled:cursor-not-allowed disabled:opacity-75"
         >
           {downloadLoading ? (
             <>
@@ -286,7 +348,7 @@ function ReadyView({
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
               </svg>
-              Generating your personalized guide...
+              Preparing your download...
             </>
           ) : "Download My Guide"}
         </button>
