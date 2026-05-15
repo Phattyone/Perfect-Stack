@@ -122,7 +122,7 @@ export async function POST(request: Request) {
     }
 
     const pdfBytes = await masterPdf.arrayBuffer();
-    const pdfDoc = await PDFDocument.load(pdfBytes);
+    const pdfDoc = await PDFDocument.load(pdfBytes, { updateMetadata: false });
     const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
     const pages = pdfDoc.getPages();
 

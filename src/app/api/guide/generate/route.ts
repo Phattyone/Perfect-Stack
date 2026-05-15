@@ -44,6 +44,26 @@ export async function POST() {
     );
   }
 
+  // Check if a personalized guide already exists — if so, skip re-generation
+  // and return a fresh signed URL immediately (instant for repeat downloads)
+  const filePath = `${user.id}/perfect-stack-guide.pdf`;
+  const { data: existingFiles } = await supabaseAdmin.storage
+    .from("digital-guides")
+    .list(user.id);
+
+  const fileExists = existingFiles?.some((f) => f.name === "perfect-stack-guide.pdf");
+
+  if (fileExists) {
+    const { data: signedUrl } = await supabaseAdmin.storage
+      .from("digital-guides")
+      .createSignedUrl(filePath, 3600);
+
+    if (signedUrl?.signedUrl) {
+      return NextResponse.json({ url: signedUrl.signedUrl });
+    }
+  }
+  // File doesn't exist yet — fall through to full generation below
+
   try {
     // Fetch master PDF from private Supabase storage
     const { data: masterPdf, error: fetchError } = await supabaseAdmin.storage
@@ -60,9 +80,11 @@ export async function POST() {
 
     // Load and watermark PDF
     const pdfBytes = await masterPdf.arrayBuffer();
-    const pdfDoc = await PDFDocument.load(pdfBytes);
+    const pdfDoc = await PDFDocument.load(pdfBytes, { updateMetadata: false });
     const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
     const pages = pdfDoc.getPages();
+    console.log(`PDF loaded: ${pages.length} pages, starting watermark...`);
+    const startTime = Date.now();
 
     const guideName = profile.digital_guide_name ?? "Unknown";
     const licenseId = String(profile.digital_guide_license_id ?? "").slice(0, 8);
@@ -80,9 +102,10 @@ export async function POST() {
       });
     }
 
+    console.log(`Watermarking complete: ${Date.now() - startTime}ms for ${pages.length} pages`);
+
     // Upload watermarked PDF to the user's private storage folder
     const watermarkedBytes = await pdfDoc.save();
-    const filePath = `${user.id}/perfect-stack-guide.pdf`;
 
     const { error: uploadError } = await supabase.storage
       .from("digital-guides")
