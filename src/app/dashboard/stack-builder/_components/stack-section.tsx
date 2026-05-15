@@ -22,6 +22,8 @@ interface StackSectionProps {
   freeBlurCount?: number;
   /** Per-supplement interaction severity for dot indicators */
   interactionSeverities?: Record<number, "conflict" | "caution" | "note">;
+  /** User's age group string from their profile, passed to cards for age-based caution notes */
+  ageGroup?: string;
 }
 
 export default function StackSection({
@@ -31,6 +33,7 @@ export default function StackSection({
   onProductSelect,
   freeBlurCount = 0,
   interactionSeverities,
+  ageGroup,
 }: StackSectionProps) {
   const blurStartIndex = freeBlurCount > 0
     ? Math.max(0, supplements.length - freeBlurCount)
@@ -81,6 +84,7 @@ export default function StackSection({
               supplement={supp}
               onProductSelect={onProductSelect}
               interactionSeverity={interactionSeverities?.[supp.id] ?? null}
+              ageGroup={ageGroup}
             />
           ))}
           {/* Blurred (locked) supplements for free users */}

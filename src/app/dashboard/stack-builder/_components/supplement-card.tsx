@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import type { CalculatedSupplement } from "@/lib/stack-builder/types";
+import type { AgeGroup } from "@/lib/types/profile";
 
 interface SupplementCardProps {
   supplement: CalculatedSupplement;
   onProductSelect: (supplementId: number, productIndex: number) => void;
   interactionSeverity?: "conflict" | "caution" | "note" | null;
+  ageGroup?: string;
 }
 
 const ALERT_STYLES: Record<
@@ -63,6 +65,7 @@ export default function SupplementCard({
   supplement: s,
   onProductSelect,
   interactionSeverity = null,
+  ageGroup,
 }: SupplementCardProps) {
   const [cautionsOpen, setCautionsOpen] = useState(false);
   const alert = s.alertLevel !== "none" ? ALERT_STYLES[s.alertLevel] : null;
@@ -248,8 +251,8 @@ export default function SupplementCard({
         </>
       )}
 
-      {/* Key Cautions — collapsible */}
-      {s.keyCautions && (
+      {/* Key Cautions — collapsible. Shows if there is static caution text or an age-based note for this user. */}
+      {(s.keyCautions || (ageGroup && s.ageCautions?.[ageGroup as AgeGroup])) && (
         <div className="mt-3">
           <button
             type="button"
@@ -261,8 +264,22 @@ export default function SupplementCard({
             <span className="ml-0.5 text-zinc-500">{cautionsOpen ? "▲" : "▼"}</span>
           </button>
           {cautionsOpen && (
-            <div className="mt-1.5 border-l-2 border-amber-500 pl-3">
-              <p className="text-xs leading-relaxed text-zinc-400">{s.keyCautions}</p>
+            <div className="mt-1.5 space-y-2">
+              {s.keyCautions && (
+                <div className="border-l-2 border-amber-500 pl-3">
+                  <p className="text-xs leading-relaxed text-zinc-400">{s.keyCautions}</p>
+                </div>
+              )}
+              {ageGroup && s.ageCautions?.[ageGroup as AgeGroup] && (
+                <div className="border-l-2 border-amber-500 pl-3">
+                  <p className="mb-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-600">
+                    Age-based note
+                  </p>
+                  <p className="text-xs leading-relaxed text-zinc-400">
+                    {s.ageCautions[ageGroup as AgeGroup]}
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </div>

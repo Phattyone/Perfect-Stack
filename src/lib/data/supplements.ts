@@ -74,6 +74,10 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Testosterone support, bone density, immune function, calcium routing",
     timeToNotice: "8-12 weeks for serum levels",
     keyCautions: "K2 may interact with blood thinners (warfarin). Monitor INR.",
+    ageCautions: {
+      "50 to 59": "Your dose is reduced for your age group. Fat-soluble vitamin sensitivity increases after 50. Excess D3 elevates calcium and can stress kidneys over time. Retest 25-OH vitamin D every 6 months.",
+      "60 and over": "Your dose is reduced for your age group. Fat-soluble vitamin sensitivity increases after 50. Excess D3 elevates calcium and can stress kidneys over time. Retest 25-OH vitamin D every 6 months.",
+    },
     timingIcon: "☀️",
     products: [
       { name: "Sports Research D3+K2", price: 20, servings: 120, url: amz("B07NXW4GW7") },
@@ -111,6 +115,10 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Sleep quality, muscle relaxation, testosterone cofactor, stress reduction",
     timeToNotice: "1-2 weeks for sleep, 4 weeks full effect",
     keyCautions: "May enhance BP-lowering effect of antihypertensives",
+    ageCautions: {
+      "50 to 59": "Your dose is reduced for your age group. Kidney clearance of magnesium declines with age - excess intake increases the risk of soft tissue deposits and GI distress. Stay within your adjusted dose.",
+      "60 and over": "Your dose is reduced for your age group. Kidney clearance of magnesium declines with age - excess intake increases the risk of soft tissue deposits and GI distress. Stay within your adjusted dose.",
+    },
     timingIcon: "🌙",
     products: [
       { name: "Thorne Magnesium Bisglycinate", price: 25, servings: 90, url: amz("B0797HBLL3") },
@@ -157,6 +165,10 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Testosterone synthesis, immune function, prostate health",
     timeToNotice: "4-8 weeks",
     keyCautions: "High doses deplete copper. Keep at 15-30mg.",
+    ageCautions: {
+      "50 to 59": "Your dose is reduced for your age group. Zinc absorption efficiency changes with age and excess zinc competes with copper absorption. Your adjusted dose keeps you in the therapeutic window without risking copper deficiency.",
+      "60 and over": "Your dose is reduced for your age group. Zinc absorption efficiency changes with age and excess zinc competes with copper absorption. Your adjusted dose keeps you in the therapeutic window without risking copper deficiency.",
+    },
     timingIcon: "☀️",
     products: [
       { name: "Thorne Zinc Picolinate 15mg", price: 18, servings: 60, url: amz("B0797NSHQX") },
@@ -355,6 +367,10 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Precursor to testosterone and estrogen, adrenal support",
     timeToNotice: "4-8 weeks",
     keyCautions: "Not recommended on TRT/HRT or under 40. Monitor hormones.",
+    ageCautions: {
+      "50 to 59": "Your dose is reduced for your age group. DHEA levels decline significantly after 50 and supplementing too high can raise estrogen or androgens beyond optimal range. Start low and retest labs at 60-90 days.",
+      "60 and over": "Your dose is reduced for your age group. DHEA levels decline significantly after 50 and supplementing too high can raise estrogen or androgens beyond optimal range. Start low and retest labs at 60-90 days.",
+    },
     timingIcon: "☀️",
     products: [
       { name: "Life Extension DHEA 25mg", price: 10, servings: 100, url: amzSearch("Life Extension DHEA 25mg") },
@@ -414,6 +430,10 @@ export const SUPPLEMENTS: Supplement[] = [
     whatItSupports: "Mitochondrial energy, heart health, antioxidant protection",
     timeToNotice: "4-8 weeks",
     keyCautions: "Generally well tolerated. Important if on statins.",
+    ageCautions: {
+      "50 to 59": "Your dose is increased for your age group. Endogenous CoQ10 production drops sharply after 50, especially if you take a statin. The higher dose supports mitochondrial energy output and cardiovascular function.",
+      "60 and over": "Your dose is increased for your age group. Endogenous CoQ10 production drops sharply after 50, especially if you take a statin. The higher dose supports mitochondrial energy output and cardiovascular function.",
+    },
     timingIcon: "☀️",
     products: [
       { name: "Jarrow QH-Absorb Ubiquinol", price: 35, servings: 60, url: amzSearch("Jarrow QH-Absorb Ubiquinol") },

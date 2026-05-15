@@ -219,6 +219,7 @@ export default function StackBuilderView({
               onProductSelect={handleProductSelect}
               freeBlurCount={userIsFree && stack === "A" ? FREE_STACK_A_LOCKED_SUPPLEMENTS : 0}
               interactionSeverities={interactionSeverityMap}
+              ageGroup={profile.age_group}
             />
           );
         })}
@@ -247,6 +248,7 @@ export default function StackBuilderView({
             isNitrateBlocked={true}
             onProductSelect={handleProductSelect}
             interactionSeverities={interactionSeverityMap}
+            ageGroup={profile.age_group}
           />
         )}
 

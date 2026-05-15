@@ -1,3 +1,5 @@
+import type { AgeGroup } from "@/lib/types/profile";
+
 export interface Product {
   name: string;
   price: number;
@@ -29,6 +31,7 @@ export interface Supplement {
   whatItSupports: string;
   timeToNotice: string;
   keyCautions: string;
+  ageCautions?: Partial<Record<AgeGroup, string>>;
   timingIcon: string;
   products: Product[];
   productDosing?: { [productName: string]: ProductDosing };
