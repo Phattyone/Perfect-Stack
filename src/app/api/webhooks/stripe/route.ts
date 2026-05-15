@@ -26,6 +26,8 @@ function getPlanFromPriceId(priceId: string): { status: string; period: string }
 }
 
 export async function POST(request: Request) {
+  console.log("Webhook received, secret configured:", !!process.env.STRIPE_WEBHOOK_SECRET);
+
   const body = await request.text();
   const signature = request.headers.get("stripe-signature");
 
@@ -95,7 +97,7 @@ export async function POST(request: Request) {
           break;
         }
 
-        const { error } = await supabase
+        const { error } = await supabaseAdmin
           .from("profiles")
           .update({
             subscription_status: plan.status,
@@ -105,7 +107,7 @@ export async function POST(request: Request) {
           })
           .eq("id", userId);
 
-        if (error) console.error("Failed to update profile on checkout:", error.message);
+        if (error) console.error("Webhook profile update failed:", error.message, "userId:", userId);
         else console.log(`Checkout completed: user ${userId} -> ${plan.status} (${plan.period})`);
         break;
       }
@@ -127,7 +129,7 @@ export async function POST(request: Request) {
           break;
         }
 
-        const { error } = await supabase
+        const { error } = await supabaseAdmin
           .from("profiles")
           .update({
             subscription_status: plan.status,
@@ -145,7 +147,7 @@ export async function POST(request: Request) {
         const subscription = event.data.object as Stripe.Subscription;
         const customerId = subscription.customer as string;
 
-        const { error } = await supabase
+        const { error } = await supabaseAdmin
           .from("profiles")
           .update({
             subscription_status: "free",
