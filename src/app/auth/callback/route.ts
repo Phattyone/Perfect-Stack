@@ -21,15 +21,19 @@ export async function GET(request: Request) {
           .single();
 
         if (!profile) {
-          await supabase.from("profiles").insert({
+          const { error: insertError } = await supabase.from("profiles").insert({
             id: user.id,
             subscription_status: "free",
             age_group: "30-39",
             primary_goal: "Hormone and Sexual Health",
             training_style: "Moderate (3-4x per week)",
-            health_status: "No significant conditions",
-            stack_selection: "{}",
+            health_status: ["No significant conditions"],
+            stack_selection: {},
           });
+
+          if (insertError) {
+            console.error("Failed to create profile for user:", user.id, insertError);
+          }
         }
       }
 
